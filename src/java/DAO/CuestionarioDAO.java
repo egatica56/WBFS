@@ -1,0 +1,69 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package DAO;
+
+import Util.Conexion;
+import Entities.Competencia;
+import Entities.Cuestionario;
+import Entities.Nivel;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import oracle.jdbc.OracleTypes;
+
+
+
+/**
+ *
+ * @author EduardoGatica
+ */
+public class CuestionarioDAO {
+
+    
+
+    private Connection conexion;
+
+    public CuestionarioDAO() {
+
+    }
+
+    public boolean agregarCuestionario(Cuestionario cuestionario) throws SQLException {
+        
+
+        try {
+            //Cuestionario cu = new Cuestionario();
+            //Competencia com = new Competencia();
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call SP_AGREGAR_CUESTIONARIO(?,?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+         
+            
+           // cstmt.setInt(1, cuestionario.getIdCuest());
+            cstmt.setInt(1, cuestionario.getPorcentajeJefe());
+            cstmt.setInt(2, cuestionario.getPorcentajeAutoevaluacion());
+            cstmt.setInt(3, cuestionario.getCompetencia().getIdComp());
+
+            //ejecutamos la llamada al procedimiento almacenado
+             cstmt.execute();
+             return true;
+            
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+
+        } finally {
+            this.conexion.close();
+        
+        }
+
+    }
+
+    
+    
+    
+}
