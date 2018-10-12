@@ -6,7 +6,9 @@
 package Servlet.Cuestionario;
 
 import DAO.CompetenciaDAO;
+import DAO.CuestionarioDAO;
 import Entities.Competencia;
+import Entities.Cuestionario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -76,6 +78,60 @@ public class AgregarCuestionario extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+         try {
+             Cuestionario cuestionario = new Cuestionario();
+             CuestionarioDAO cuestionarioDAO = new CuestionarioDAO();
+            Competencia competencia = new Competencia();
+           // int idCuest = Integer.parseInt(request.getParameter("txtId"));
+            int porcEval = Integer.parseInt(request.getParameter("txtPorcentajeEvaluado"));
+            int porcJefe = Integer.parseInt(request.getParameter("txtPorcentajeJefe"));
+            int idComp = Integer.parseInt(request.getParameter("cboCompetencia"));
+            competencia.setIdComp(idComp);
+            //cuestionario.setIdCuest(idCuest);
+            cuestionario.setPorcentajeJefe(porcJefe);
+            cuestionario.setPorcentajeAutoevaluacion(porcEval);
+            cuestionario.setCompetencia(competencia);
+
+            boolean resp = cuestionarioDAO.agregarCuestionario(cuestionario);
+            if (resp == true) {
+                request.setAttribute("mensaje", "Cuestionario Agregado Correctamente");
+
+                try {
+                    List<Competencia> listado = new CompetenciaDAO().listarCompetencias();
+                    request.setAttribute("competencias", listado);
+                    request.getRequestDispatcher("Cuestionario.jsp").forward(request, response);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AgregarCuestionario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+                request.setAttribute("mensaje", "Error al Agregar el Cuestionario");
+                try {
+                    List<Competencia> listado = new CompetenciaDAO().listarCompetencias();
+                    request.setAttribute("competencias", listado);
+                    request.getRequestDispatcher("Cuestionario.jsp").forward(request, response);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AgregarCuestionario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                request.getRequestDispatcher("Cuestionario.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            request.setAttribute("mensaje", "Error al Agregar el Cuestionario: " + e.getMessage());
+            try {
+                List<Competencia> listado = new CompetenciaDAO().listarCompetencias();
+                request.setAttribute("competencias", listado);
+                request.getRequestDispatcher("Cuestionario.jsp").forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(AgregarCuestionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            request.getRequestDispatcher("Cuestionario.jsp").forward(request, response);
+        }
+        
+        
+        
     }
 
     /**

@@ -27,13 +27,13 @@
     <body>
         <h1 align="center" class="">Aca podras crear los cuestionarios para las competencias asociadas</h1>
         <div align center class="container-fluid">
-            <form action="modificarCuestionario" method="post">
+            <form action="cuestionario" method="post">
                 <div class="container-fluid" align="center">
                     <table>
-                        <tr><td>Id Cuestionario</td>
+                        <!--tr><td>Id Cuestionario</td>
                             <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
                         </tr>
-                        <tr>
+                        <tr-->
                             <td>Porcentaje Jefe</td>
                             <td><input type="number" name="txtPorcentajeJefe" id="txtPorcentajeJefe" min="0" max="100"   required=""></td>
                         </tr>
