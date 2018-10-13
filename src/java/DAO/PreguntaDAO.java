@@ -5,9 +5,7 @@
  */
 package DAO;
 
-import Entities.Competencia;
-import Entities.Cuestionario;
-import Entities.OpcionRespuesta;
+
 import Entities.Pregunta;
 import Util.Conexion;
 import java.sql.CallableStatement;
@@ -22,26 +20,27 @@ import oracle.jdbc.OracleTypes;
  *
  * @author EduardoGatica
  */
-public class RespuestaDAO {
-
+public class PreguntaDAO {
+    
     private Connection conexion;
 
-    public RespuestaDAO() {
+    public PreguntaDAO() {
     }
 
-    public boolean agregarRespuesta(OpcionRespuesta respuesta) throws SQLException {
+    public boolean agregarPregunta(Pregunta pregunta ) throws SQLException {
 
         try {
             //Cuestionario cu = new Cuestionario();
             //Competencia com = new Competencia();
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_RESPUESTA_1.SP_AGREGAR_RESPUESTA(?,?,?)}";
+            String llamada = "{call PKG_PREGUNTA_1.SP_AGREGAR_PREGUNTA(?,?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
             // cstmt.setInt(1, cuestionario.getIdCuest());
-            cstmt.setInt(1, respuesta.getPorcentajeRespuesta());
-            cstmt.setString(2, respuesta.getTextoRespuesta());
-            cstmt.setInt(3, respuesta.getPregunta().getIdPregunta());
+            cstmt.setString(1, pregunta.getTextoPregunta());
+            cstmt.setInt(2, pregunta.getPorcentajePregunta());
+            cstmt.setString(3, pregunta.getEsCorrecta());
+            cstmt.setInt(4, pregunta.getCuestionario().getIdCuest());
 
             //ejecutamos la llamada al procedimiento almacenado
             cstmt.execute();
@@ -97,5 +96,5 @@ public class RespuestaDAO {
         return listado;
 
     }
-
+    
 }

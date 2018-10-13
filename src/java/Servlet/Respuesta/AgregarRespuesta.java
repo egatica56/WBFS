@@ -10,6 +10,7 @@ import DAO.CompetenciaDAO;
 import DAO.CuestionarioDAO;
 import Entities.Competencia;
 import Entities.Cuestionario;
+import Entities.Pregunta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -59,9 +60,9 @@ public class AgregarRespuesta extends HttpServlet {
         processRequest(request, response);
         
           try {
-            List<Competencia> listado=new CompetenciaDAO().listarCompetencias();
+            List<Pregunta> listado=new PreguntaDAO().listarCompetencias();
             request.setAttribute("competencias", listado);
-            request.getRequestDispatcher("Cuestionario.jsp").forward(request, response);
+            request.getRequestDispatcher("Respuesta.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(AgregarRespuesta.class.getName()).log(Level.SEVERE, null, ex);
         }
