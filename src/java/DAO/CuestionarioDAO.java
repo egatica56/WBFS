@@ -78,6 +78,7 @@ public class CuestionarioDAO {
             while (rs.next()) {
                 Cuestionario cuestionario = new Cuestionario();
                 competencia.setIdComp(rs.getInt("ID_COMP"));
+                competencia.setNombreCompetencia(rs.getString("NOMBRE_COMPETENCIA"));
                 cuestionario.setIdCuest(rs.getInt("ID_CUEST"));
                 cuestionario.setPorcentajeAutoevaluacion(rs.getInt("PORCENTAJE_AUTOEVALUACION"));
                 cuestionario.setPorcentajeJefe(rs.getInt("PORCENTAJE_JEFE"));
