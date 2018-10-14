@@ -35,18 +35,19 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cuestionario.findByPorcentajeAutoevaluacion", query = "SELECT c FROM Cuestionario c WHERE c.porcentajeAutoevaluacion = :porcentajeAutoevaluacion")})
 public class Cuestionario implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
-    @Basic(optional = false)
-    @Column(name = "ID_CUEST")
-    private int idCuest;
     @Basic(optional = false)
     @Column(name = "PORCENTAJE_JEFE")
     private int porcentajeJefe;
     @Basic(optional = false)
     @Column(name = "PORCENTAJE_AUTOEVALUACION")
     private int porcentajeAutoevaluacion;
+
+    private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Id
+    @Basic(optional = false)
+    @Column(name = "ID_CUEST")
+    private int idCuest;
     @JoinColumn(name = "ID_COMP", referencedColumnName = "ID_COMP")
     @ManyToOne(optional = false)
     private Competencia competencia;
@@ -123,5 +124,6 @@ public class Cuestionario implements Serializable {
     public String toString() {
         return "Entities.Cuestionario[ idCuest=" + idCuest + " ]";
     }
-    
+
 }
+

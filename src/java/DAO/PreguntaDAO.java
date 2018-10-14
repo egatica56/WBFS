@@ -6,6 +6,7 @@
 package DAO;
 
 
+import Entities.Cuestionario;
 import Entities.Pregunta;
 import Util.Conexion;
 import java.sql.CallableStatement;
@@ -57,13 +58,13 @@ public class PreguntaDAO {
 
     }
 
-    public List<OpcionRespuesta> listar_respuesta() throws SQLException {
+    public List<Pregunta> listar_pregunta() throws SQLException {
 
-        List<OpcionRespuesta> listado = new ArrayList<OpcionRespuesta>();
+        List<Pregunta> listado = new ArrayList<Pregunta>();
         
         try {
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_CUESTIONARIO_1.SP_LISTAR_RESPUESTA(?)}";
+            String llamada = "{call PKG_CUESTIONARIO_1.SP_LISTAR_PREGUNTA(?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
             cstmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -74,10 +75,11 @@ public class PreguntaDAO {
             ResultSet rs = (ResultSet) cstmt.getObject(1);
 
             while (rs.next()) {
-                OpcionRespuesta op = new OpcionRespuesta();
+                Cuestionario cu = new Cuestionario();
                 Pregunta pre = new Pregunta();
                 pre.setIdPregunta(rs.getInt("ID_PREGUNTA"));
                 pre.setTextoPregunta(rs.getString("TEXTO_PREGUNTA"));
+                pre.setEsCorrecta(rs.getString("ES_CORRECTA"));
                 op.setIdOpcionRespuesta(rs.getInt("ID_OPCION_RESPUESTA"));
                 op.setPorcentajeRespuesta(rs.getInt("PORCENTAJE_RESPUESTA"));
                 op.setTextoRespuesta(rs.getString("TEXTO_RESPUESTA"));
