@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet.Respuesta;
+package Servlet.Pregunta;
+
 
 
 import DAO.CompetenciaDAO;
@@ -28,8 +29,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author EduardoGatica
  */
-@WebServlet(name = "AgregarRespuesta", urlPatterns = {"/respuesta"})
-public class AgregarRespuesta extends HttpServlet {
+@WebServlet(name = "AgregarPregunta", urlPatterns = {"/pregunta"})
+public class AgregarPregunta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,11 +62,11 @@ public class AgregarRespuesta extends HttpServlet {
         processRequest(request, response);
         
           try {
-            List<Pregunta> listado=new PreguntaDAO().listar_pregunta();
-            request.setAttribute("preguntas", listado);
-            request.getRequestDispatcher("Respuesta.jsp").forward(request, response);
+            List<Cuestionario> listado=new CuestionarioDAO().listar_cuestionario();
+            request.setAttribute("cuestionarios", listado);
+            request.getRequestDispatcher("Pregunta.jsp").forward(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(AgregarRespuesta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AgregarPregunta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -83,54 +84,58 @@ public class AgregarRespuesta extends HttpServlet {
         processRequest(request, response);
         
          try {
+             Pregunta pregunta= new Pregunta();
              Cuestionario cuestionario = new Cuestionario();
-             CuestionarioDAO cuestionarioDAO = new CuestionarioDAO();
+             PreguntaDAO preguntaDAO = new PreguntaDAO();
             Competencia competencia = new Competencia();
-           // int idCuest = Integer.parseInt(request.getParameter("txtId"));
-            int porcEval = Integer.parseInt(request.getParameter("txtPorcentajeEvaluado"));
-            int porcJefe = Integer.parseInt(request.getParameter("txtPorcentajeJefe"));
-            int idComp = Integer.parseInt(request.getParameter("cboCompetencia"));
-            competencia.setIdComp(idComp);
+            int idCuest= Integer.parseInt(request.getParameter("cboCuestionario"));
+            cuestionario.setIdCuest(idCuest);
+            String pre = request.getParameter("txtPregunta");
+            int porcPre = Integer.parseInt(request.getParameter("txtPorcentajePregunta"));
+            String correcta= request.getParameter("cboCorrecta");
+           
             //cuestionario.setIdCuest(idCuest);
-            cuestionario.setPorcentajeJefe(porcJefe);
-            cuestionario.setPorcentajeAutoevaluacion(porcEval);
-            cuestionario.setCompetencia(competencia);
+            pregunta.setTextoPregunta(pre);
+            pregunta.setPorcentajePregunta(porcPre);
+            pregunta.setEsCorrecta(correcta);
+            pregunta.setCuestionario(cuestionario);
+            
 
-            boolean resp = cuestionarioDAO.agregarCuestionario(cuestionario);
+            boolean resp = preguntaDAO.agregarPregunta(pregunta);
             if (resp == true) {
-                request.setAttribute("mensaje", "Cuestionario Agregado Correctamente");
+                request.setAttribute("mensaje", "Pregunta Agregada Correctamente");
 
                 try {
-                    List<Competencia> listado = new CompetenciaDAO().listarCompetencias();
-                    request.setAttribute("competencias", listado);
-                    request.getRequestDispatcher("Cuestionario.jsp").forward(request, response);
+                    List<Cuestionario> listado = new CuestionarioDAO().listar_cuestionario();
+                    request.setAttribute("cuestionarios", listado);
+                    request.getRequestDispatcher("Pregunta.jsp").forward(request, response);
                 } catch (SQLException ex) {
-                    Logger.getLogger(AgregarRespuesta.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AgregarPregunta.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } else {
-                request.setAttribute("mensaje", "Error al Agregar el Cuestionario");
+                request.setAttribute("mensaje", "Error al Agregar la Pregunta");
                 try {
-                    List<Competencia> listado = new CompetenciaDAO().listarCompetencias();
-                    request.setAttribute("competencias", listado);
-                    request.getRequestDispatcher("Cuestionario.jsp").forward(request, response);
+                    List<Cuestionario> listado = new CuestionarioDAO().listar_cuestionario();
+                    request.setAttribute("cuestionarios", listado);
+                    request.getRequestDispatcher("Pregunta.jsp").forward(request, response);
                 } catch (SQLException ex) {
-                    Logger.getLogger(AgregarRespuesta.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AgregarPregunta.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                request.getRequestDispatcher("Cuestionario.jsp").forward(request, response);
+                request.getRequestDispatcher("Pregunta.jsp").forward(request, response);
             }
         } catch (Exception e) {
-            request.setAttribute("mensaje", "Error al Agregar el Cuestionario: " + e.getMessage());
+            request.setAttribute("mensaje", "Error al Agregar la pregunta : " + e.getMessage());
             try {
-                List<Competencia> listado = new CompetenciaDAO().listarCompetencias();
-                request.setAttribute("competencias", listado);
-                request.getRequestDispatcher("Cuestionario.jsp").forward(request, response);
+                List<Cuestionario> listado = new CuestionarioDAO().listar_cuestionario();
+                request.setAttribute("cuestionarios", listado);
+                request.getRequestDispatcher("Pregunta.jsp").forward(request, response);
             } catch (SQLException ex) {
-                Logger.getLogger(AgregarRespuesta.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AgregarPregunta.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            request.getRequestDispatcher("Cuestionario.jsp").forward(request, response);
+            request.getRequestDispatcher("Pregunta.jsp").forward(request, response);
         }
         
         

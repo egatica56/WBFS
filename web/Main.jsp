@@ -54,6 +54,18 @@
                     </li>
                     <li class="nav-item dropdown">
                          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Preguntas
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="pregunta">Agregar Preguntas</a>
+                            <a class="dropdown-item" href="listarPregunta">Listar Preguntas</a>
+                            
+                        </div>
+                        
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Respuestas
                         </a>
                         <div class="dropdown-menu">

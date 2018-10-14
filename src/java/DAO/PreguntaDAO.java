@@ -5,7 +5,6 @@
  */
 package DAO;
 
-
 import Entities.Cuestionario;
 import Entities.Pregunta;
 import Util.Conexion;
@@ -22,26 +21,27 @@ import oracle.jdbc.OracleTypes;
  * @author EduardoGatica
  */
 public class PreguntaDAO {
-    
+
     private Connection conexion;
 
     public PreguntaDAO() {
     }
 
-    public boolean agregarPregunta(Pregunta pregunta ) throws SQLException {
+    public boolean agregarPregunta(Pregunta pregunta) throws SQLException {
 
         try {
-            //Cuestionario cu = new Cuestionario();
+            
             //Competencia com = new Competencia();
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_PREGUNTA_1.SP_AGREGAR_PREGUNTA(?,?,?)}";
+            String llamada = "{call PKG_PREGUNTA_1.SP_AGREGAR_PREGUNTA(?,?,?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
-            // cstmt.setInt(1, cuestionario.getIdCuest());
+            
             cstmt.setString(1, pregunta.getTextoPregunta());
             cstmt.setInt(2, pregunta.getPorcentajePregunta());
             cstmt.setString(3, pregunta.getEsCorrecta());
-            cstmt.setInt(4, pregunta.getCuestionario().getIdCuest());
+            cstmt.setInt(4,pregunta.getCuestionario().getIdCuest());
+            
 
             //ejecutamos la llamada al procedimiento almacenado
             cstmt.execute();
@@ -61,7 +61,7 @@ public class PreguntaDAO {
     public List<Pregunta> listar_pregunta() throws SQLException {
 
         List<Pregunta> listado = new ArrayList<Pregunta>();
-        
+
         try {
             this.conexion = new Conexion().obtenerConexion();
             String llamada = "{call PKG_CUESTIONARIO_1.SP_LISTAR_PREGUNTA(?)}";
@@ -77,15 +77,14 @@ public class PreguntaDAO {
             while (rs.next()) {
                 Cuestionario cu = new Cuestionario();
                 Pregunta pre = new Pregunta();
+                cu.setIdCuest(rs.getInt("ID_CUEST"));
                 pre.setIdPregunta(rs.getInt("ID_PREGUNTA"));
                 pre.setTextoPregunta(rs.getString("TEXTO_PREGUNTA"));
                 pre.setEsCorrecta(rs.getString("ES_CORRECTA"));
-                op.setIdOpcionRespuesta(rs.getInt("ID_OPCION_RESPUESTA"));
-                op.setPorcentajeRespuesta(rs.getInt("PORCENTAJE_RESPUESTA"));
-                op.setTextoRespuesta(rs.getString("TEXTO_RESPUESTA"));
-                op.setPregunta(pre);
+                pre.setPorcentajePregunta(rs.getInt("PORCENTAJE_PREGUNTA"));
+                pre.setCuestionario(cu);
 
-                listado.add(op);
+                listado.add(pre);
 
             }
 
@@ -98,5 +97,5 @@ public class PreguntaDAO {
         return listado;
 
     }
-    
+
 }
