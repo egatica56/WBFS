@@ -70,7 +70,7 @@
 
         </ul>
     </nav> 
-
+    
     <body>
         <h1 align="center" class="">Aca podras visualizar los cuestionarios que existen actualmente en el sistema</h1>
         <div align center class="container-fluid">

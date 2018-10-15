@@ -75,7 +75,7 @@ public class NewMain {
              for (Pregunta c : preguntaDAO.listar_pregunta()) {
                 System.out.println("id Competencia: " + c.getTextoPregunta());
                 System.out.println("nombre Competencia: " + c.getPorcentajePregunta());
-            }*/
+            }
             
             
             RespuestaDAO respuestaDAO = new RespuestaDAO();
@@ -93,8 +93,16 @@ public class NewMain {
                 System.out.println("Agregado");
             } else {
                 System.out.println("No agregado");
-            }
+            }*/
             
+            
+             UsuarioDAO preguntaDAO = new UsuarioDAO();
+            
+             for (Usuario c : preguntaDAO.listar_usuario()) {
+                 System.out.println("id_usuario "+ c.getIdUsuario());
+                
+                
+            }
         }
 
     }

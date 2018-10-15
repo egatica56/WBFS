@@ -14,9 +14,9 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import oracle.jdbc.OracleTypes;
-
 
 /**
  *
@@ -121,6 +121,50 @@ public class UsuarioDAO {
             sesion.close();
         }
         return usuario;*/
+    }
+
+    public List<Usuario> listar_usuario() throws SQLException {
+        List<Usuario> listado = new ArrayList<Usuario>();
+        TipoUsuario tipoUsuario = new TipoUsuario();
+        Persona persona = new Persona();
+
+        try {
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call SP_LISTAR_PERSONA(?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+
+            cstmt.registerOutParameter(1, OracleTypes.CURSOR);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            ResultSet rs = (ResultSet) cstmt.getObject(1);
+
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("ID_USUARIO"));
+                usuario.setUsername(rs.getString("USERNAME"));
+                usuario.setPassword(rs.getString("PASSWORD"));
+                tipoUsuario.setIdTipoUsuario(rs.getInt("ID_TIPO_USUARIO"));
+                tipoUsuario.setNombreTipoUsuario(rs.getString("NOMBRE_TIPO_USUARIO"));
+                persona.setNombrePersona(rs.getString("NOMBRE_PERSONA"));
+                persona.setRutPersona(rs.getString("RUT_PERSONA"));
+                persona.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
+                tipoUsuario.setNombreTipoUsuario(rs.getString("NOMBRE_TIPO_USUARIO"));
+                usuario.setTipoUsuario(tipoUsuario);
+                usuario.setPersona(persona);
+                listado.add(usuario);
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            this.conexion.close();
+
+        }
+        return listado;
+
     }
 
 }
