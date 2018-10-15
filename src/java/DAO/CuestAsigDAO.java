@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import oracle.jdbc.OracleTypes;
@@ -37,15 +38,16 @@ public class CuestAsigDAO {
             //Cuestionario cu = new Cuestionario();
             //Competencia com = new Competencia();
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_CUESTIONARIO_ASIGNADO.SP_ASIGNAR_CUEST(?,?,?,?,?)}";
+            String llamada = "{call PKG_CUESTIONARIO_ASIGNADO.SP_ASIGNAR_CUEST(?,?,?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
+           
             // cstmt.setInt(1, cuestionario.getIdCuest());
             cstmt.setString(1, cuestAsig.getRutJefe());
             cstmt.setDate(2,(Date)cuestAsig.getFechaInicio());
             cstmt.setDate(3,(Date)cuestAsig.getFechaTermino());
-            cstmt.setString(4,cuestAsig.getEstadoCuestionarioAsig());
-            cstmt.setInt(5, cuestAsig.getCuestionario().getIdCuest());
+            //cstmt.setString(4,cuestAsig.getEstadoCuestionarioAsig());
+            cstmt.setInt(4, cuestAsig.getCuestionario().getIdCuest());
 
             //ejecutamos la llamada al procedimiento almacenado
             cstmt.execute();

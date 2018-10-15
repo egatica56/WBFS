@@ -26,6 +26,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.naming.java.javaURLContextFactory;
 
 /**
  *
@@ -89,41 +90,55 @@ public class AsignarCuestionario extends HttpServlet {
 
         try {
 
-            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yy");
-            Date fechaIngreso = null;
-            Date fechaTermino= null;
+            SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-DD HH24:MI:SS");
+            SimpleDateFormat da = new SimpleDateFormat("YYYY-MM-DD HH24:MI:SS");
+            java.sql.Date fechaIngreso = null;
+            java.sql.Date fechaTermino = null;
+            
 
-            CuestAsig cuestAsig= new CuestAsig();
+            CuestAsig cuestAsig = new CuestAsig();
             CuestAsigDAO cuestAsigDAO = new CuestAsigDAO();
-            Cuestionario cuest= new Cuestionario();
-            String [] us= request.getParameterValues("chkUsuario");
-            
+            Cuestionario cuest = new Cuestionario();
+            String[] us = request.getParameterValues("chkUsuario");
+
             for (String u : us) {
-                
-                
-                
-                
-                
-                
-                
-                
+                try {
+                    fechaIngreso = (java.sql.Date)df.parse(request.getParameter("dtFechaIncio"));
+                    System.out.println("print fecha: "+ fechaIngreso);
+                } catch (Exception e) {
+                    System.out.println("Error " + e.getMessage());
+                    request.setAttribute("Mensaje", "Error al parsear las fechas: " + e.getMessage());
+                }
+                try {
+                    fechaTermino = (java.sql.Date)da.parse(request.getParameter("dtFechaTermino"));
+                    System.out.println("print fecha termino: "+fechaTermino);
+                } catch (Exception e) {
+                    System.out.println("Error " + e.getMessage());
+                    request.setAttribute("Mensaje", "Error al parsear las fechas: " + e.getMessage());
+                }
+
+                int idCuest = Integer.parseInt(request.getParameter("cboCuestionario"));
+
+                cuest.setIdCuest(idCuest);
+                //cuestionario.setIdCuest(idCuest);
+                cuestAsig.setFechaInicio(fechaIngreso);
+                cuestAsig.setFechaTermino(fechaTermino);
+                cuestAsig.setRutJefe(u);
+
+                boolean resp = cuestAsigDAO.agregarCuestAsig(cuestAsig);
+                if (resp) {
+                    System.out.println("Registro Agregado");
+                } else {
+                    System.out.println("Registro No Agregado");
+                }
+
             }
-            
-            
-            try {
-                fechaIngreso=df.parse(request.getParameter("dtFechaIncio"));
-                fechaTermino=df.parse(request.getParameter("dtFechaTermino"));
-            } catch (Exception e) {
-            }          
-            int idCuest = Integer.parseInt(request.getParameter("cboCompetencia"));
-            
-            cuest.setIdCuest(idCuest);
-            //cuestionario.setIdCuest(idCuest);
-            cuestAsig.setFechaInicio(fechaIngreso);
-            cuestAsig.setFechaTermino(fechaTermino);
-            
-           
-           boolean resp = cuestAsigDAO.agregarCuestAsig(cuestAsig);
+        } catch (SQLException ex) {
+            Logger.getLogger(AsignarCuestionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /* boolean resp = cuestAsigDAO.agregarCuestAsig(cuestAsig);
             if (resp == true) {
                 request.setAttribute("mensaje", "Cuestionario Asignado Correctamente");
 
@@ -164,10 +179,7 @@ public class AsignarCuestionario extends HttpServlet {
             }
 
             request.getRequestDispatcher("AsignarCuestionario.jsp").forward(request, response);
-        }
-
-    }
-
+        }*/
     /**
      * Returns a short description of the servlet.
      *

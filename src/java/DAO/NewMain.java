@@ -6,10 +6,12 @@
 package DAO;
 
 import Entities.Competencia;
+import Entities.CuestAsig;
 import Entities.Cuestionario;
 import Entities.OpcionRespuesta;
 import Entities.Pregunta;
 import Entities.Usuario;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -93,7 +95,7 @@ public class NewMain {
                 System.out.println("Agregado");
             } else {
                 System.out.println("No agregado");
-            }*/
+            }
             
             
              UsuarioDAO preguntaDAO = new UsuarioDAO();
@@ -102,7 +104,26 @@ public class NewMain {
                  System.out.println("id_usuario "+ c.getIdUsuario());
                 
                 
-            }
+            }/**/
+             
+             CuestAsigDAO cuest = new CuestAsigDAO();
+             CuestAsig cu= new CuestAsig();
+             Cuestionario cue= new Cuestionario();
+              cue.setIdCuest(5);
+             cu.setCuestionario(cue);
+             cu.setEstadoCuestionarioAsig("Activo");
+             cu.setFechaInicio(new Date(2018,10,21));
+             cu.setFechaTermino(new Date(2018,10,21));
+             cu.setRutJefe("189090-2");
+             
+             boolean resp=cuest.agregarCuestAsig(cu);
+             
+             if(resp){
+             
+                 System.out.println("Agregado");
+             }else{
+                 System.out.println("No agregado");
+             }
         }
 
     }
