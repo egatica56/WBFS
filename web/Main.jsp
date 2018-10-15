@@ -19,6 +19,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Bienvenido a WBFS</title>
     </head>
+    
+    
+    
+    
     <header class="jumbotron">
         <div class="container" align="center">Login Ok Como Admin</div>
         <div class="container-fluid" align="center" style="background-color: green!important">
@@ -39,6 +43,7 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="cuestionario">Nuevo Cuestionario</a>
                             <a class="dropdown-item" href="listarCuestionario">Listar Cuestionarios</a>
+                            <a class="dropdown-item" href="asignarCuestionario">Asignar Cuestionarios</a>
                             
                         </div>
                         
