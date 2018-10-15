@@ -21,8 +21,8 @@
     </head>
     <header class="jumbotron">
         <div class="container" align="center">Login Ok Como Admin</div>
-        <div class="container" align="center" style="background-color: green!important">
-            <h1>Hola Manuel Esteban Usuario. sitio en construccion</h1>
+        <div class="container-fluid" align="center" style="background-color: green!important">
+        <h1>Hola ${usuario.getPersona().getNombrePersona()} Usuario. sitio en construccion</h1>
         </div>
     </header>
        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -31,14 +31,7 @@
 
                 <!-- Links -->
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link 1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link 2</a>
-                    </li>
-
-                    <!-- Dropdown -->
+                   <!-- Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Cuestionarios

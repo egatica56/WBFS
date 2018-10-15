@@ -7,6 +7,7 @@ package DAO;
 
 import Entities.Competencia;
 import Entities.Cuestionario;
+import Entities.OpcionRespuesta;
 import Entities.Pregunta;
 import Entities.Usuario;
 import java.sql.SQLException;
@@ -50,7 +51,7 @@ public class NewMain {
             for (Cuestionario c : cuestionarioDAO.listar_cuestionario()) {
                 System.out.println("id Competencia: " + c.getCompetencia().getIdComp());
                 System.out.println("nombre Competencia: " + c.getCompetencia().getNombreCompetencia());
-            }*/
+            }
 
             PreguntaDAO preguntaDAO = new PreguntaDAO();
             Cuestionario cue=new Cuestionario();
@@ -68,6 +69,32 @@ public class NewMain {
             } else {
                 System.out.println("No agregado");
             }
+            
+            PreguntaDAO preguntaDAO = new PreguntaDAO();
+            
+             for (Pregunta c : preguntaDAO.listar_pregunta()) {
+                System.out.println("id Competencia: " + c.getTextoPregunta());
+                System.out.println("nombre Competencia: " + c.getPorcentajePregunta());
+            }*/
+            
+            
+            RespuestaDAO respuestaDAO = new RespuestaDAO();
+            OpcionRespuesta res=new OpcionRespuesta();
+            Pregunta pre = new Pregunta();
+            pre.setIdPregunta(5);
+            res.setPorcentajeRespuesta(100);
+            res.setTextoRespuesta("AAAAAAABC");
+            res.setPregunta(pre);
+            
+
+            boolean resp = respuestaDAO.agregarRespuesta(res) ;
+
+            if (resp) {
+                System.out.println("Agregado");
+            } else {
+                System.out.println("No agregado");
+            }
+            
         }
 
     }

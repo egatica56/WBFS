@@ -8,7 +8,9 @@ package Servlet.Pregunta;
 
 import Servlet.Respuesta.*;
 import DAO.CuestionarioDAO;
+import DAO.PreguntaDAO;
 import Entities.Cuestionario;
+import Entities.Pregunta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -25,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author EduardoGatica
  */
-@WebServlet(name = "ListarRespuesta", urlPatterns = {"/listarRespuesta"})
+@WebServlet(name = "ListarPregunta", urlPatterns = {"/listarPregunta"})
 public class ListarPregunta extends HttpServlet {
 
     /**
@@ -60,9 +62,9 @@ public class ListarPregunta extends HttpServlet {
         
     
         try {
-              List<Cuestionario>  cuestionario = new CuestionarioDAO().listar_cuestionario();
-              request.setAttribute("cuestionarios", cuestionario);      
-              request.getRequestDispatcher("ListadoCuestionario.jsp").forward(request, response);
+              List<Pregunta>  pregunta = new PreguntaDAO().listar_pregunta();
+              request.setAttribute("preguntas", pregunta);      
+              request.getRequestDispatcher("ListadoPregunta.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(ListarPregunta.class.getName()).log(Level.SEVERE, null, ex);
         }

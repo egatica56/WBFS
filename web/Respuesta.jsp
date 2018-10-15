@@ -38,8 +38,8 @@
                             <td><input type="number" name="txtPorcentajeRespuesta" id="txtPorcentajeRespuesta" min="0" max="100" required=""></td>
                         </tr>
                         <tr>
-                            <td>Texto pregunta</td>
-                            <td><input type="text" name="txtPregunta" id="txtPregunta"  required=""></td>
+                            <td>Texto Respuesta</td>
+                            <td><input type="text" name="txtRespuesta" id="txtRespuesta"  required=""></td>
                         </tr>
                         <tr>
                             <td>Pregunta Asociada</td>

@@ -35,7 +35,7 @@ public class RespuestaDAO {
             //Cuestionario cu = new Cuestionario();
             //Competencia com = new Competencia();
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_RESPUESTA_1.SP_AGREGAR_RESPUESTA(?,?,?)}";
+            String llamada = "{call PKG_OPCION_RESPUESTA_1.SP_AGREGAR_RESPUESTA(?,?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
             // cstmt.setInt(1, cuestionario.getIdCuest());
@@ -64,7 +64,7 @@ public class RespuestaDAO {
         
         try {
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_CUESTIONARIO_1.SP_LISTAR_RESPUESTA(?)}";
+            String llamada = "{call PKG_OPCION_RESPUESTA_1.SP_LISTAR_RESPUESTA(?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
             cstmt.registerOutParameter(1, OracleTypes.CURSOR);

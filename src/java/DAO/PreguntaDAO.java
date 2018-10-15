@@ -64,7 +64,7 @@ public class PreguntaDAO {
 
         try {
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_CUESTIONARIO_1.SP_LISTAR_PREGUNTA(?)}";
+            String llamada = "{call PKG_PREGUNTA_1.SP_LISTAR_PREGUNTA(?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
             cstmt.registerOutParameter(1, OracleTypes.CURSOR);

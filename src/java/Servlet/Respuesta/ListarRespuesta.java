@@ -7,7 +7,9 @@ package Servlet.Respuesta;
 
 
 import DAO.CuestionarioDAO;
+import DAO.RespuestaDAO;
 import Entities.Cuestionario;
+import Entities.OpcionRespuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -59,9 +61,9 @@ public class ListarRespuesta extends HttpServlet {
         
     
         try {
-              List<Cuestionario>  cuestionario = new CuestionarioDAO().listar_cuestionario();
-              request.setAttribute("cuestionarios", cuestionario);      
-              request.getRequestDispatcher("ListadoCuestionario.jsp").forward(request, response);
+              List<OpcionRespuesta>  respuestas = new RespuestaDAO().listar_respuesta();
+              request.setAttribute("respuestas", respuestas);      
+              request.getRequestDispatcher("ListadoRespuesta.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(ListarRespuesta.class.getName()).log(Level.SEVERE, null, ex);
         }
