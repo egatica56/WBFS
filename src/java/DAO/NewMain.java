@@ -13,6 +13,7 @@ import Entities.Pregunta;
 import Entities.Usuario;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -104,29 +105,32 @@ public class NewMain {
                  System.out.println("id_usuario "+ c.getIdUsuario());
                 
                 
-            }/**/
-             
-             CuestAsigDAO cuest = new CuestAsigDAO();
-             CuestAsig cu= new CuestAsig();
-             Cuestionario cue= new Cuestionario();
-              cue.setIdCuest(5);
-             cu.setCuestionario(cue);
-             cu.setEstadoCuestionarioAsig("Activo");
-             cu.setFechaInicio(new Date(2018,10,21));
-             cu.setFechaTermino(new Date(2018,10,21));
-             cu.setRutJefe("189090-2");
-             
-             boolean resp=cuest.agregarCuestAsig(cu);
-             
-             if(resp){
-             
-                 System.out.println("Agregado");
-             }else{
-                 System.out.println("No agregado");
-             }
+            }*/
+
+            CuestAsigDAO cuest = new CuestAsigDAO();
+            CuestAsig cu = new CuestAsig();
+            Cuestionario cue = new Cuestionario();
+            cue.setIdCuest(5);
+            cu.setCuestionario(cue);
+            cu.setFechaInicio(new java.util.Date("2018/10/31"));
+            cu.setFechaTermino(new java.util.Date("2018/10/25"));
+            cu.setRutJefe("189090-2");            
+
+            boolean resp = cuest.agregarCuestAsig(cu);
+
+            if (resp) {
+
+                System.out.println("Agregado");
+            } else {
+                System.out.println("No agregado");
+            }
+
+            java.util.Date utilDate = new java.util.Date("2018/10/31");
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            System.out.println("utilDate:" + utilDate);
+            System.out.println("sqlDate:" + sqlDate);
+
         }
 
     }
 }
-
-

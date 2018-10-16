@@ -38,11 +38,11 @@
                         </c:forEach>
                         <tr>
                             <td>Fecha Incio</td>
-                            <td><input type="date" name="dtFechaIncio" id="dtFechaIncio" required=""></td>
+                            <td><input type="date" name="txtFechaInicio" id="txtFechaInicio" required=""></td>
                         </tr>
                         <tr>
                             <td>Fecha Termino</td>
-                            <td><input type="date" name="dtFechaTermino" id="dtFechaTermino" required=""></td>
+                            <td><input type="date" name="txtFechaTermino" id="txtFechaTermino" required=""></td>
                         </tr>
                         <tr>
                             <td>Cuestionario Asociado</td>
