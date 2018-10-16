@@ -61,7 +61,7 @@ public class CuestionarioDAO {
     public List<Cuestionario> listar_cuestionario() throws SQLException {
 
         List<Cuestionario> listado = new ArrayList<Cuestionario>();
-        Competencia competencia = new Competencia();
+        
 
         try {
             this.conexion = new Conexion().obtenerConexion();
@@ -76,6 +76,7 @@ public class CuestionarioDAO {
             ResultSet rs = (ResultSet) cstmt.getObject(1);
 
             while (rs.next()) {
+                Competencia competencia = new Competencia();
                 Cuestionario cuestionario = new Cuestionario();
                 competencia.setIdComp(rs.getInt("ID_COMP"));
                 competencia.setNombreCompetencia(rs.getString("NOMBRE_COMPETENCIA"));

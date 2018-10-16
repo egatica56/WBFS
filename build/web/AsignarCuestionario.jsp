@@ -30,11 +30,21 @@
             <form action="asignarCuestionario" method="Post">
                 <div class="container" align="center">
                     <table>
+                        <c:set var="administrador" value="adminitrador"></c:set>
                         <c:forEach items="${usuarios}" var="usu">
-                            <tr>
-                                <td>Usuario a asignar</td>
-                                <td> <input type="checkbox" name="chkUsuario" id="chkUsuario" value="${usu.getUsername()}">${usu.getUsername()}</td>
-                            </tr>
+                            <c:if test="${usu.getTipoUsuario().getIdTipoUsuario()!=1}">
+                                <tr>
+                                    <td>Usuario a asignar</td>
+                                    <td> <input type="checkbox" name="chkUsuario" id="chkUsuario" value="${usu.getUsername()}">${usu.getUsername()}  ${usu.getTipoUsuario().getNombreTipoUsuario()}</td>
+                                </tr>
+                            </c:if>
+
+                            <c:if test="${usu.getTipoUsuario().getIdTipoUsuario()==1}">
+                                <tr>
+                                    <td>Usuario Administrador</td>
+                                    <td> <input disabled="" type="checkbox" name="chkUsuario" id="chkUsuario" value="${usu.getUsername()}">${usu.getUsername()} ${usu.getTipoUsuario().getNombreTipoUsuario()}</td>
+                                </tr>
+                            </c:if>    
                         </c:forEach>
                         <tr>
                             <td>Fecha Incio</td>

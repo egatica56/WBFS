@@ -8,6 +8,8 @@ package DAO;
 import Entities.Competencia;
 import Entities.CuestAsig;
 import Entities.Cuestionario;
+import Entities.Persona;
+import Entities.Usuario;
 import Util.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -94,7 +96,7 @@ public class CuestAsigDAO {
 
     }
 
-    /*  public List<CuestAsig> listar_cuest_asig() throws SQLException {
+      public List<CuestAsig> listar_cuest_asig() throws SQLException {
 
         List<CuestAsig> listado = new ArrayList<CuestAsig>();
         
@@ -112,18 +114,25 @@ public class CuestAsigDAO {
             ResultSet rs = (ResultSet) cstmt.getObject(1);
 
             while (rs.next()) {
-                Cuestionario  cuestionario=new Cuestionario();
-            
                 CuestAsig cuestAsig = new CuestAsig();
+                Usuario usuario=new Usuario();
+                Persona persona= new Persona();
+                Cuestionario  cuestionario=new Cuestionario();       
                 cuestionario.setIdCuest(rs.getInt("ID_CUEST"));
+                persona.setNombrePersona("NOMBRE_PERSONA");
+                persona.setApellidoPaterno("APELLIDO_PATERNO");
+                persona.setRutPersona("RUT_JEFE");
+                usuario.setPersona(persona);
+                usuario.setUsername("USERNAME");
+                
                 cuestAsig.setIdCuestAsig(rs.getInt("ID_CUEST_ASIG"));
-                cuestAsig.setRutJefe(rs.getString("RUT_JEFE"));
-                cuestAsig.setFechaInicio ("FECHA_INICIO");
-                cuestAsig.setFechaTermino("FECHA_TERMINO");
+                cuestAsig.setRutJefe(rs.getString("USERNAME"));
+                //cuestAsig.setFechaInicio (new java.util.Date("FECHA_INICIO"));
+                //cuestAsig.setFechaTermino(new java.util.Date("FECHA_TERMINO"));
                 cuestAsig.setCuestionario(cuestionario);
                 
 
-                listado.add(cuestionario);
+                listado.add(cuestAsig);
 
             }
 
@@ -135,5 +144,7 @@ public class CuestAsigDAO {
         }
         return listado;
 
-    }*/
+    }
+
+    
 }

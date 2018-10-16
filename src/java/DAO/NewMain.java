@@ -105,7 +105,7 @@ public class NewMain {
                  System.out.println("id_usuario "+ c.getIdUsuario());
                 
                 
-            }*/
+            }
 
             CuestAsigDAO cuest = new CuestAsigDAO();
             CuestAsig cu = new CuestAsig();
@@ -129,6 +129,16 @@ public class NewMain {
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
             System.out.println("utilDate:" + utilDate);
             System.out.println("sqlDate:" + sqlDate);
+
+        }*/
+
+            CuestAsigDAO cudao = new CuestAsigDAO();
+
+            for (CuestAsig a : cudao.listar_cuest_asig()) {
+                System.out.println("ID_CUEST_ASIGN" + a.getIdCuestAsig());
+                System.out.println("id cuestionario_asignado: "+ a.getCuestionario().getIdCuest());
+                System.out.println("persona" + a.getRutJefe());
+            }
 
         }
 

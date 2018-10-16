@@ -125,8 +125,6 @@ public class UsuarioDAO {
 
     public List<Usuario> listar_usuario() throws SQLException {
         List<Usuario> listado = new ArrayList<Usuario>();
-        TipoUsuario tipoUsuario = new TipoUsuario();
-        Persona persona = new Persona();
 
         try {
             this.conexion = new Conexion().obtenerConexion();
@@ -141,6 +139,8 @@ public class UsuarioDAO {
             ResultSet rs = (ResultSet) cstmt.getObject(1);
 
             while (rs.next()) {
+                TipoUsuario tipoUsuario = new TipoUsuario();
+                Persona persona = new Persona();
                 Usuario usuario = new Usuario();
                 usuario.setIdUsuario(rs.getInt("ID_USUARIO"));
                 usuario.setUsername(rs.getString("USERNAME"));
@@ -154,6 +154,11 @@ public class UsuarioDAO {
                 usuario.setTipoUsuario(tipoUsuario);
                 usuario.setPersona(persona);
                 listado.add(usuario);
+                System.out.println("INFO: " + tipoUsuario.getIdTipoUsuario());
+
+            }
+            for (Usuario u : listado) {
+                System.out.println("usuario: " + u.getTipoUsuario().getIdTipoUsuario());
 
             }
 
