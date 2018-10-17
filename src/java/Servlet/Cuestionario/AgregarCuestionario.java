@@ -115,16 +115,18 @@ public class AgregarCuestionario extends HttpServlet {
                     String fechaTermino = request.getParameter("txtFechaTermino");
                     String rutJefe = request.getParameter("txtRutJefe");
                     String estadoCuest = request.getParameter("cboEstado");
-                    Cuestionario cuest = new CuestionarioDAO().buscarCuestionario(cuestionario.getIdCuest());
-
-                    System.out.println("cuest: " + cuest.getIdCuest());
+                   int idCues= cuestionario.getIdCuest();
+                    System.out.println("id Cuestionario Creado: "+ idCues);
+                   
 
                     System.out.println("fecha inicio Rescatada  Web: " + fechaIngreso);
                     System.out.println("fecha termino Rescatada Web: " + fechaTermino);
 
                     CuestAsig cuestAsig = new CuestAsig();
                     CuestAsigDAO cuestAsigDAO = new CuestAsigDAO();
-
+                    Cuestionario cuest = new Cuestionario();
+                    cuest.setIdCuest(idCues);
+                    System.out.println("cuest: " + cuest.getIdCuest());
                     cuestAsig.setCuestionario(cuest);
                     cuestAsig.setFechaInicio(fechaIngreso);
                     cuestAsig.setFechaTermino(fechaTermino);

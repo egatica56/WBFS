@@ -57,14 +57,13 @@
 
                     </table>
                 </div>
-
-                        <h1>id Cuestionario: ${cuestionario.getIdCuest()}</h1>
+               
                 <div class="container" align="center">
                     <table>
                         <c:if test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
                             <tr>
                                 <td>Jefe: ${usuario.getPersona().getNombrePersona()}</td>
-                                <td> <input type="text" name="txtRutJefe" id="txtRutJefe" value="${usuario.getPersona().getRutPersona()}"></td>
+                                <td> <input type="hidden" name="txtRutJefe" id="txtRutJefe" value="${usuario.getPersona().getRutPersona()}"></td>
 
                             </tr>
                         </c:if>    
@@ -87,7 +86,7 @@
                                 </select>
                             </td> 
                         </tr>
-                        <tr>
+                        <!--tr>
                             <td>Cuestionario a  Asociar</td>
                             <td>
                                 <select name="cboCuestionario" id="cboCuestionario" required="">
@@ -97,7 +96,7 @@
                                     </c:forEach>
                                 </select>
                             <td>
-                        </tr>
+                        </tr-->
                         <tr>
                             <td align="center" colspan="2"><input class="btn btn-primary" type="submit" id="btnAsignarCuest" name="btnAsignarCuest" value="Guardar"></td>
                         </tr>

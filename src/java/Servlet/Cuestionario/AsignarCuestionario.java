@@ -92,128 +92,67 @@ public class AsignarCuestionario extends HttpServlet {
 
         try {
 
-            
-            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String fechaIngreso = request.getParameter("txtFechaInicio");
             System.out.println("fecha inicio Rescatada  Web: " + fechaIngreso);
 
             String fechaTermino = request.getParameter("txtFechaTermino");
             System.out.println("fecha termino Rescatada Web: " + fechaTermino);
-            
-            /*Date fI = null;
-            try {
-                fI = format.parse(fechaIngreso);
-                System.out.println("fecha FI Rescatada  Web: " + fI);
-            } catch (ParseException ex) {
-                Logger.getLogger(AsignarCuestionario.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            String fechaTermino = request.getParameter("txtFechaTermino");
-            System.out.println("fecha termino Rescatada Web: " + fechaTermino);
-            
-            Date fT = null;
-            try {
-                fT = format.parse(fechaTermino);
-                System.out.println("fecha FT Rescatada Web: " + fT);
-            } catch (ParseException ex) {
-                Logger.getLogger(AsignarCuestionario.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
-            
-            
-            
-            
-            
-            
-            
+
             CuestAsig cuestAsig = new CuestAsig();
             CuestAsigDAO cuestAsigDAO = new CuestAsigDAO();
             Cuestionario cuest = new Cuestionario();
-            String[] us = request.getParameterValues("chkUsuario");
+            String rutJefe = request.getParameter("txtRutJefe");
+            int idCuest = Integer.parseInt(request.getParameter("cboCuestionario"));
+            String estado = request.getParameter("cboEstado");
 
-            for (String u : us) {
+            cuest.setIdCuest(idCuest);
+            cuestAsig.setCuestionario(cuest);
+            cuestAsig.setFechaInicio(fechaIngreso);
+            cuestAsig.setFechaTermino(fechaTermino);
+            cuestAsig.setEstadoCuestionarioAsig(estado);
+            cuestAsig.setRutJefe(rutJefe);
 
-                int idCuest = Integer.parseInt(request.getParameter("cboCuestionario"));
-
-                cuest.setIdCuest(idCuest);
-                cuestAsig.setCuestionario(cuest);
-                cuestAsig.setFechaInicio(fechaIngreso);
-                cuestAsig.setFechaTermino(fechaTermino);
-                cuestAsig.setRutJefe(u);
-
-                boolean resp = cuestAsigDAO.agregarCuestAsig(cuestAsig);
-                if (resp) {
-                    System.out.println("Registro Agregado");
-                } else {
-                    System.out.println("Registro No Agregado");
-                }
-                request.setAttribute("mensaje", "Cuestionario Asignado Correctamente");
-
+            boolean resp = cuestAsigDAO.agregarCuestAsig(cuestAsig);
+            if (resp) {
+                System.out.println("Registro Agregado");
+                request.setAttribute("mensaje", "Cuestionario asignado Correctaente");
                 try {
                     List<Cuestionario> cuestionario = new CuestionarioDAO().listar_cuestionario();
                     request.setAttribute("cuestionarios", cuestionario);
-                    List<Usuario> listado = new UsuarioDAO().listar_usuario();
-                    request.setAttribute("usuarios", listado);
                     request.getRequestDispatcher("AsignarCuestionario.jsp").forward(request, response);
                 } catch (SQLException ex) {
                     request.setAttribute("mensaje", "Error al asignar cuestionarios: " + ex.getMessage());
                     List<Cuestionario> cuestionario = new CuestionarioDAO().listar_cuestionario();
                     request.setAttribute("cuestionarios", cuestionario);
-                    List<Usuario> listado = new UsuarioDAO().listar_usuario();
-                    request.setAttribute("usuarios", listado);
                     request.getRequestDispatcher("AsignarCuestionario.jsp").forward(request, response);
-                    Logger.getLogger(AsignarCuestionario.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            }
-
-        } catch (SQLException ex) {
-
-            Logger.getLogger(AsignarCuestionario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /* boolean resp = cuestAsigDAO.agregarCuestAsig(cuestAsig);
-            if (resp == true) {
-                request.setAttribute("mensaje", "Cuestionario Asignado Correctamente");
-
-                try {
-                    List<Cuestionario> cuestionario = new CuestionarioDAO().listar_cuestionario();
-                    request.setAttribute("cuestionarios", cuestionario);
-                    List<Usuario> listado = new UsuarioDAO().listar_usuario();
-                    request.setAttribute("usuarios", listado);
-                    request.getRequestDispatcher("AsignarCuestionario.jsp").forward(request, response);
-                } catch (SQLException ex) {
                     Logger.getLogger(AsignarCuestionario.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } else {
-                request.setAttribute("mensaje", "Error al Asignar el Cuestionario");
+                System.out.println("Registro No Agregado");
+                request.setAttribute("mensaje", "Error al asignar el cuestionario");
                 try {
                     List<Cuestionario> cuestionario = new CuestionarioDAO().listar_cuestionario();
                     request.setAttribute("cuestionarios", cuestionario);
-                    List<Usuario> listado = new UsuarioDAO().listar_usuario();
-                    request.setAttribute("usuarios", listado);
                     request.getRequestDispatcher("AsignarCuestionario.jsp").forward(request, response);
                 } catch (SQLException ex) {
+                    request.setAttribute("mensaje", "Error al asignar cuestionarios: " + ex.getMessage());
+                    List<Cuestionario> cuestionario = new CuestionarioDAO().listar_cuestionario();
+                    request.setAttribute("cuestionarios", cuestionario);
+                    request.getRequestDispatcher("AsignarCuestionario.jsp").forward(request, response);
                     Logger.getLogger(AsignarCuestionario.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                request.getRequestDispatcher("Cuestionario.jsp").forward(request, response);
             }
-        } catch (Exception e) {
-            request.setAttribute("mensaje", "Error al Asignar el Cuestionario: " + e.getMessage());
-            try {
-                List<Cuestionario> cuestionario = new CuestionarioDAO().listar_cuestionario();
-                request.setAttribute("cuestionarios", cuestionario);
-                List<Usuario> listado = new UsuarioDAO().listar_usuario();
-                request.setAttribute("usuarios", listado);
-                request.getRequestDispatcher("AsignarCuestionario.jsp").forward(request, response);
-            } catch (SQLException ex) {
-                Logger.getLogger(AsignarCuestionario.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
 
+        } catch (SQLException ex) {
+            request.setAttribute("mensaje", "Error al asignar cuestionarios: " + ex.getMessage());
+            Logger.getLogger(AsignarCuestionario.class.getName()).log(Level.SEVERE, null, ex);
             request.getRequestDispatcher("AsignarCuestionario.jsp").forward(request, response);
-        }*/
+        }
+    }
+
     /**
      * Returns a short description of the servlet.
      *

@@ -143,6 +143,23 @@ public class NewMain {
         }*/
             
             CuestionarioDAO cuesDAO= new CuestionarioDAO();
+           
+           Cuestionario k=new Cuestionario();
+           Competencia c=new Competencia(1);
+           k.setPorcentajeAutoevaluacion(10);
+           k.setPorcentajeJefe(10);
+           k.setCompetencia(c);
+           
+           
+           boolean Respo=cuesDAO.agregarCuestionario(k);
+            if (Respo) {
+                System.out.println("Creado");
+            }else{
+                System.out.println("No Creado");
+            }
+           
+           
+            
             Cuestionario cue=cuesDAO.buscarCuestionario(27);
             System.out.println("id cuestionario: "+ cue.getIdCuest());
             System.out.println("porcentaje autoevaluacion: "+ cue.getPorcentajeAutoevaluacion());

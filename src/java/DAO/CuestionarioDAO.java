@@ -13,6 +13,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import oracle.jdbc.OracleTypes;
@@ -35,16 +36,22 @@ public class CuestionarioDAO {
             //Cuestionario cu = new Cuestionario();
             //Competencia com = new Competencia();
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_CUESTIONARIO_1.SP_AGREGAR_CUESTIONARIO(?,?,?)}";
+            String llamada = "{call PKG_CUESTIONARIO_1.SP_AGREGAR_CUESTIONARIO(?,?,?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
             // cstmt.setInt(1, cuestionario.getIdCuest());
             cstmt.setInt(1, cuestionario.getPorcentajeJefe());
             cstmt.setInt(2, cuestionario.getPorcentajeAutoevaluacion());
             cstmt.setInt(3, cuestionario.getCompetencia().getIdComp());
+            //cstmt.setInt(4, cuestionario.getIdCuest());
+            cstmt.registerOutParameter(4, Types.INTEGER);
 
             //ejecutamos la llamada al procedimiento almacenado
             cstmt.execute();
+            int indice = cstmt.getInt(4);
+            cuestionario.setIdCuest(indice);
+            System.out.println("Id del cuestionario creado: " + indice);
+            
             return true;
 
         } catch (Exception ex) {
@@ -112,10 +119,9 @@ public class CuestionarioDAO {
             //ejecutamos la llamada al procedimiento almacenado
             cstmt.execute();
 
-            ResultSet rs = (ResultSet)cstmt.getObject(2);
+            ResultSet rs = (ResultSet) cstmt.getObject(2);
 
             while (rs.next()) {
-                
 
                 competencia.setIdComp(rs.getInt("ID_COMP"));
                 competencia.setNombreCompetencia(rs.getString("NOMBRE_COMPETENCIA"));
@@ -125,7 +131,7 @@ public class CuestionarioDAO {
                 cuestionario.setCompetencia(competencia);
 
             }
-            
+
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         } finally {

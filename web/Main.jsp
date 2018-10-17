@@ -21,74 +21,9 @@
     </head>
     
     
+    <jsp:include page="Header.jsp"></jsp:include>
     
-    
-    <header class="jumbotron">
-        <div class="container" align="center">Login Ok Como Admin</div>
-        <div class="container-fluid" align="center" style="background-color: green!important">
-        <h1>Hola ${usuario.getPersona().getNombrePersona()} Usuario. sitio en construccion</h1>
-        </div>
-    </header>
-       <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-                <!-- Brand -->
-                <a class="navbar-brand" href="#">Logo</a>
-
-                <!-- Links -->
-                <ul class="navbar-nav">
-                   <!-- Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Cuestionarios
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="cuestionario">Nuevo Cuestionario</a>
-                            <a class="dropdown-item" href="listarCuestionario">Listar Cuestionarios</a>
-                            <a class="dropdown-item" href="asignarCuestionario">Asignar Cuestionarios</a>
-                            
-                        </div>
-                        
-                       
-                        
-                    </li>
-                    <li class="nav-item dropdown">
-                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Preguntas
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="pregunta">Agregar Preguntas</a>
-                            <a class="dropdown-item" href="listarPregunta">Listar Preguntas</a>
-                            
-                        </div>
-                        
-                    </li>
-                    
-                    <li class="nav-item dropdown">
-                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Respuestas
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="respuesta">Agregar Respuestas</a>
-                            <a class="dropdown-item" href="listarRespuesta">Listar Respuestas</a>
-                            
-                        </div>
-                        
-                    </li>
-                    <li class="nav-item dropdown">
-                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Funcionarios
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="listarFuncionario">Listar Funcionarios</a>
-                            
-                            
-                        </div>
-                        
-                    </li>
-                    
-                </ul>
-            </nav> 
-
-    <body>
+     <body>
         <div class="container-fluid" align="center" style="background-color: green!important">
         <h1>Hola ${usuario.getPersona().getNombrePersona()} Usuario. sitio en construccion</h1>
 

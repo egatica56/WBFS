@@ -30,32 +30,34 @@
             <form action="asignarCuestionario" method="Post">
                 <div class="container" align="center">
                     <table>
-                        <c:set var="administrador" value="adminitrador"></c:set>
-                        <c:forEach items="${usuarios}" var="usu">
-                            <c:if test="${usu.getTipoUsuario().getIdTipoUsuario()!=1}">
-                                <tr>
-                                    <td>Usuario a asignar</td>
-                                    <td> <input type="checkbox" name="chkUsuario" id="chkUsuario" value="${usu.getUsername()}">${usu.getUsername()}  ${usu.getTipoUsuario().getNombreTipoUsuario()}</td>
-                                </tr>
-                            </c:if>
+                        <c:if test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
+                            <tr>
+                                <td>Jefe: ${usuario.getPersona().getNombrePersona()}</td>
+                                <td> <input type="hidden" name="txtRutJefe" id="txtRutJefe" value="${usuario.getPersona().getRutPersona()}"></td>
 
-                            <c:if test="${usu.getTipoUsuario().getIdTipoUsuario()==1}">
-                                <tr>
-                                    <td>Usuario Administrador</td>
-                                    <td> <input disabled="" type="checkbox" name="chkUsuario" id="chkUsuario" value="${usu.getUsername()}">${usu.getUsername()} ${usu.getTipoUsuario().getNombreTipoUsuario()}</td>
-                                </tr>
-                            </c:if>    
-                        </c:forEach>
+                            </tr>
+                        </c:if>    
+
                         <tr>
                             <td>Fecha Incio</td>
-                            <td><input type="date" name="txtFechaInicio" id="txtFechaInicio" required=""></td>
+                            <td><input type="text" name="txtFechaInicio" id="txtFechaInicio" required="" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" placeholder="Ej:1994-10-01" ></td>
                         </tr>
                         <tr>
                             <td>Fecha Termino</td>
-                            <td><input type="date" name="txtFechaTermino" id="txtFechaTermino" required=""></td>
+                            <td><input type="text" name="txtFechaTermino" id="txtFechaTermino" required="" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" placeholder="Ej:1994-10-01"></td>
                         </tr>
                         <tr>
-                            <td>Cuestionario Asociado</td>
+                            <td>Estado Cuestionario</td>
+                            <td>
+                                <select name="cboEstado" id="cboEstado">
+                                    <option value="">Seleccione</option>
+                                    <option value="ACTIVO">Activo</option>
+                                    <option value="INACTIVO">Inactivo</option> 
+                                </select>
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td>Cuestionario a  Asociar</td>
                             <td>
                                 <select name="cboCuestionario" id="cboCuestionario" required="">
                                     <option value="">Seleccionar</option>                       
