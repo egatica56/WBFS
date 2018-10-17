@@ -79,7 +79,7 @@ public class UsuarioDAO {
                 persona.setRutPersona(rs.getString("RUT_PERSONA"));
                 persona.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
 
-                if (tipoUsuario.getIdTipoUsuario() == 1) {
+                /*if (tipoUsuario.getIdTipoUsuario() == 1) {
                     tipoUsuario.setNombreTipoUsuario(rs.getString("NOMBRE_TIPO_USUARIO"));
                     //tipoUsuario.setNombreTipoUsuario("administrador");
                 } else if ((tipoUsuario.getIdTipoUsuario() == 2)) {
@@ -90,7 +90,7 @@ public class UsuarioDAO {
                     //tipoUsuario.setNombreTipoUsuario("empleado");
                 } else {
 
-                }
+                }*/
 
                 usuario.setTipoUsuario(tipoUsuario);
                 usuario.setPersona(persona);

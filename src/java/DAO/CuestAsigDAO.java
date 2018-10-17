@@ -40,31 +40,13 @@ public class CuestAsigDAO {
             //Cuestionario cu = new Cuestionario();
             //Competencia com = new Competencia();
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_CUESTIONARIO_ASIGNADO.SP_ASIGNAR_CUEST(?,?,?,?)}";
+            String llamada = "{call PKG_CUESTIONARIO_ASIGNADO.SP_ASIGNAR_CUEST(?,?,?,?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
-            java.util.Date fecha1=cuestAsig.getFechaInicio();
-            
+            /*java.util.Date fecha1=cuestAsig.getFechaInicio();         
             java.util.Date fecha2=cuestAsig.getFechaTermino();
             
-            /*int anhoFechaInicio=cuestAsig.getFechaInicio().getDate();
-            int mesFechaInicio=cuestAsig.getFechaInicio().getMonth();
-            int diaFechaInicio=cuestAsig.getFechaInicio().getDay();
-            
-            System.out.println("año fecha inicio: "+anhoFechaInicio);
-            System.out.println("mes fecha inicio: "+mesFechaInicio);
-            System.out.println("dia fecha inicio: "+diaFechaInicio);
-            
-            int anhoFechaTermino=cuestAsig.getFechaTermino().getYear();
-            int mesFechaTermino=cuestAsig.getFechaTermino().getMonth();
-            int diaFechaTermino=cuestAsig.getFechaTermino().getDay();
-            
-            System.out.println("año fecha termino: "+anhoFechaTermino);
-            System.out.println("mes fecha termino: "+mesFechaTermino);
-            System.out.println("dia fecha termino: "+diaFechaTermino);
-            
-            */
-            
+              
             java.util.Date utilDate = fecha1;
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
             System.out.println("utilDate Fecha Inicio:" + utilDate);
@@ -73,13 +55,13 @@ public class CuestAsigDAO {
             java.util.Date utilDate2 = fecha2;
             java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
             System.out.println("utilDate Fecha Termino:" + utilDate2);
-            System.out.println("sqlDate  Fecha Termino:" + sqlDate2);
+            System.out.println("sqlDate  Fecha Termino:" + sqlDate2);*/
                    
             cstmt.setString(1, cuestAsig.getRutJefe());
-            cstmt.setDate(2, sqlDate);
-            cstmt.setDate(3, sqlDate2);
-            //cstmt.setString(4, cuestAsig.getEstadoCuestionarioAsig());
-            cstmt.setInt(4, cuestAsig.getCuestionario().getIdCuest());
+            cstmt.setString(2, cuestAsig.getFechaInicio());
+            cstmt.setString(3, cuestAsig.getFechaTermino());
+            cstmt.setString(4, cuestAsig.getEstadoCuestionarioAsig());
+            cstmt.setInt(5, cuestAsig.getCuestionario().getIdCuest());
 
             //ejecutamos la llamada al procedimiento almacenado
             cstmt.execute();
@@ -124,6 +106,7 @@ public class CuestAsigDAO {
                 persona.setRutPersona("RUT_JEFE");
                 usuario.setPersona(persona);
                 usuario.setUsername("USERNAME");
+                cuestAsig.setRutJefe(persona.getRutPersona());
                 
                 cuestAsig.setIdCuestAsig(rs.getInt("ID_CUEST_ASIG"));
                 cuestAsig.setRutJefe(rs.getString("USERNAME"));

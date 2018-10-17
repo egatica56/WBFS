@@ -61,7 +61,6 @@ public class CuestionarioDAO {
     public List<Cuestionario> listar_cuestionario() throws SQLException {
 
         List<Cuestionario> listado = new ArrayList<Cuestionario>();
-        
 
         try {
             this.conexion = new Conexion().obtenerConexion();
@@ -97,6 +96,43 @@ public class CuestionarioDAO {
         }
         return listado;
 
+    }
+
+    public Cuestionario buscarCuestionario(int idCuestionario) throws SQLException {
+        Cuestionario cuestionario = new Cuestionario();
+        Competencia competencia = new Competencia();
+        try {
+
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_CUESTIONARIO_1.SP_BUSCAR_CUESTIONARIO(?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+            cstmt.setInt(1, idCuestionario);
+            cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            ResultSet rs = (ResultSet)cstmt.getObject(2);
+
+            while (rs.next()) {
+                
+
+                competencia.setIdComp(rs.getInt("ID_COMP"));
+                competencia.setNombreCompetencia(rs.getString("NOMBRE_COMPETENCIA"));
+                cuestionario.setIdCuest(rs.getInt("ID_CUEST"));
+                cuestionario.setPorcentajeAutoevaluacion(rs.getInt("PORCENTAJE_AUTOEVALUACION"));
+                cuestionario.setPorcentajeJefe(rs.getInt("PORCENTAJE_JEFE"));
+                cuestionario.setCompetencia(competencia);
+
+            }
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            this.conexion.close();
+
+        }
+        return cuestionario;
     }
 
 }

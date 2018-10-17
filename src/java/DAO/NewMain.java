@@ -130,7 +130,7 @@ public class NewMain {
             System.out.println("utilDate:" + utilDate);
             System.out.println("sqlDate:" + sqlDate);
 
-        }*/
+        }
 
             CuestAsigDAO cudao = new CuestAsigDAO();
 
@@ -140,6 +140,13 @@ public class NewMain {
                 System.out.println("persona" + a.getRutJefe());
             }
 
+        }*/
+            
+            CuestionarioDAO cuesDAO= new CuestionarioDAO();
+            Cuestionario cue=cuesDAO.buscarCuestionario(27);
+            System.out.println("id cuestionario: "+ cue.getIdCuest());
+            System.out.println("porcentaje autoevaluacion: "+ cue.getPorcentajeAutoevaluacion());
+            System.out.println("porcentaje jefe: "+ cue.getPorcentajeJefe());
         }
 
     }

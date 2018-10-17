@@ -7,7 +7,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
+import java.lang.String;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,11 +52,11 @@ public class CuestAsig implements Serializable {
     @Basic(optional = false)
     @Column(name = "FECHA_INICIO")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaInicio;
+    private String fechaInicio;
     @Basic(optional = false)
     @Column(name = "FECHA_TERMINO")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaTermino;
+    private String fechaTermino;
     @Basic(optional = false)
     @Column(name = "ESTADO_CUESTIONARIO_ASIG")
     private String estadoCuestionarioAsig;
@@ -73,7 +73,7 @@ public class CuestAsig implements Serializable {
         this.idCuestAsig = idCuestAsig;
     }
 
-    public CuestAsig(int idCuestAsig, String rutJefe, Date fechaInicio, Date fechaTermino, String estadoCuestionarioAsig) {
+    public CuestAsig(int idCuestAsig, String rutJefe, String fechaInicio, String fechaTermino, String estadoCuestionarioAsig) {
         this.idCuestAsig = idCuestAsig;
         this.rutJefe = rutJefe;
         this.fechaInicio = fechaInicio;
@@ -97,19 +97,19 @@ public class CuestAsig implements Serializable {
         this.rutJefe = rutJefe;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaTermino() {
+    public String getFechaTermino() {
         return fechaTermino;
     }
 
-    public void setFechaTermino(Date fechaTermino) {
+    public void setFechaTermino(String fechaTermino) {
         this.fechaTermino = fechaTermino;
     }
 

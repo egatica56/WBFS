@@ -30,12 +30,13 @@
             <form action="cuestionario" method="post">
                 <div class="container-fluid" align="center">
                     <table>
+                        <h1>${usuario.getPersona().getRutPersona()}</h1>
                         <!--tr><td>Id Cuestionario</td>
                             <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
                         </tr>
                         <tr-->
-                            <td>Porcentaje Jefe</td>
-                            <td><input type="number" name="txtPorcentajeJefe" id="txtPorcentajeJefe" min="0" max="100"   required=""></td>
+                        <td>Porcentaje Jefe</td>
+                        <td><input type="number" name="txtPorcentajeJefe" id="txtPorcentajeJefe" min="0" max="100"   required=""></td>
                         </tr>
                         <tr>
                             <td>Porcentaje Evaluado</td>
@@ -52,25 +53,73 @@
                                 </select>
                             <td>
                         </tr>
-                        <tr>
-                            <td align="center" colspan="2"><input class="btn btn-primary" type="submit" id="btnGuardarCuest" name="btnGuardarCuest" value="Guardar"></td>
-                        </tr>
 
+
+                    </table>
+                </div>
+
+                        <h1>id Cuestionario: ${cuestionario.getIdCuest()}</h1>
+                <div class="container" align="center">
+                    <table>
+                        <c:if test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
+                            <tr>
+                                <td>Jefe: ${usuario.getPersona().getNombrePersona()}</td>
+                                <td> <input type="text" name="txtRutJefe" id="txtRutJefe" value="${usuario.getPersona().getRutPersona()}"></td>
+
+                            </tr>
+                        </c:if>    
+
+                        <tr>
+                            <td>Fecha Incio</td>
+                            <td><input type="text" name="txtFechaInicio" id="txtFechaInicio" required="" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" placeholder="Ej:1994-10-01" ></td>
+                        </tr>
+                        <tr>
+                            <td>Fecha Termino</td>
+                            <td><input type="text" name="txtFechaTermino" id="txtFechaTermino" required="" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" placeholder="Ej:1994-10-01"></td>
+                        </tr>
+                        <tr>
+                            <td>Estado Cuestionario</td>
+                            <td>
+                                <select name="cboEstado" id="cboEstado">
+                                    <option value="">Seleccione</option>
+                                    <option value="ACTIVO">Activo</option>
+                                    <option value="INACTIVO">Inactivo</option> 
+                                </select>
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td>Cuestionario a  Asociar</td>
+                            <td>
+                                <select name="cboCuestionario" id="cboCuestionario" required="">
+                                    <option value="">Seleccionar</option>                       
+                                    <c:forEach items="${cuestionarios}" var="cu">
+                                        <option value="${cu.getIdCuest()}">Cuestionario número: ${cu.getIdCuest()} -  ${cu.getCompetencia().getNombreCompetencia()}</option>
+                                    </c:forEach>
+                                </select>
+                            <td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="2"><input class="btn btn-primary" type="submit" id="btnAsignarCuest" name="btnAsignarCuest" value="Guardar"></td>
+                        </tr>
                     </table>
                 </div>
                 <label for="">${mensaje}</label>
             </form>
+
+
+
+
         </div>
     </body>
-   
-    
-    
+
+
+
     <!-- Footer -->
-<!-- Footer -->
-<footer class="page-footer font-small blue fixed-bottom">
- <div class="footer-copyright text-center py-3">© 2018 Copyright:
-    <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
-  </div>
-  </footer>
-  <!-- Footer -->
+    <!-- Footer -->
+    <footer class="page-footer font-small blue fixed-bottom">
+        <div class="footer-copyright text-center py-3">© 2018 Copyright:
+            <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
+        </div>
+    </footer>
+    <!-- Footer -->
 </html>

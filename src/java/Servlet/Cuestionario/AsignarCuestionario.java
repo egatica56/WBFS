@@ -96,8 +96,11 @@ public class AsignarCuestionario extends HttpServlet {
             SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
             String fechaIngreso = request.getParameter("txtFechaInicio");
             System.out.println("fecha inicio Rescatada  Web: " + fechaIngreso);
-                    
-            Date fI = null;
+
+            String fechaTermino = request.getParameter("txtFechaTermino");
+            System.out.println("fecha termino Rescatada Web: " + fechaTermino);
+            
+            /*Date fI = null;
             try {
                 fI = format.parse(fechaIngreso);
                 System.out.println("fecha FI Rescatada  Web: " + fI);
@@ -114,7 +117,7 @@ public class AsignarCuestionario extends HttpServlet {
                 System.out.println("fecha FT Rescatada Web: " + fT);
             } catch (ParseException ex) {
                 Logger.getLogger(AsignarCuestionario.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
             
             
             
@@ -133,8 +136,8 @@ public class AsignarCuestionario extends HttpServlet {
 
                 cuest.setIdCuest(idCuest);
                 cuestAsig.setCuestionario(cuest);
-                cuestAsig.setFechaInicio(fI);
-                cuestAsig.setFechaTermino(fT);
+                cuestAsig.setFechaInicio(fechaIngreso);
+                cuestAsig.setFechaTermino(fechaTermino);
                 cuestAsig.setRutJefe(u);
 
                 boolean resp = cuestAsigDAO.agregarCuestAsig(cuestAsig);
