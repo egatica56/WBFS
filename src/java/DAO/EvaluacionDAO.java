@@ -36,7 +36,7 @@ public class EvaluacionDAO {
             //Cuestionario cu = new Cuestionario();
             //Competencia com = new Competencia();
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_EVALUACION_SP_AGREGAR_EVALUACION(?,?,?,?,?)}";
+            String llamada = "{call PKG_EVALUACION_1.SP_ADD_EVAL(?,?,?,?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
             // cstmt.setInt(1, cuestionario.getIdCuest());

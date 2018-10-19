@@ -100,21 +100,21 @@ public class AsignarEvaluacion extends HttpServlet {
 
         try {
 
-            
             String fechaEvaluacion = request.getParameter("txtFechaEvaluacion");
             System.out.println("fecha Evaluacion Rescatada  Web: " + fechaEvaluacion);
             String rutJefe = request.getParameter("txtRutJefe");
             int idCuestAsig = Integer.parseInt(request.getParameter("cboCuestionario"));
             System.out.println("Id_cuestionario asignado: " + idCuestAsig);
-            
-            Evaluacion evaluacion = new Evaluacion();
+
+            //Evaluacion evaluacion = new Evaluacion();
             EvaluacionDAO evaluacionDAO = new EvaluacionDAO();
             CuestAsig cuestAsig = new CuestAsig();
             CuestAsigDAO cuestAsigDAO = new CuestAsigDAO();
-            
+
             String[] us = request.getParameterValues("chkUsuario");
 
             for (String u : us) {
+                Evaluacion evaluacion = new Evaluacion();
                 Persona persona = new Persona();
                 persona.setRutPersona(u);
                 System.out.println("rutPersona: " + u);
@@ -129,25 +129,23 @@ public class AsignarEvaluacion extends HttpServlet {
                 } else {
                     System.out.println("Registro No Agregado");
                 }
-                
+            }
 
-                try {
-                    request.setAttribute("mensaje", "Evaluacion Asignada Correctamente");
-                    List<CuestAsig> cuAsig = new CuestAsigDAO().listar_cuest_asig();
-                    request.setAttribute("cuestionarios", cuAsig);
-                    List<Usuario> listado = new EvaluacionDAO().listarPersonasPorJefe(rutJefe);
-                    request.setAttribute("usuarios", listado);
-                    request.getRequestDispatcher("AsignarEvaluacion.jsp").forward(request, response);
-                } catch (SQLException ex) {
-                    request.setAttribute("mensaje", "Error al asignar cuestionarios: " + ex.getMessage());
-                    List<CuestAsig> cuAsig = new CuestAsigDAO().listar_cuest_asig();
-                    request.setAttribute("cuestionarios", cuAsig);
-                    List<Usuario> listado = new EvaluacionDAO().listarPersonasPorJefe(rutJefe);
-                    request.setAttribute("usuarios", listado);
-                    request.getRequestDispatcher("AsignarEvaluacion.jsp").forward(request, response);
-                    Logger.getLogger(AsignarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
+            try {
+                request.setAttribute("mensaje", "Evaluacion Asignada Correctamente");
+                List<CuestAsig> cuAsig = new CuestAsigDAO().listar_cuest_asig();
+                request.setAttribute("cuestionarios", cuAsig);
+                List<Usuario> listado = new EvaluacionDAO().listarPersonasPorJefe(rutJefe);
+                request.setAttribute("usuarios", listado);
+                request.getRequestDispatcher("AsignarEvaluacion.jsp").forward(request, response);
+            } catch (SQLException ex) {
+                request.setAttribute("mensaje", "Error al asignar cuestionarios: " + ex.getMessage());
+                List<CuestAsig> cuAsig = new CuestAsigDAO().listar_cuest_asig();
+                request.setAttribute("cuestionarios", cuAsig);
+                List<Usuario> listado = new EvaluacionDAO().listarPersonasPorJefe(rutJefe);
+                request.setAttribute("usuarios", listado);
+                request.getRequestDispatcher("AsignarEvaluacion.jsp").forward(request, response);
+                Logger.getLogger(AsignarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (SQLException ex) {
