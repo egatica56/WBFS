@@ -81,7 +81,7 @@ public class ServletLogin extends HttpServlet {
         try {
             usuario = usuarioDAO.login(nombreUsuario, password);
 
-            if (usuario != null) {
+            if (usuario.getPassword() != null) {
                 //obtnenemos la sesion
                 HttpSession sesion = request.getSession();
                 sesion.setAttribute("usuario", usuario);
@@ -112,28 +112,7 @@ public class ServletLogin extends HttpServlet {
                     request.getRequestDispatcher("login.jsp").forward(request, response);
 
                 }
-                //return;
 
-                /*  switch (usuario.getTipoUsuario().getNombreTipoUsuario()) {
-
-                    case "administrador":
-                        request.setAttribute("mensaje", "Login Ok Como Admin");
-                        break;
-
-                    case "jefe":
-                        request.setAttribute("mensaje", "Login Ok Como Jefe");
-                        break;
-
-                    case "empleado":
-                        request.setAttribute("mensaje", "Login Ok Como Empleado");
-                        break;
-
-                    default:
-
-                        break;
-                }*/
-                //response.sendRedirect("agregar-animal");
-                //request.setAttribute("mensaje", "Login Ok");
             } else {
 
                 request.setAttribute("mensaje", "Credenciales Invalidas");

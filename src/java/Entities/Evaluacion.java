@@ -7,7 +7,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
+import java.lang.String;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -56,7 +56,7 @@ public class Evaluacion implements Serializable {
     @Basic(optional = false)
     @Column(name = "FECHA_EVALUACION")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaEvaluacion;
+    private String fechaEvaluacion;
     @JoinColumn(name = "ID_CUEST_ASIG", referencedColumnName = "ID_CUEST_ASIG")
     @ManyToOne(optional = false)
     private CuestAsig cuestAsig;
@@ -71,7 +71,7 @@ public class Evaluacion implements Serializable {
         this.idEvaluacion = idEvaluacion;
     }
 
-    public Evaluacion(int idEvaluacion, String rutJefe, int notaEvaluacion, Date fechaEvaluacion) {
+    public Evaluacion(int idEvaluacion, String rutJefe, int notaEvaluacion, String fechaEvaluacion) {
         this.idEvaluacion = idEvaluacion;
         this.rutJefe = rutJefe;
         this.notaEvaluacion = notaEvaluacion;
@@ -102,11 +102,11 @@ public class Evaluacion implements Serializable {
         this.notaEvaluacion = notaEvaluacion;
     }
 
-    public Date getFechaEvaluacion() {
+    public String getFechaEvaluacion() {
         return fechaEvaluacion;
     }
 
-    public void setFechaEvaluacion(Date fechaEvaluacion) {
+    public void setFechaEvaluacion(String fechaEvaluacion) {
         this.fechaEvaluacion = fechaEvaluacion;
     }
 

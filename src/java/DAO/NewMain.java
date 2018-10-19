@@ -140,7 +140,7 @@ public class NewMain {
                 System.out.println("persona" + a.getRutJefe());
             }
 
-        }*/
+        }
             
             CuestionarioDAO cuesDAO= new CuestionarioDAO();
            
@@ -164,7 +164,19 @@ public class NewMain {
             System.out.println("id cuestionario: "+ cue.getIdCuest());
             System.out.println("porcentaje autoevaluacion: "+ cue.getPorcentajeAutoevaluacion());
             System.out.println("porcentaje jefe: "+ cue.getPorcentajeJefe());
+        }*/
+            
+            EvaluacionDAO evalDAO=new EvaluacionDAO();
+            
+            evalDAO.listarPersonasPorJefe("18882760-8");
+            
+            for (Usuario u : evalDAO.listarPersonasPorJefe("18882760-8")) {
+                
+                System.out.println("usuario: "+u.getUsername());
+                System.out.println("Nombre Persona: "+u.getPersona().getNombrePersona());
+            }
+            
+            
         }
-
     }
 }
