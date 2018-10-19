@@ -65,17 +65,13 @@
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="asignarEvaluacion">Asignar Evaluaciones</a>
-                        <a class="dropdown-item" href="listarFuncionario">Listar Funcionarios</a>
-
-
+                        <a class="dropdown-item" href="listarEvaluacion"> Listar Evaluaciones</a>
                     </div>
 
                 </li>
 
             </ul>
         </nav> 
-
-
     </header>
 
 

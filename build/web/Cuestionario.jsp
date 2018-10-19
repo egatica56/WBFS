@@ -19,11 +19,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cuestionario</title>
     </head>
-    <header class="jumbotron">
-        <div>
-
-        </div>
-    </header>
+    <jsp:include page="Header.jsp"></jsp:include>
     <body>
         <h1 align="center" class="">Aca podras crear los cuestionarios para las competencias asociadas</h1>
         <div align center class="container-fluid">

@@ -168,7 +168,7 @@ public class NewMain {
             
             EvaluacionDAO evalDAO=new EvaluacionDAO();
             
-            evalDAO.listarPersonasPorJefe("18882760-8");
+            evalDAO.listarEvaluacionXJefe("18882760-8");
             
             for (Usuario u : evalDAO.listarPersonasPorJefe("18882760-8")) {
                 

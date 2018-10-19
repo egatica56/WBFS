@@ -19,20 +19,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cuestionario</title>
     </head>
-    <header class="jumbotron">
-        <div>
-
-        </div>
-    </header>
-    <body>
-        <h1 align="center" class="">Aca podras Asignar las evaluaciones a los empleados</h1>
-        <div align center class="container-fluid">
-            <form action="asignarEvaluacion" method="Post">
-                <div class="container" align="center">
-                    <table>
-                        <tr>
-                            <td>Rut Jefe</td>
-                            <td><input type="text" name="txtRutJefe" id="txtRutJefe" value="${usuario.getUsername()}"></td>
+    <jsp:include page="Header.jsp"></jsp:include>    
+        <body>
+            <h1 align="center" class="">Aca podras Asignar las evaluaciones a los empleados</h1>
+            <div align center class="container-fluid">
+                <form action="asignarEvaluacion" method="Post">
+                    <div class="container" align="center">
+                        <table>
+                            <tr>
+                                <td>Rut Jefe</td>
+                                <td><input type="text" name="txtRutJefe" id="txtRutJefe" value="${usuario.getUsername()}"></td>
                         </tr>
                         <c:forEach items="${usuarios}" var="usu">
                             <tr>

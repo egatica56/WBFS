@@ -17,33 +17,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Listado de Funcionarios</title>
+        <title>Listado de Evaluacion</title>
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <h1 align="center" class="">Aca podras visualizar a los funcionarios y sus cuestionarios asignados en el sistema</h1>
-            <div align center class="container-fluid">
-                <form action="cuestionario/listar" method="get">
-                    <div class="container-fluid" align="center">
-                        <table class="table">
-                            <tr>
-                                <th>Nombre Funcionario</th>
-                                <th>Rut Funcionario</th>
-                                <c:forEach items="${cuestAsign}" var="cuestAsig">
-                                <th>Cuestionario numero: ${cuestAsig.getIdCuestAsig()}</th>
-                                </c:forEach>
+        <h1 align="center" class="">Acá podras visualizar las Evaluaciones Previamente Asignadas a tus empleados</h1>
+        <div align center class="container-fluid">
+            <form action="listarEvaluacion" method="get">
+                <div class="container-fluid" align="center">
+                    <table class="table">
+                        <tr>
+                            <th>ID Evaluacion</th>
+                            <th>Rut Jefe</th>
+                            <th>Persona a Evaluar</th>
+                            <th>Fecha Evaluacion</th>
+                            <th>Id Cuestionario Asignado</th>
                             <th>Opciones</th>
                         </tr>
                         <!--comentario-->
-                        <c:forEach items="${cuestionarios}" var="cuestionario">
+                        <c:forEach items="${evaluaciones}" var="evaluacion">
                             <tr>    
-                                <td>${cuestionario.getIdCuest()}</td>
-                                <td>${cuestionario.getPorcentajeJefe()}</td>
-                                <td>${cuestionario.getPorcentajeAutoevaluacion()}</td>
-                                <td>${cuestionario.getCompetencia().getNombreCompetencia()}</td>
+                                <td>${evaluacion.getIdEvaluacion()}</td>
+                                <td>${evaluacion.getRutJefe()}</td>
+                                <td>${evaluacion.getPersona().getNombrePersona()}</td>
+                                <td>${evaluacion.getFechaEvaluacion()}</td>
+                                <td>${evaluacion.getCuestAsig().getIdCuestAsig()}</td>
                                 <td>
-                                    <a href="eliminarCuestionario?id=${cuestionario.getIdCuest()}">Eliminar</a>
-                                    <a href="modificarCuestionario?id=${cuestionario.getIdCuest()}">Modificar</a>
+                                    <a href="eliminarCuestionario?id=${evaluacion.getIdEvaluacion()}">Eliminar</a>
+                                    <a href="modificarCuestionario?id=${evaluacion.getIdEvaluacion()}">Modificar</a>
                                 </td>
                             </tr>   
                         </c:forEach>
