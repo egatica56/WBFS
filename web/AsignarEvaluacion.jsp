@@ -28,7 +28,10 @@
                         <table>
                             <tr>
                                 <td>Rut Jefe</td>
-                                <td><input type="text" name="txtRutJefe" id="txtRutJefe" value="${usuario.getUsername()}"></td>
+                                <td>
+                                    <input type="hidden" name="txtRutJefe" id="txtRutJefe" value="${usuario.getUsername()}">
+                                    ${usuario.getUsername()}
+                            </td>
                         </tr>
                         <c:forEach items="${usuarios}" var="usu">
                             <tr>
