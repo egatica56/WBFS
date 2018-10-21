@@ -30,7 +30,8 @@
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="cuestionario">Nuevo Cuestionario</a>
-                        <a class="dropdown-item" href="listarCuestionario">Listar Cuestionarios creados</a>                          
+                        <a class="dropdown-item" href="listarCuestionario">Listar Cuestionarios creados</a> 
+                        <!--a class="dropdown-item" href="asignarCuestionario">Asignar Cuestionarios</a-->
                     </div>
 
 

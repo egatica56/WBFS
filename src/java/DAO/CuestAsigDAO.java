@@ -56,7 +56,6 @@ public class CuestAsigDAO {
             java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
             System.out.println("utilDate Fecha Termino:" + utilDate2);
             System.out.println("sqlDate  Fecha Termino:" + sqlDate2);*/
-                   
             cstmt.setString(1, cuestAsig.getRutJefe());
             cstmt.setString(2, cuestAsig.getFechaInicio());
             cstmt.setString(3, cuestAsig.getFechaTermino());
@@ -78,10 +77,9 @@ public class CuestAsigDAO {
 
     }
 
-      public List<CuestAsig> listar_cuest_asig() throws SQLException {
+    public List<CuestAsig> listar_cuest_asig() throws SQLException {
 
         List<CuestAsig> listado = new ArrayList<CuestAsig>();
-        
 
         try {
             this.conexion = new Conexion().obtenerConexion();
@@ -97,9 +95,9 @@ public class CuestAsigDAO {
 
             while (rs.next()) {
                 CuestAsig cuestAsig = new CuestAsig();
-                Usuario usuario=new Usuario();
-                Persona persona= new Persona();
-                Cuestionario  cuestionario=new Cuestionario();       
+                Usuario usuario = new Usuario();
+                Persona persona = new Persona();
+                Cuestionario cuestionario = new Cuestionario();
                 cuestionario.setIdCuest(rs.getInt("ID_CUEST"));
                 persona.setNombrePersona("NOMBRE_PERSONA");
                 persona.setApellidoPaterno("APELLIDO_PATERNO");
@@ -107,13 +105,12 @@ public class CuestAsigDAO {
                 usuario.setPersona(persona);
                 usuario.setUsername("USERNAME");
                 cuestAsig.setRutJefe(persona.getRutPersona());
-                
+
                 cuestAsig.setIdCuestAsig(rs.getInt("ID_CUEST_ASIG"));
                 cuestAsig.setRutJefe(rs.getString("USERNAME"));
                 //cuestAsig.setFechaInicio (new java.util.Date("FECHA_INICIO"));
                 //cuestAsig.setFechaTermino(new java.util.Date("FECHA_TERMINO"));
                 cuestAsig.setCuestionario(cuestionario);
-                
 
                 listado.add(cuestAsig);
 
@@ -129,5 +126,41 @@ public class CuestAsigDAO {
 
     }
 
-    
+    public CuestAsig buscarCuestAsig(int idCuestAsig) throws SQLException {
+        CuestAsig cuestAsig = new CuestAsig();
+        Cuestionario cuestionario = new Cuestionario();
+
+        try {
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_CUESTIONARIO_ASIGNADO.SP_BUSCAR(?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+            cstmt.setInt(1, idCuestAsig);
+            cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            ResultSet rs = (ResultSet) cstmt.getObject(2);
+
+            while (rs.next()) {
+
+                cuestionario.setIdCuest(rs.getInt("ID_CUEST"));
+                cuestAsig.setIdCuestAsig(rs.getInt("ID_CUEST_ASIG"));
+                cuestAsig.setRutJefe(rs.getString("RUT_JEFE"));
+                cuestAsig.setFechaInicio("FECHA_INICIO");
+                cuestAsig.setFechaTermino("FECHA_TERMINO");
+                cuestAsig.setCuestionario(cuestionario);
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            this.conexion.close();
+
+        }
+        return cuestAsig;
+
+    }
+
 }

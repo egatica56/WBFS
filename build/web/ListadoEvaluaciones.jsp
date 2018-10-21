@@ -21,27 +21,28 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-        <h1 align="center" class="">Acá podras visualizar las Evaluaciones Previamente Asignadas a tus empleados</h1>
-        <div align center class="container-fluid">
-            <form action="listarEvaluacion" method="get">
-                <div class="container-fluid" align="center">
-                    <table class="table">
-                        <tr>
-                            <th>ID Evaluacion</th>
-                            <th>Rut Jefe</th>
-                            <th>Persona a Evaluar</th>
-                            <th>Fecha Evaluacion</th>
-                            <th>Id Cuestionario Asignado</th>
-                            <th>Opciones</th>
-                        </tr>
-                        <!--comentario-->
+            <h1 align="center" class="">Acá podras visualizar las Evaluaciones Previamente Asignadas a tus empleados</h1>
+            <div align center class="container-fluid">
+                <form action="pintarEvaluacion" method="get">
+                    <div class="container-fluid" align="center">
+                        <table class="table">
+                            <tr>
+                                <th>ID Evaluacion</th>
+                                <th>Rut Jefe</th>
+                                <th>Persona a Evaluar</th>
+                                <th>Fecha Evaluacion</th>
+                                <th>Id Cuestionario Asignado</th>
+                                <th>Opciones</th>
+                            </tr>
+                            <!--comentario-->
                         <c:forEach items="${evaluaciones}" var="evaluacion">
                             <tr>    
-                                <td>${evaluacion.getIdEvaluacion()}</td>
-                                <td>${evaluacion.getRutJefe()}</td>
+                                <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" id="txtIdEvaluacion">${evaluacion.getIdEvaluacion()}</td>
+                                <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" id="txtRutJefe">${evaluacion.getRutJefe()}</td>
                                 <td>${evaluacion.getPersona().getNombrePersona()}</td>
                                 <td>${evaluacion.getFechaEvaluacion()}</td>
                                 <td>${evaluacion.getCuestAsig().getIdCuestAsig()}</td>
+                                <td><a href="pintarEvaluacion" class="btn btn-primary">Responder Cuestionario</a> </td> 
                                 <td>
                                     <a href="eliminarCuestionario?id=${evaluacion.getIdEvaluacion()}">Eliminar</a>
                                     <a href="modificarCuestionario?id=${evaluacion.getIdEvaluacion()}">Modificar</a>
@@ -58,11 +59,3 @@
 
 
 
-    <!-- Footer -->
-    <!-- Footer -->
-    <footer class="page-footer font-small blue fixed-bottom">
-        <div class="footer-copyright text-center py-3">© 2018 Copyright:
-            <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
-        </div>
-    </footer>
-    <!-- Footer -->
