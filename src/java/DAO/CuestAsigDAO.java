@@ -8,6 +8,7 @@ package DAO;
 import Entities.Competencia;
 import Entities.CuestAsig;
 import Entities.Cuestionario;
+import Entities.OpcionRespuesta;
 import Entities.Persona;
 import Entities.Pregunta;
 import Entities.Usuario;
@@ -131,6 +132,7 @@ public class CuestAsigDAO {
         CuestAsig cuestAsig = new CuestAsig();
         Cuestionario cuestionario = new Cuestionario();
         Competencia competencia = new Competencia();
+        Pregunta pregunta=new Pregunta();
         
 
         try {

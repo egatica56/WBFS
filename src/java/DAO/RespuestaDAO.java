@@ -61,7 +61,7 @@ public class RespuestaDAO {
     public List<OpcionRespuesta> listar_respuesta() throws SQLException {
 
         List<OpcionRespuesta> listado = new ArrayList<OpcionRespuesta>();
-        
+
         try {
             this.conexion = new Conexion().obtenerConexion();
             String llamada = "{call PKG_OPCION_RESPUESTA_1.SP_LISTAR_RESPUESTA(?)}";
@@ -73,6 +73,47 @@ public class RespuestaDAO {
             cstmt.execute();
 
             ResultSet rs = (ResultSet) cstmt.getObject(1);
+
+            while (rs.next()) {
+                OpcionRespuesta op = new OpcionRespuesta();
+                Pregunta pre = new Pregunta();
+                pre.setIdPregunta(rs.getInt("ID_PREGUNTA"));
+                pre.setTextoPregunta(rs.getString("TEXTO_PREGUNTA"));
+                op.setIdOpcionRespuesta(rs.getInt("ID_OPCION_RESPUESTA"));
+                op.setPorcentajeRespuesta(rs.getInt("PORCENTAJE_RESPUESTA"));
+                op.setTextoRespuesta(rs.getString("TEXTO_RESPUESTA"));
+                op.setPregunta(pre);
+
+                listado.add(op);
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            this.conexion.close();
+
+        }
+        return listado;
+
+    }
+
+    public List<OpcionRespuesta> listarRespuestaXPregunta(int idPregunta) throws SQLException {
+
+        List<OpcionRespuesta> listado = new ArrayList<OpcionRespuesta>();
+
+        try {
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_OPCION_RESPUESTA_1.SP_LIST_RESP_PRE(?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+
+            cstmt.setInt(1, idPregunta);
+            cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            ResultSet rs = (ResultSet) cstmt.getObject(2);
 
             while (rs.next()) {
                 OpcionRespuesta op = new OpcionRespuesta();

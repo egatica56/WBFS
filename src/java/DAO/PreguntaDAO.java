@@ -30,18 +30,16 @@ public class PreguntaDAO {
     public boolean agregarPregunta(Pregunta pregunta) throws SQLException {
 
         try {
-            
+
             //Competencia com = new Competencia();
             this.conexion = new Conexion().obtenerConexion();
             String llamada = "{call PKG_PREGUNTA_1.SP_AGREGAR_PREGUNTA(?,?,?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
-            
             cstmt.setString(1, pregunta.getTextoPregunta());
             cstmt.setInt(2, pregunta.getPorcentajePregunta());
             cstmt.setString(3, pregunta.getEsCorrecta());
-            cstmt.setInt(4,pregunta.getCuestionario().getIdCuest());
-            
+            cstmt.setInt(4, pregunta.getCuestionario().getIdCuest());
 
             //ejecutamos la llamada al procedimiento almacenado
             cstmt.execute();
@@ -98,8 +96,7 @@ public class PreguntaDAO {
 
     }
 
-    
-       public List<Pregunta> listarPreguntasXCuest(int idCuest) throws SQLException {
+    public List<Pregunta> listarPreguntasXCuest(int idCuest) throws SQLException {
 
         List<Pregunta> listado = new ArrayList<Pregunta>();
 
@@ -107,7 +104,7 @@ public class PreguntaDAO {
             this.conexion = new Conexion().obtenerConexion();
             String llamada = "{call PKG_PREGUNTA_1.SP_LIST_PRE_CUEST(?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
-            
+
             cstmt.setInt(1, idCuest);
             cstmt.registerOutParameter(2, OracleTypes.CURSOR);
 
@@ -124,6 +121,7 @@ public class PreguntaDAO {
                 pre.setTextoPregunta(rs.getString("TEXTO_PREGUNTA"));
                 pre.setEsCorrecta(rs.getString("ES_CORRECTA"));
                 pre.setPorcentajePregunta(rs.getInt("PORCENTAJE_PREGUNTA"));
+                pre.setOpcionRespuestaCollection(new RespuestaDAO().listarRespuestaXPregunta(pre.getIdPregunta()));
                 pre.setCuestionario(cu);
 
                 listado.add(pre);
@@ -139,8 +137,5 @@ public class PreguntaDAO {
         return listado;
 
     }
-    
-    
-    
-    
+
 }

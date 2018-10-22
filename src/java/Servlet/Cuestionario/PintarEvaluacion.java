@@ -82,7 +82,7 @@ public class PintarEvaluacion extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        try {
+        /*try {
 
             //List<Evaluacion> evaluacion= new EvaluacionDAO().generarCuestionario(rut, 0);
             List<Pregunta> pregunta = new PreguntaDAO().listar_pregunta();
@@ -94,7 +94,7 @@ public class PintarEvaluacion extends HttpServlet {
             request.getRequestDispatcher("PantallaEvaluacion.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(PintarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
 
     }
 

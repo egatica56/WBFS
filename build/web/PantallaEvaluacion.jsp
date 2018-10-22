@@ -21,7 +21,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="pintarEvaluacion" method="get">
+        <form action="pintarEvaluacion" method="">
             <div class="container">
                 <h3>Persona : <small>${requestScope.persona.getNombrePersona()} ${param.rutP}</small></h3>
                 <h3>Jefe : <small>${requestScope.jefe.getNombrePersona()}</small></h3>
@@ -33,7 +33,11 @@
 
                 <c:forEach var="p" items="${requestScope.preguntas}">
                     <h4>${np}. ¿${p.getTextoPregunta()}?</h4>
-                    
+                    <c:forEach var="r" items="${p.getOpcionRespuestaCollection()}">
+                        <div class="radio container">
+                            <label><input type="radio" name="${p.getIdPregunta()}" value="${r.getIdOpcionRespuesta()}" checked>${r.getTextoRespuesta()}</label>
+                        </div>
+                    </c:forEach>
                     <c:set var="np" value="${np + 1}"></c:set>
                         <br>
                 </c:forEach>
