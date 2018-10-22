@@ -9,6 +9,7 @@ import Entities.Competencia;
 import Entities.CuestAsig;
 import Entities.Cuestionario;
 import Entities.Persona;
+import Entities.Pregunta;
 import Entities.Usuario;
 import Util.Conexion;
 import java.sql.CallableStatement;
@@ -129,6 +130,8 @@ public class CuestAsigDAO {
     public CuestAsig buscarCuestAsig(int idCuestAsig) throws SQLException {
         CuestAsig cuestAsig = new CuestAsig();
         Cuestionario cuestionario = new Cuestionario();
+        Competencia competencia = new Competencia();
+        
 
         try {
             this.conexion = new Conexion().obtenerConexion();
@@ -143,8 +146,12 @@ public class CuestAsigDAO {
             ResultSet rs = (ResultSet) cstmt.getObject(2);
 
             while (rs.next()) {
-
+                
+                competencia.setIdComp(rs.getInt("ID_COMP"));
+                competencia.setNombreCompetencia(rs.getString("NOMBRE_COMPETENCIA"));
+                cuestionario.setCompetencia(competencia);
                 cuestionario.setIdCuest(rs.getInt("ID_CUEST"));
+                cuestionario.setPreguntaCollection(new PreguntaDAO().listarPreguntasXCuest(cuestionario.getIdCuest()));
                 cuestAsig.setIdCuestAsig(rs.getInt("ID_CUEST_ASIG"));
                 cuestAsig.setRutJefe(rs.getString("RUT_JEFE"));
                 cuestAsig.setFechaInicio("FECHA_INICIO");

@@ -42,7 +42,7 @@
                                 <td>${evaluacion.getPersona().getNombrePersona()}</td>
                                 <td>${evaluacion.getFechaEvaluacion()}</td>
                                 <td>${evaluacion.getCuestAsig().getIdCuestAsig()}</td>
-                                <td><a href="pintarEvaluacion" class="btn btn-primary">Responder Cuestionario</a> </td> 
+                                <td class="text-center"><a href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}" class="btn btn-primary btn-sm">Responder</a></td>
                                 <td>
                                     <a href="eliminarCuestionario?id=${evaluacion.getIdEvaluacion()}">Eliminar</a>
                                     <a href="modificarCuestionario?id=${evaluacion.getIdEvaluacion()}">Modificar</a>

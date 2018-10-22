@@ -98,4 +98,49 @@ public class PreguntaDAO {
 
     }
 
+    
+       public List<Pregunta> listarPreguntasXCuest(int idCuest) throws SQLException {
+
+        List<Pregunta> listado = new ArrayList<Pregunta>();
+
+        try {
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_PREGUNTA_1.SP_LIST_PRE_CUEST(?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+            
+            cstmt.setInt(1, idCuest);
+            cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            ResultSet rs = (ResultSet) cstmt.getObject(2);
+
+            while (rs.next()) {
+                Cuestionario cu = new Cuestionario();
+                Pregunta pre = new Pregunta();
+                cu.setIdCuest(rs.getInt("ID_CUEST"));
+                pre.setIdPregunta(rs.getInt("ID_PREGUNTA"));
+                pre.setTextoPregunta(rs.getString("TEXTO_PREGUNTA"));
+                pre.setEsCorrecta(rs.getString("ES_CORRECTA"));
+                pre.setPorcentajePregunta(rs.getInt("PORCENTAJE_PREGUNTA"));
+                pre.setCuestionario(cu);
+
+                listado.add(pre);
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            this.conexion.close();
+
+        }
+        return listado;
+
+    }
+    
+    
+    
+    
 }
