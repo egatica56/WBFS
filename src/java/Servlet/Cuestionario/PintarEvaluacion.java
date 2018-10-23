@@ -24,7 +24,11 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -58,14 +62,16 @@ public class PintarEvaluacion extends HttpServlet {
         if (accion == null) {
 //            List<Evaluacion> lstEvaluaciones = new EvaluacionDAO().listarEvaluacionXJefe(accion)
             //          request.setAttribute("lstEvaluaciones", lstEvaluaciones);
-            request.getRequestDispatcher("evaluaciones.jsp").forward(request, response);
+            request.getRequestDispatcher("PantallaEvaluacion.jsp").forward(request, response);
         }
-        switch (accion) {
+        /*switch (accion) {
             case "verCuestionario":
                 verCuestionario(request, response);
                 break;
-        }
-
+            case "calcularCuestionario":
+                calcularCuestionario(request, response);
+                break;    
+        } */
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,20 +88,28 @@ public class PintarEvaluacion extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        /*try {
+        try {
+            String idC = request.getParameter("idC"); //id cuestionario asignado
+            String rutP = request.getParameter("rutP"); //rut persona
 
-            //List<Evaluacion> evaluacion= new EvaluacionDAO().generarCuestionario(rut, 0);
-            List<Pregunta> pregunta = new PreguntaDAO().listar_pregunta();
-            List<OpcionRespuesta> respuesta = new RespuestaDAO().listar_respuesta();
-            // request.setAttribute("evaluacion",evaluacion);
-            request.setAttribute("preguntas", pregunta);
-            request.setAttribute("respuestas", respuesta);
+//      CuestAsig cuestAsig = cuestAsigFacade.find(new BigDecimal(idC));
+            CuestAsig cuestAsig = new CuestAsigDAO().buscarCuestAsig(Integer.parseInt(idC)); // aplicar metodo buscar en el cuestasig
+            Competencia competencia = cuestAsig.getCuestionario().getCompetencia();
+            Persona jefe = new PersonaDAO().buscarPersona(cuestAsig.getRutJefe());// crear persona dao y metodos asociados package etc en bd
+            Persona persona = new PersonaDAO().buscarPersona(rutP);
+//      List<Pregunta> preguntas = cuestAsig.getIdCuest().getPreguntaList();
+            Collection<Pregunta> preguntas = cuestAsig.getCuestionario().getPreguntaCollection();
+
+            request.setAttribute("cuestAsig", cuestAsig);
+            request.setAttribute("competencia", competencia);
+            request.setAttribute("jefe", jefe);
+            request.setAttribute("persona", persona);
+            request.setAttribute("preguntas", preguntas);
 
             request.getRequestDispatcher("PantallaEvaluacion.jsp").forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(PintarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -110,6 +124,64 @@ public class PintarEvaluacion extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+    
+        
+        
+          String[] us = request.getParameterValues("txtPregunta");
+          String[] as = request.getParameterValues("txtRespuesta");
+          for (int x=0; x<preguntas;x++) {
+              Map<int,Object> mapa = new HashMap<>();
+            
+            mapa.put(x, Object);
+            
+        }
+                  
+          
+          
+          try {
+          
+              
+              
+              
+              for (String u : us) {
+                System.out.println("id Pregunta: "+u);
+                
+            }
+            
+            for (String a : as) {
+                    System.out.println("id Respuesta: "+a);
+                }
+            
+            
+        
+        } catch (Exception e) {
+              System.out.println("Error: "+e.getMessage());
+        }
+            
+        
+          
+        
+        
+        /*   String[] us = request.getParameterValues("");
+
+            for (String u : us) {
+                Evaluacion evaluacion = new Evaluacion();
+                Persona persona = new Persona();
+                persona.setRutPersona(u);
+                System.out.println("rutPersona: " + u);
+                cuestAsig.setIdCuestAsig(idCuestAsig);
+                evaluacion.setFechaEvaluacion(fechaEvaluacion);
+                evaluacion.setRutJefe(rutJefe);
+                evaluacion.setCuestAsig(cuestAsig);
+                evaluacion.setPersona(persona);
+                boolean resp = evaluacionDAO.agregarEvaluacion(evaluacion);
+                if (resp) {
+                    System.out.println("Registro Agregado");
+                } else {
+                    System.out.println("Registro No Agregado");
+                }
+            }
+         */
     }
 
     /**
@@ -145,6 +217,10 @@ public class PintarEvaluacion extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private void calcularCuestionario(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
