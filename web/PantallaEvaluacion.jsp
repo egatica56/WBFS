@@ -29,6 +29,7 @@
                 <h3>Jefe : <small>${requestScope.jefe.getNombrePersona()}</small></h3>
                 <h3>Competencia : <small>${requestScope.competencia.getNombreCompetencia()}</small></h3>
                 <h3>ID Evaluación : <small>${param.idE}</small></h3>
+                <h1><input type="hidden" name="idC" value="${param.idC}"></h1>
                 <h3>Preguntas</h3>
                 <hr>
                 <c:set var="np" value="1"></c:set>
@@ -39,17 +40,14 @@
                     <c:forEach var="r" items="${p.getOpcionRespuestaCollection()}">
 
                         <div class="radio container">
-                            <label><input type="radio" name="${p.getIdPregunta()}" value="${r.getIdOpcionRespuesta()}" checked>${r.getTextoRespuesta()}</label>
-                            <label><input type="text" name="txtRespuesta" value="${r.getIdOpcionRespuesta()}" id="txtRespuesta"></label>
-                            <label><input type="text" name="txtPregunta" value="${p.getIdPregunta()}" id="txtPregunta"></label>
-
+                            <label><input type="radio" name="${p.getIdPregunta()}" value="${r.getIdOpcionRespuesta()}" required="">${r.getTextoRespuesta()}</label>
                         </div>
                     </c:forEach>
                     <c:set var="np" value="${np + 1}"></c:set>
                         <br>
                 </c:forEach>
 
-                <input type="submit" value="Enviar Cuestionario">
+                <input class="btn btn-primary" type="submit" value="Enviar Cuestionario">
             </div>
 
         </form>

@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -124,65 +125,83 @@ public class PintarEvaluacion extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-    
-        
-        
-          String[] us = request.getParameterValues("txtPregunta");
-          String[] as = request.getParameterValues("txtRespuesta");
-          for (int x=0; x<preguntas;x++) {
-              Map<int,Object> mapa = new HashMap<>();
-            
-            mapa.put(x, Object);
-            
-        }
-                  
-          
-          
-          try {
-          
-              
-              
-              
-              for (String u : us) {
-                System.out.println("id Pregunta: "+u);
-                
-            }
-            
-            for (String a : as) {
-                    System.out.println("id Respuesta: "+a);
-                }
-            
-            
-        
-        } catch (Exception e) {
-              System.out.println("Error: "+e.getMessage());
-        }
-            
-        
-          
-        
-        
-        /*   String[] us = request.getParameterValues("");
 
-            for (String u : us) {
-                Evaluacion evaluacion = new Evaluacion();
-                Persona persona = new Persona();
-                persona.setRutPersona(u);
-                System.out.println("rutPersona: " + u);
-                cuestAsig.setIdCuestAsig(idCuestAsig);
-                evaluacion.setFechaEvaluacion(fechaEvaluacion);
-                evaluacion.setRutJefe(rutJefe);
-                evaluacion.setCuestAsig(cuestAsig);
-                evaluacion.setPersona(persona);
-                boolean resp = evaluacionDAO.agregarEvaluacion(evaluacion);
-                if (resp) {
-                    System.out.println("Registro Agregado");
-                } else {
-                    System.out.println("Registro No Agregado");
+        try {
+            Enumeration<String> preguntas = request.getParameterNames();
+            int puntajeFinal = 0;
+            while (preguntas.hasMoreElements()) {
+                String idRespuesta = preguntas.nextElement();
+                puntajeFinal += new RespuestaDAO().buscarRespuesta(Integer.parseInt(request.getParameter(idRespuesta))).getPorcentajeRespuesta();
+            }
+
+            int nota = 0;
+            if (0 < puntajeFinal && puntajeFinal < 11) {
+                nota = 1;
+            } else if (puntajeFinal >= 11 || puntajeFinal == 20) {
+                nota = 2;
+            } else if (puntajeFinal >= 21 || puntajeFinal == 30) {
+                nota = 3;
+            } else if (puntajeFinal >= 31 || puntajeFinal == 40) {
+                nota = 4;
+            } else if (puntajeFinal >= 41 || puntajeFinal == 50) {
+                nota = 5;
+            }
+            response.getWriter().println("Puntaje final : " + puntajeFinal);
+            System.out.println("Puntaje Final: " + puntajeFinal);
+            System.out.println("Nota Final: " + nota);
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            Logger.getLogger(PintarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+
+
+/*try (PrintWriter out = response.getWriter()) {
+
+            String idC = request.getParameter("idC"); //id cuestionario asignado
+            String rutP = request.getParameter("rutP"); //rut persona
+            CuestAsig cuestAsig = new CuestAsigDAO().buscarCuestAsig(Integer.parseInt(idC)); // aplicar metodo buscar en el cuestasig             
+            Collection<Pregunta> preguntas = cuestAsig.getCuestionario().getPreguntaCollection();
+
+            //Declaro preguntas y sus respuestas correctas.
+            Map<Integer, Integer> respMap = new HashMap<Integer, Integer>();
+
+            for (Pregunta p : preguntas) {
+                Collection<OpcionRespuesta> respuestas = p.getOpcionRespuestaCollection();
+                for (OpcionRespuesta r : respuestas) {
+                    System.out.println("id respuesta " + r.getIdOpcionRespuesta());
+                    respMap.put(p.getIdPregunta(), r.getIdOpcionRespuesta());
+                    System.out.println("print: " + respMap);
+                }
+
+                System.out.println("print: " + respMap);
+            }
+
+        
+            out.println("Resultado<br>");
+            Enumeration<String> params = request.getParameterNames();
+            int respuestasCorrectas = 0;
+            while (params.hasMoreElements()) {
+                String pregunta = params.nextElement();
+
+                int nroPregunta = Integer.parseInt(pregunta);
+                if (respMap.containsKey(nroPregunta)) {
+                    int respuesta = Integer.parseInt(request.getParameter(pregunta));
+                    if (respMap.get(nroPregunta) == respuesta) {
+                        respuestasCorrectas++;
+                    }
                 }
             }
-         */
-    }
+            System.out.println("Respuesta correctas : " + respuestasCorrectas);
+            out.print("Respuesta correctas : " + respuestasCorrectas);
+        } catch (SQLException ex) {
+            Logger.getLogger(PintarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ */
+
 
     /**
      * Returns a short description of the servlet.
@@ -190,7 +209,7 @@ public class PintarEvaluacion extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

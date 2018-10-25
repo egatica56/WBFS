@@ -98,6 +98,40 @@ public class RespuestaDAO {
 
     }
 
+    public OpcionRespuesta buscarRespuesta(int idRespuesta) throws SQLException {
+        Pregunta pregunta = new Pregunta();
+        OpcionRespuesta respuesta = new OpcionRespuesta();
+        try {
+
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_OPCION_RESPUESTA_1.SP_BUSCAR_RESPUESTA(?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+            cstmt.setInt(1, idRespuesta);
+            cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            ResultSet rs = (ResultSet) cstmt.getObject(2);
+
+            while (rs.next()) {
+                pregunta.setIdPregunta(rs.getInt("ID_PREGUNTA"));
+                respuesta.setIdOpcionRespuesta(rs.getInt("ID_OPCION_RESPUESTA"));
+                respuesta.setPorcentajeRespuesta(rs.getInt("PORCENTAJE_RESPUESTA"));
+                respuesta.setTextoRespuesta("TEXTO_RESPUESTA");
+                respuesta.setPregunta(pregunta);
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            this.conexion.close();
+
+        }
+        return respuesta;
+    }
+
     public List<OpcionRespuesta> listarRespuestaXPregunta(int idPregunta) throws SQLException {
 
         List<OpcionRespuesta> listado = new ArrayList<OpcionRespuesta>();
