@@ -25,11 +25,11 @@
         <body>
             <form action="pintarEvaluacion" method="post">
                 <div class="container">
-                    <h3>Persona : <small>${requestScope.persona.getNombrePersona()} ${param.rutP}</small></h3>
+                <h3>Persona : <small>${requestScope.persona.getNombrePersona()} ${param.rutP}</small></h3>
                 <h3>Jefe : <small>${requestScope.jefe.getNombrePersona()}</small></h3>
                 <h3>Competencia : <small>${requestScope.competencia.getNombreCompetencia()}</small></h3>
                 <h3>ID Evaluación : <small>${param.idE}</small></h3>
-                <h1><input type="hidden" name="idC" value="${param.idC}"></h1>
+                <h1><input type="hidden" name="idE" value="${param.idE}"></h1>
                 <h3>Preguntas</h3>
                 <hr>
                 <c:set var="np" value="1"></c:set>

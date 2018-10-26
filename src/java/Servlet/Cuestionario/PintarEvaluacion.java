@@ -18,6 +18,7 @@ import Entities.Evaluacion;
 import Entities.OpcionRespuesta;
 import Entities.Persona;
 import Entities.Pregunta;
+import Entities.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -93,12 +94,10 @@ public class PintarEvaluacion extends HttpServlet {
             String idC = request.getParameter("idC"); //id cuestionario asignado
             String rutP = request.getParameter("rutP"); //rut persona
 
-//      CuestAsig cuestAsig = cuestAsigFacade.find(new BigDecimal(idC));
             CuestAsig cuestAsig = new CuestAsigDAO().buscarCuestAsig(Integer.parseInt(idC)); // aplicar metodo buscar en el cuestasig
             Competencia competencia = cuestAsig.getCuestionario().getCompetencia();
             Persona jefe = new PersonaDAO().buscarPersona(cuestAsig.getRutJefe());// crear persona dao y metodos asociados package etc en bd
             Persona persona = new PersonaDAO().buscarPersona(rutP);
-//      List<Pregunta> preguntas = cuestAsig.getIdCuest().getPreguntaList();
             Collection<Pregunta> preguntas = cuestAsig.getCuestionario().getPreguntaCollection();
 
             request.setAttribute("cuestAsig", cuestAsig);
@@ -146,6 +145,50 @@ public class PintarEvaluacion extends HttpServlet {
             } else if (puntajeFinal >= 41 || puntajeFinal == 50) {
                 nota = 5;
             }
+
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+            String rut = usuario.getUsername();
+            String rol = usuario.getTipoUsuario().getNombreTipoUsuario();
+            int idEvaluacion = Integer.parseInt(request.getParameter("idE"));
+            if (rol.equals("jefe")) {
+                System.out.println("rut: jefe: " + rut);
+                System.out.println("Rol Persona: " + rol);
+                System.out.println("Id Evaluacion: " + idEvaluacion);
+
+                boolean resp = new EvaluacionDAO().actualizarNotaJefe(nota, idEvaluacion, rut);
+                if (resp) {
+                    System.out.println("Ingreso Ok");
+                    request.setAttribute("Mensaje", "Evaluacion Evaluada correctamente. Nota Obtenida: " + nota);
+
+                } else {
+                    System.out.println("no Ok");
+                    request.setAttribute("Mensaje", "Error al intentar evaluar.");
+
+                }
+                request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
+
+            } else if (rol.equals("empleado")) {
+                System.out.println("rut: empleado: " + rut);
+                System.out.println("Rol Persona: " + rol);
+
+                boolean resp = new EvaluacionDAO().actualizarNotaEmpleado(nota, idEvaluacion, rut);
+                if (resp) {
+                    System.out.println("Ingreso Ok");
+                    request.setAttribute("Mensaje", "Evaluacion Evaluada correctamente. Nota Obtenida: " + nota);
+
+                } else {
+                    System.out.println("no Ok");
+                    request.setAttribute("Mensaje", "Error al intentar evaluar.");
+
+                }
+                request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
+            } else {
+
+            }
+            //if usuario.get tipo= jefe
+            //        dao actualizar nota jefe (rut jefe, nota, id evaluacion);
+            //        else 
+            //        dao actualizat nota empleado(rut persona,nota,id evalucion);
             response.getWriter().println("Puntaje final : " + puntajeFinal);
             System.out.println("Puntaje Final: " + puntajeFinal);
             System.out.println("Nota Final: " + nota);
@@ -157,59 +200,13 @@ public class PintarEvaluacion extends HttpServlet {
 
     }
 
-
-
-/*try (PrintWriter out = response.getWriter()) {
-
-            String idC = request.getParameter("idC"); //id cuestionario asignado
-            String rutP = request.getParameter("rutP"); //rut persona
-            CuestAsig cuestAsig = new CuestAsigDAO().buscarCuestAsig(Integer.parseInt(idC)); // aplicar metodo buscar en el cuestasig             
-            Collection<Pregunta> preguntas = cuestAsig.getCuestionario().getPreguntaCollection();
-
-            //Declaro preguntas y sus respuestas correctas.
-            Map<Integer, Integer> respMap = new HashMap<Integer, Integer>();
-
-            for (Pregunta p : preguntas) {
-                Collection<OpcionRespuesta> respuestas = p.getOpcionRespuestaCollection();
-                for (OpcionRespuesta r : respuestas) {
-                    System.out.println("id respuesta " + r.getIdOpcionRespuesta());
-                    respMap.put(p.getIdPregunta(), r.getIdOpcionRespuesta());
-                    System.out.println("print: " + respMap);
-                }
-
-                System.out.println("print: " + respMap);
-            }
-
-        
-            out.println("Resultado<br>");
-            Enumeration<String> params = request.getParameterNames();
-            int respuestasCorrectas = 0;
-            while (params.hasMoreElements()) {
-                String pregunta = params.nextElement();
-
-                int nroPregunta = Integer.parseInt(pregunta);
-                if (respMap.containsKey(nroPregunta)) {
-                    int respuesta = Integer.parseInt(request.getParameter(pregunta));
-                    if (respMap.get(nroPregunta) == respuesta) {
-                        respuestasCorrectas++;
-                    }
-                }
-            }
-            System.out.println("Respuesta correctas : " + respuestasCorrectas);
-            out.print("Respuesta correctas : " + respuestasCorrectas);
-        } catch (SQLException ex) {
-            Logger.getLogger(PintarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
- */
-
-
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
     @Override
-        public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

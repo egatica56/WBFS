@@ -8,6 +8,7 @@ package DAO;
 import Entities.Competencia;
 import Entities.CuestAsig;
 import Entities.Cuestionario;
+import Entities.Evaluacion;
 import Entities.OpcionRespuesta;
 import Entities.Pregunta;
 import Entities.Usuario;
@@ -168,11 +169,11 @@ public class NewMain {
             
             EvaluacionDAO evalDAO=new EvaluacionDAO();
             
-            evalDAO.listarEvaluacionXJefe("18882760-8");
             
-            for (Usuario u : evalDAO.listarPersonasPorJefe("18882760-8")) {
+            
+            for (Evaluacion u : evalDAO.listarEvaluacionXJefe("12334793-5")) {
                 
-                System.out.println("usuario: "+u.getUsername());
+                System.out.println("id_Evaluacion: "+ u.getIdEvaluacion());
                 System.out.println("Nombre Persona: "+u.getPersona().getNombrePersona());
             }
             

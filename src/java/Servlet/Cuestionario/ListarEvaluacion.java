@@ -63,7 +63,7 @@ public class ListarEvaluacion extends HttpServlet {
             
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
             String rutJefe = usuario.getUsername();
-            System.out.println("Rut Jefe a usar en el listado: " + rutJefe);
+            System.out.println("Rut  a usar en el listado: " + rutJefe);
             List<Evaluacion> evaluacion = new EvaluacionDAO().listarEvaluacionXJefe(rutJefe);
             request.setAttribute("evaluaciones", evaluacion);
             //List<Usuario> listado = new EvaluacionDAO().listarPersonasPorJefe(rutJefe);

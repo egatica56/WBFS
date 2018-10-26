@@ -39,6 +39,7 @@
                             <tr>    
                                 <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" id="txtIdEvaluacion">${evaluacion.getIdEvaluacion()}</td>
                                 <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" id="txtRutJefe">${evaluacion.getRutJefe()}</td>
+                                
                                 <td>${evaluacion.getPersona().getNombrePersona()}</td>
                                 <td>${evaluacion.getFechaEvaluacion()}</td>
                                 <td>${evaluacion.getCuestAsig().getIdCuestAsig()}</td>

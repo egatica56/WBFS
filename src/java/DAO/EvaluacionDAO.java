@@ -123,6 +123,65 @@ public class EvaluacionDAO {
 
         try {
             this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call SP_LISTAR_EVAL_EMP(?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+
+            cstmt.setString(1, rut);
+            cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            ResultSet rs = (ResultSet) cstmt.getObject(2);
+
+            while (rs.next()) {
+                CuestAsig cuestAsig = new CuestAsig();
+                Evaluacion evaluacion = new Evaluacion();
+                TipoUsuario tipoUsuario = new TipoUsuario();
+                Persona persona = new Persona();
+                Usuario usuario = new Usuario();
+                cuestAsig.setIdCuestAsig(rs.getInt("ID_CUEST_ASIG"));
+                usuario.setIdUsuario(rs.getInt("ID_USUARIO"));
+                usuario.setUsername(rs.getString("USERNAME"));
+                usuario.setPassword(rs.getString("PASSWORD"));
+                tipoUsuario.setIdTipoUsuario(rs.getInt("ID_TIPO_USUARIO"));
+                tipoUsuario.setNombreTipoUsuario(rs.getString("NOMBRE_TIPO_USUARIO"));
+                persona.setNombrePersona(rs.getString("NOMBRE_PERSONA"));
+                persona.setRutPersona(rs.getString("RUT_PERSONA"));
+                persona.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
+                tipoUsuario.setNombreTipoUsuario(rs.getString("NOMBRE_TIPO_USUARIO"));
+                usuario.setTipoUsuario(tipoUsuario);
+                usuario.setPersona(persona);
+                evaluacion.setRutJefe(rs.getString("RUT_JEFE"));
+                evaluacion.setIdEvaluacion(rs.getInt("ID_EVALUACION"));
+                evaluacion.setFechaEvaluacion(rs.getString("FECHA_EVALUACION"));
+                evaluacion.setPersona(persona);
+                evaluacion.setCuestAsig(cuestAsig);
+                listado.add(evaluacion);
+                System.out.println("INFO: " + tipoUsuario.getIdTipoUsuario());
+
+            }
+            for (Evaluacion u : listado) {
+                System.out.println("usuario: " + u.getPersona().getNombrePersona());
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            this.conexion.close();
+
+        }
+        return listado;
+
+    }
+
+    public List<Evaluacion> listarEvaluacionXEmp(String rut) throws SQLException {
+
+        List<Evaluacion> listado = new ArrayList<Evaluacion>();
+
+        try {
+            this.conexion = new Conexion().obtenerConexion();
             String llamada = "{call PKG_EVALUACION_1.SP_LISTAR_EVALUACION(?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
@@ -176,6 +235,11 @@ public class EvaluacionDAO {
 
     }
 
+    
+    
+    
+    
+    
     public List<Evaluacion> generarCuestionario(String rut, int idEval) throws SQLException {
 
         List<Evaluacion> listado = new ArrayList<Evaluacion>();
@@ -199,7 +263,7 @@ public class EvaluacionDAO {
                 Cuestionario cuestionario = new Cuestionario();
                 Pregunta pregunta = new Pregunta();
                 OpcionRespuesta respuesta = new OpcionRespuesta();
-                
+
                 Persona persona = new Persona();
                 cuestAsig.setRutJefe("RUT_JEFE");
                 cuestAsig.setIdCuestAsig(rs.getInt("ID_CUEST_ASIG"));
@@ -221,8 +285,6 @@ public class EvaluacionDAO {
 
                 listado.add(evaluacion);
 
-                
-
             }
             for (Evaluacion u : listado) {
                 System.out.println("usuario: " + u.getPersona().getNombrePersona());
@@ -238,6 +300,59 @@ public class EvaluacionDAO {
 
         return listado;
 
+    }
+
+    public boolean actualizarNotaJefe(int notaJefe, int idEvaluacion, String rutJefe) throws SQLException {
+        //Evaluacion evaluacion=new Evaluacion();
+        try {
+
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_EVALUACION_1.SP_ACTUALIZAR_NOTA_JE(?,?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+
+            cstmt.setInt(1, idEvaluacion);
+            cstmt.setInt(2, notaJefe);
+            cstmt.setString(3, rutJefe);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            return true;
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+
+        } finally {
+            this.conexion.close();
+
+        }
+    }
+
+    public boolean actualizarNotaEmpleado(int notaEmpleado, int idEvaluacion, String rutEmpleado) throws SQLException {
+        try {
+
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_EVALUACION_1.SP_ACTUALIZAR_NOTA_JE(?,?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+
+            cstmt.setInt(1, idEvaluacion);
+            cstmt.setInt(2, notaEmpleado);
+            cstmt.setString(3, rutEmpleado);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            return true;
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+
+        } finally {
+            this.conexion.close();
+
+        }
     }
 
 }
