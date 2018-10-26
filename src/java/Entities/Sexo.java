@@ -82,7 +82,6 @@ public class Sexo implements Serializable {
     }
 
 
-
     @Override
     public String toString() {
         return "Entities.Sexo[ idSexo=" + idSexo + " ]";

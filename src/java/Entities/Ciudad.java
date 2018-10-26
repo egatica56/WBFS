@@ -6,6 +6,7 @@
 package Entities;
 
 import java.io.Serializable;
+
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -94,7 +95,7 @@ public class Ciudad implements Serializable {
         this.region = region;
     }
 
-  
+    
 
     @Override
     public String toString() {

@@ -81,7 +81,7 @@ public class Region implements Serializable {
         this.ciudadCollection = ciudadCollection;
     }
 
- 
+
     @Override
     public String toString() {
         return "Entities.Region[ idRegion=" + idRegion + " ]";

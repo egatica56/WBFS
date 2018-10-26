@@ -94,7 +94,8 @@ public class Comuna implements Serializable {
         this.personaCollection = personaCollection;
     }
 
-   
+
+
     @Override
     public String toString() {
         return "Entities.Comuna[ idComuna=" + idComuna + " ]";

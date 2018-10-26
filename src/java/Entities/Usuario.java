@@ -129,8 +129,6 @@ public class Usuario implements Serializable {
         this.tipoUsuario = tipoUsuario;
     }
 
-  
-
     @Override
     public String toString() {
         return "Entities.Usuario[ idUsuario=" + idUsuario + " ]";

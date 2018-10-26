@@ -123,7 +123,7 @@ public class EvaluacionDAO {
 
         try {
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call SP_LISTAR_EVAL_EMP(?,?)}";
+            String llamada = "{call PKG_EVALUACION_1.SP_LISTAR_EVALUACION(?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
             cstmt.setString(1, rut);
@@ -175,6 +175,9 @@ public class EvaluacionDAO {
         return listado;
 
     }
+    
+    
+    
 
     public List<Evaluacion> listarEvaluacionXEmp(String rut) throws SQLException {
 
@@ -182,7 +185,7 @@ public class EvaluacionDAO {
 
         try {
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_EVALUACION_1.SP_LISTAR_EVALUACION(?,?)}";
+            String llamada = "{call SP_LISTAR_EVAL_EMP(?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
             cstmt.setString(1, rut);

@@ -41,7 +41,7 @@ public class ListarEvaluacion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -57,23 +57,30 @@ public class ListarEvaluacion extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        
+
         try {
             
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
             String rutJefe = usuario.getUsername();
+            int rol= usuario.getTipoUsuario().getIdTipoUsuario();
             System.out.println("Rut  a usar en el listado: " + rutJefe);
-            List<Evaluacion> evaluacion = new EvaluacionDAO().listarEvaluacionXJefe(rutJefe);
-            request.setAttribute("evaluaciones", evaluacion);
+
+            if (rol == 2) {
+                List<Evaluacion> evaluacion = new EvaluacionDAO().listarEvaluacionXJefe(rutJefe);
+                request.setAttribute("evaluaciones", evaluacion);
+            } else if (rol == 3) {
+                List<Evaluacion> evaluacion = new EvaluacionDAO().listarEvaluacionXEmp(rutJefe);
+                request.setAttribute("evaluaciones", evaluacion);
+            }
+
+            
             //List<Usuario> listado = new EvaluacionDAO().listarPersonasPorJefe(rutJefe);
             //request.setAttribute("usuarios", listado);
             request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(AsignarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
 
     /**

@@ -147,7 +147,7 @@ public class Competencia implements Serializable {
         this.nivel = nivel;
     }
 
-    
+
 
     @Override
     public String toString() {

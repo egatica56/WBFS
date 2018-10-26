@@ -33,16 +33,15 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Nivel.findByNombreNota", query = "SELECT n FROM Nivel n WHERE n.nombreNota = :nombreNota")})
 public class Nivel implements Serializable {
 
-    @Basic(optional = false)
-    @Column(name = "NOTA")
-    private int nota;
-
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "ID_NIVEL")
     private int idNivel;
+    @Basic(optional = false)
+    @Column(name = "NOTA")
+    private int nota;
     @Column(name = "NOMBRE_NOTA")
     private String nombreNota;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nivel")
@@ -68,6 +67,13 @@ public class Nivel implements Serializable {
         this.idNivel = idNivel;
     }
 
+    public int getNota() {
+        return nota;
+    }
+
+    public void setNota(int nota) {
+        this.nota = nota;
+    }
 
     public String getNombreNota() {
         return nombreNota;
@@ -90,14 +96,6 @@ public class Nivel implements Serializable {
     @Override
     public String toString() {
         return "Entities.Nivel[ idNivel=" + idNivel + " ]";
-    }
-
-    public int getNota() {
-        return nota;
-    }
-
-    public void setNota(int nota) {
-        this.nota = nota;
     }
     
 }

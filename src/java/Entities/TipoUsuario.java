@@ -81,7 +81,6 @@ public class TipoUsuario implements Serializable {
         this.usuarioCollection = usuarioCollection;
     }
 
-   
 
     @Override
     public String toString() {

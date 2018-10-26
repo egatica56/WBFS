@@ -6,7 +6,6 @@
 package Entities;
 
 import java.io.Serializable;
-
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -80,7 +79,6 @@ public class ControlEstados implements Serializable {
     public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
         this.usuarioCollection = usuarioCollection;
     }
-
 
     @Override
     public String toString() {

@@ -106,8 +106,7 @@ public class Perfil implements Serializable {
         this.personaCollection = personaCollection;
     }
 
-  
-
+    
     @Override
     public String toString() {
         return "Entities.Perfil[ idPerfil=" + idPerfil + " ]";

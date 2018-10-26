@@ -6,7 +6,7 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.lang.String;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,11 +43,11 @@ public class Logs implements Serializable {
     @Basic(optional = false)
     @Column(name = "FECHA_INGESO")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaIngeso;
+    private String fechaIngeso;
     @Basic(optional = false)
     @Column(name = "TIEMPO_SESION")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date tiempoSesion;
+    private String tiempoSesion;
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne(optional = false)
     private Usuario usuario;
@@ -59,7 +59,7 @@ public class Logs implements Serializable {
         this.idLog = idLog;
     }
 
-    public Logs(int idLog, Date fechaIngeso, Date tiempoSesion) {
+    public Logs(int idLog, String fechaIngeso, String tiempoSesion) {
         this.idLog = idLog;
         this.fechaIngeso = fechaIngeso;
         this.tiempoSesion = tiempoSesion;
@@ -73,19 +73,19 @@ public class Logs implements Serializable {
         this.idLog = idLog;
     }
 
-    public Date getFechaIngeso() {
+    public String getFechaIngeso() {
         return fechaIngeso;
     }
 
-    public void setFechaIngeso(Date fechaIngeso) {
+    public void setFechaIngeso(String fechaIngeso) {
         this.fechaIngeso = fechaIngeso;
     }
 
-    public Date getTiempoSesion() {
+    public String getTiempoSesion() {
         return tiempoSesion;
     }
 
-    public void setTiempoSesion(Date tiempoSesion) {
+    public void setTiempoSesion(String tiempoSesion) {
         this.tiempoSesion = tiempoSesion;
     }
 
@@ -97,7 +97,6 @@ public class Logs implements Serializable {
         this.usuario = usuario;
     }
 
-   
 
     @Override
     public String toString() {

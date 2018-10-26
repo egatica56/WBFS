@@ -92,7 +92,7 @@ public class OpcionRespuesta implements Serializable {
         this.pregunta = pregunta;
     }
 
- 
+    
 
     @Override
     public String toString() {

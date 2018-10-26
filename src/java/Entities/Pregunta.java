@@ -120,8 +120,6 @@ public class Pregunta implements Serializable {
         this.opcionRespuestaCollection = opcionRespuestaCollection;
     }
 
-    
-
     @Override
     public String toString() {
         return "Entities.Pregunta[ idPregunta=" + idPregunta + " ]";

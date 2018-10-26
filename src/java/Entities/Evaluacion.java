@@ -35,14 +35,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Evaluacion.findByIdEvaluacion", query = "SELECT e FROM Evaluacion e WHERE e.idEvaluacion = :idEvaluacion")
     , @NamedQuery(name = "Evaluacion.findByRutJefe", query = "SELECT e FROM Evaluacion e WHERE e.rutJefe = :rutJefe")
     , @NamedQuery(name = "Evaluacion.findByNotaEvaluacion", query = "SELECT e FROM Evaluacion e WHERE e.notaEvaluacion = :notaEvaluacion")
-    , @NamedQuery(name = "Evaluacion.findByFechaEvaluacion", query = "SELECT e FROM Evaluacion e WHERE e.fechaEvaluacion = :fechaEvaluacion")})
+    , @NamedQuery(name = "Evaluacion.findByFechaEvaluacion", query = "SELECT e FROM Evaluacion e WHERE e.fechaEvaluacion = :fechaEvaluacion")
+    , @NamedQuery(name = "Evaluacion.findByNotaFuncionario", query = "SELECT e FROM Evaluacion e WHERE e.notaFuncionario = :notaFuncionario")
+    , @NamedQuery(name = "Evaluacion.findByNotaJefe", query = "SELECT e FROM Evaluacion e WHERE e.notaJefe = :notaJefe")
+    , @NamedQuery(name = "Evaluacion.findByBrecha", query = "SELECT e FROM Evaluacion e WHERE e.brecha = :brecha")})
 public class Evaluacion implements Serializable {
-
-    @Basic(optional = false)
-    @Column(name = "NOTA_EVALUACION")
-    private int notaEvaluacion;
-    @OneToMany(mappedBy = "evaluacion")
-    private Collection<HistoricoNota> historicoNotaCollection;
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -54,15 +51,25 @@ public class Evaluacion implements Serializable {
     @Column(name = "RUT_JEFE")
     private String rutJefe;
     @Basic(optional = false)
+    @Column(name = "NOTA_EVALUACION")
+    private int notaEvaluacion;
+    @Basic(optional = false)
     @Column(name = "FECHA_EVALUACION")
     @Temporal(TemporalType.TIMESTAMP)
     private String fechaEvaluacion;
+    @Column(name = "NOTA_FUNCIONARIO")
+    private int notaFuncionario;
+    @Column(name = "NOTA_JEFE")
+    private int notaJefe;
+    @Column(name = "BRECHA")
+    private int brecha;
     @JoinColumn(name = "ID_CUEST_ASIG", referencedColumnName = "ID_CUEST_ASIG")
     @ManyToOne(optional = false)
     private CuestAsig cuestAsig;
     @JoinColumn(name = "RUT_PERSONA", referencedColumnName = "RUT_PERSONA")
     @ManyToOne(optional = false)
     private Persona persona;
+    
 
     public Evaluacion() {
     }
@@ -110,6 +117,30 @@ public class Evaluacion implements Serializable {
         this.fechaEvaluacion = fechaEvaluacion;
     }
 
+    public int getNotaFuncionario() {
+        return notaFuncionario;
+    }
+
+    public void setNotaFuncionario(int notaFuncionario) {
+        this.notaFuncionario = notaFuncionario;
+    }
+
+    public int getNotaJefe() {
+        return notaJefe;
+    }
+
+    public void setNotaJefe(int notaJefe) {
+        this.notaJefe = notaJefe;
+    }
+
+    public int getBrecha() {
+        return brecha;
+    }
+
+    public void setBrecha(int brecha) {
+        this.brecha = brecha;
+    }
+
     public CuestAsig getCuestAsig() {
         return cuestAsig;
     }
@@ -126,11 +157,11 @@ public class Evaluacion implements Serializable {
         this.persona = persona;
     }
 
-    
+
+
     @Override
     public String toString() {
         return "Entities.Evaluacion[ idEvaluacion=" + idEvaluacion + " ]";
     }
-
     
 }

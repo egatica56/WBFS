@@ -92,7 +92,6 @@ public class Observacion implements Serializable {
         this.competencia = competencia;
     }
 
-    
 
     @Override
     public String toString() {
