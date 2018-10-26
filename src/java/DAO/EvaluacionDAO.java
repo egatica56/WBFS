@@ -175,9 +175,81 @@ public class EvaluacionDAO {
         return listado;
 
     }
-    
-    
-    
+
+    public Evaluacion validarNotaJefe(int idEvaluacion, String rutJefe) throws SQLException {
+        Evaluacion evaluacion = new Evaluacion();
+        Persona persona = new Persona();
+        try {
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_EVALUACION_1.SP_BUSCAR_NOTA_JE(?,?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+
+            cstmt.setInt(1, idEvaluacion);
+            cstmt.setString(2, rutJefe);
+            cstmt.registerOutParameter(3, OracleTypes.CURSOR);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            ResultSet rs = (ResultSet) cstmt.getObject(3);
+
+            while (rs.next()) {
+                persona.setRutPersona(rs.getString("RUT_PERSONA"));
+                evaluacion.setPersona(persona);
+                evaluacion.setRutJefe(rs.getString("RUT_JEFE"));
+                evaluacion.setIdEvaluacion(rs.getInt("ID_EVALUACION"));
+                evaluacion.setFechaEvaluacion(rs.getString("FECHA_EVALUACION"));
+                evaluacion.setNotaFuncionario(rs.getInt("NOTA_JEFE"));
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            this.conexion.close();
+
+        }
+        return evaluacion;
+
+    }
+
+    public Evaluacion validarNotaEmp(int idEvaluacion, String rutEmpleado) throws SQLException {
+        Evaluacion evaluacion = new Evaluacion();
+        Persona persona = new Persona();
+        try {
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_EVALUACION_1.SP_BUSCAR_NOTA_EM(?,?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+
+            cstmt.setInt(1, idEvaluacion);
+            cstmt.setString(2, rutEmpleado);
+            cstmt.registerOutParameter(3, OracleTypes.CURSOR);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            ResultSet rs = (ResultSet) cstmt.getObject(3);
+
+            while (rs.next()) {
+                persona.setRutPersona(rs.getString("RUT_PERSONA"));
+                evaluacion.setPersona(persona);
+                evaluacion.setRutJefe(rs.getString("RUT_JEFE"));
+                evaluacion.setIdEvaluacion(rs.getInt("ID_EVALUACION"));
+                evaluacion.setFechaEvaluacion(rs.getString("FECHA_EVALUACION"));
+                evaluacion.setNotaFuncionario(rs.getInt("NOTA_FUNCIONARIO"));
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            this.conexion.close();
+
+        }
+        System.out.println("Nota Funcionario" + evaluacion.getNotaFuncionario());
+        return evaluacion;
+
+    }
 
     public List<Evaluacion> listarEvaluacionXEmp(String rut) throws SQLException {
 
@@ -238,11 +310,6 @@ public class EvaluacionDAO {
 
     }
 
-    
-    
-    
-    
-    
     public List<Evaluacion> generarCuestionario(String rut, int idEval) throws SQLException {
 
         List<Evaluacion> listado = new ArrayList<Evaluacion>();
@@ -336,7 +403,7 @@ public class EvaluacionDAO {
         try {
 
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_EVALUACION_1.SP_ACTUALIZAR_NOTA_JE(?,?,?)}";
+            String llamada = "{call PKG_EVALUACION_1.SP_ACTUALIZAR_NOTA_EM(?,?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
             cstmt.setInt(1, idEvaluacion);

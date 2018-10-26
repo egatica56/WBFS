@@ -37,8 +37,8 @@
                             <!--comentario-->
                         <c:forEach items="${evaluaciones}" var="evaluacion">
                             <tr>    
-                                <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" id="txtIdEvaluacion">${evaluacion.getIdEvaluacion()}</td>
-                                <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" id="txtRutJefe">${evaluacion.getRutJefe()}</td>
+                                <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtIdEvaluacion" id="txtIdEvaluacion">${evaluacion.getIdEvaluacion()}</td>
+                                <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtRutJefe" id="txtRutJefe">${evaluacion.getRutJefe()}</td>
                                 
                                 <td>${evaluacion.getPersona().getNombrePersona()}</td>
                                 <td>${evaluacion.getFechaEvaluacion()}</td>

@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import oracle.jdbc.proxy.annotation.Pre;
+import org.apache.catalina.Session;
 
 /**
  *
@@ -93,20 +94,61 @@ public class PintarEvaluacion extends HttpServlet {
         try {
             String idC = request.getParameter("idC"); //id cuestionario asignado
             String rutP = request.getParameter("rutP"); //rut persona
+            String idE = request.getParameter("idE"); //rut persona
+            System.out.println("Id Evaluacion para validar nota: " + idE);
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+            int rol = usuario.getTipoUsuario().getIdTipoUsuario();
 
-            CuestAsig cuestAsig = new CuestAsigDAO().buscarCuestAsig(Integer.parseInt(idC)); // aplicar metodo buscar en el cuestasig
-            Competencia competencia = cuestAsig.getCuestionario().getCompetencia();
-            Persona jefe = new PersonaDAO().buscarPersona(cuestAsig.getRutJefe());// crear persona dao y metodos asociados package etc en bd
-            Persona persona = new PersonaDAO().buscarPersona(rutP);
-            Collection<Pregunta> preguntas = cuestAsig.getCuestionario().getPreguntaCollection();
+            if (rol == 2) {
 
-            request.setAttribute("cuestAsig", cuestAsig);
-            request.setAttribute("competencia", competencia);
-            request.setAttribute("jefe", jefe);
-            request.setAttribute("persona", persona);
-            request.setAttribute("preguntas", preguntas);
+                Evaluacion eval = new EvaluacionDAO().validarNotaJefe(rol, usuario.getUsername());
+                if (eval.getNotaJefe()!= 0) {
+                    request.setAttribute("mensaje", "Esta encuesta ya se ha respondido. intenta con otra");
+                    request.getRequestDispatcher("ListadoEvaluacion.jsp").forward(request, response);
+                } else {
+                    CuestAsig cuestAsig = new CuestAsigDAO().buscarCuestAsig(Integer.parseInt(idC)); // aplicar metodo buscar en el cuestasig
+                    Competencia competencia = cuestAsig.getCuestionario().getCompetencia();
+                    Persona jefe = new PersonaDAO().buscarPersona(cuestAsig.getRutJefe());// crear persona dao y metodos asociados package etc en bd
+                    Persona persona = new PersonaDAO().buscarPersona(rutP);
+                    Collection<Pregunta> preguntas = cuestAsig.getCuestionario().getPreguntaCollection();
 
-            request.getRequestDispatcher("PantallaEvaluacion.jsp").forward(request, response);
+                    request.setAttribute("cuestAsig", cuestAsig);
+                    request.setAttribute("competencia", competencia);
+                    request.setAttribute("jefe", jefe);
+                    request.setAttribute("persona", persona);
+                    request.setAttribute("preguntas", preguntas);
+
+                    request.getRequestDispatcher("PantallaEvaluacion.jsp").forward(request, response);
+                }
+            }
+            if (rol == 3) {
+                Evaluacion evalemp = new EvaluacionDAO().validarNotaEmp(rol, usuario.getUsername());
+                System.out.println("Nota Empleado: "+evalemp.getNotaFuncionario() );
+                if (evalemp.getNotaFuncionario()!= 0) {
+                    request.setAttribute("mensaje", "Esta encuesta ya se ha respondido. intenta con otra");
+                    request.getRequestDispatcher("ListadoEvaluacion.jsp").forward(request, response);
+                } else {
+                    CuestAsig cuestAsig = new CuestAsigDAO().buscarCuestAsig(Integer.parseInt(idC)); // aplicar metodo buscar en el cuestasig
+                    Competencia competencia = cuestAsig.getCuestionario().getCompetencia();
+                    Persona jefe = new PersonaDAO().buscarPersona(cuestAsig.getRutJefe());// crear persona dao y metodos asociados package etc en bd
+                    Persona persona = new PersonaDAO().buscarPersona(rutP);
+                    Collection<Pregunta> preguntas = cuestAsig.getCuestionario().getPreguntaCollection();
+
+                    request.setAttribute("cuestAsig", cuestAsig);
+                    request.setAttribute("competencia", competencia);
+                    request.setAttribute("jefe", jefe);
+                    request.setAttribute("persona", persona);
+                    request.setAttribute("preguntas", preguntas);
+
+                    request.getRequestDispatcher("PantallaEvaluacion.jsp").forward(request, response);
+
+                }
+
+            } else {
+                request.setAttribute("mensaje", "Los administradores no pueden responder su encuesta");
+                request.getRequestDispatcher("ListadoEvaluacion.jsp").forward(request, response);
+            }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -148,9 +190,9 @@ public class PintarEvaluacion extends HttpServlet {
 
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
             String rut = usuario.getUsername();
-            String rol = usuario.getTipoUsuario().getNombreTipoUsuario();
+            int rol = usuario.getTipoUsuario().getIdTipoUsuario();
             int idEvaluacion = Integer.parseInt(request.getParameter("idE"));
-            if (rol.equals("jefe")) {
+            if (rol == 2) {
                 System.out.println("rut: jefe: " + rut);
                 System.out.println("Rol Persona: " + rol);
                 System.out.println("Id Evaluacion: " + idEvaluacion);
@@ -167,10 +209,10 @@ public class PintarEvaluacion extends HttpServlet {
                 }
                 request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
 
-            } else if (rol.equals("empleado")) {
+            } else if (rol == 3) {
                 System.out.println("rut: empleado: " + rut);
                 System.out.println("Rol Persona: " + rol);
-
+                System.out.println("Id Evaluacion: " + idEvaluacion);
                 boolean resp = new EvaluacionDAO().actualizarNotaEmpleado(nota, idEvaluacion, rut);
                 if (resp) {
                     System.out.println("Ingreso Ok");
@@ -181,14 +223,10 @@ public class PintarEvaluacion extends HttpServlet {
                     request.setAttribute("Mensaje", "Error al intentar evaluar.");
 
                 }
-                request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
+                //request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
             } else {
 
             }
-            //if usuario.get tipo= jefe
-            //        dao actualizar nota jefe (rut jefe, nota, id evaluacion);
-            //        else 
-            //        dao actualizat nota empleado(rut persona,nota,id evalucion);
             response.getWriter().println("Puntaje final : " + puntajeFinal);
             System.out.println("Puntaje Final: " + puntajeFinal);
             System.out.println("Nota Final: " + nota);
@@ -210,17 +248,16 @@ public class PintarEvaluacion extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void verCuestionario(HttpServletRequest request, HttpServletResponse response) {
+    /*private void verCuestionario(HttpServletRequest request, HttpServletResponse response) {
         try {
             String idC = request.getParameter("idC"); //id cuestionario asignado
             String rutP = request.getParameter("rutP"); //rut persona
-
-//      CuestAsig cuestAsig = cuestAsigFacade.find(new BigDecimal(idC));
+            
+            
             CuestAsig cuestAsig = new CuestAsigDAO().buscarCuestAsig(Integer.parseInt(idC)); // aplicar metodo buscar en el cuestasig
             Competencia competencia = cuestAsig.getCuestionario().getCompetencia();
             Persona jefe = new PersonaDAO().buscarPersona(cuestAsig.getRutJefe());// crear persona dao y metodos asociados package etc en bd
             Persona persona = new PersonaDAO().buscarPersona(rutP);
-//      List<Pregunta> preguntas = cuestAsig.getIdCuest().getPreguntaList();
             Collection<Pregunta> preguntas = cuestAsig.getCuestionario().getPreguntaCollection();
 
             request.setAttribute("cuestAsig", cuestAsig);
@@ -233,8 +270,7 @@ public class PintarEvaluacion extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
-
+    }*/
     private void calcularCuestionario(HttpServletRequest request, HttpServletResponse response) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
