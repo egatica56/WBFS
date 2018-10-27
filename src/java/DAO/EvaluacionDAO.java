@@ -425,6 +425,36 @@ public class EvaluacionDAO {
 
         }
     }
+    
+    
+    public boolean actualizarNotaFinal(int nota, int idEvaluacion) throws SQLException {
+        try {
+
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_EVALUACION_1.SP_ACTUALIZAR_NOTA_FI(?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+
+            cstmt.setInt(1, idEvaluacion);
+            cstmt.setInt(2, nota);
+            
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            return true;
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+
+        } finally {
+            this.conexion.close();
+
+        }
+    }
+    
+    
+    
 
     public Evaluacion buscarEvaluacion(int idEvaluacion) throws SQLException {
         Evaluacion evaluacion = new Evaluacion();

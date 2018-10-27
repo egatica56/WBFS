@@ -114,7 +114,7 @@ public class PintarEvaluacion extends HttpServlet {
                     request.setAttribute("mensaje", "Esta encuesta ya se ha respondido. intenta con otra");
                     List<Evaluacion> evaluacion = new EvaluacionDAO().listarEvaluacionXJefe(rut);
                     request.setAttribute("evaluaciones", evaluacion);
-                    request.getRequestDispatcher("ListadoEvaluacion.jsp").forward(request, response);
+                    request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
                 } else {
                     CuestAsig cuestAsig = new CuestAsigDAO().buscarCuestAsig(Integer.parseInt(idC)); // aplicar metodo buscar en el cuestasig
                     Competencia competencia = cuestAsig.getCuestionario().getCompetencia();
@@ -225,7 +225,27 @@ public class PintarEvaluacion extends HttpServlet {
                     int notaFun = new EvaluacionDAO().validarNotaJefe(idEvaluacion, rutJefe).getNotaFuncionario();
                     System.out.println("Nota Funcionario en Jefe: " + notaFun);
                     if (notaFun > 0) {
-                        //calcularNotaFinal(notaFun, nota, idEvaluacion);
+
+                        Cuestionario cu = new EvaluacionDAO().obtenerPorcentajes(idEvaluacion);
+                        System.out.println("cu previo a lla: " + cu.getPorcentajeJefe());
+                        System.out.println("cu previo a lle: " + cu.getPorcentajeAutoevaluacion());
+                        int porcJefe = cu.getPorcentajeJefe();
+                        System.out.println("float porc jefe: " + porcJefe);
+                        int porcEmp = cu.getPorcentajeAutoevaluacion();
+                        System.out.println("float porc emp: " + porcEmp);
+                        double notaJefeRef = (nota * porcJefe) / 100;
+                        double notaEmpRef = (notaFun * porcEmp) / 100;
+
+                        double notaFinal = notaJefeRef + notaEmpRef;
+                        int notaParse = (int) Math.round(notaFinal);
+                        System.out.println("Nota final final: " + notaParse);
+
+                        boolean fin = new EvaluacionDAO().actualizarNotaFinal(notaParse, idEvaluacion);
+
+                        if (fin) {
+                            System.out.println("NOTA FINAL ACTUALIZADA");
+                        }
+
                         request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
                     } else {
                         System.out.println("No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
@@ -252,18 +272,24 @@ public class PintarEvaluacion extends HttpServlet {
                     System.out.println("Nota Jefe validando Funcionario : " + notaJefe);
                     if (notaJefe > 0) {
                         Cuestionario cu = new EvaluacionDAO().obtenerPorcentajes(idEvaluacion);
-                        System.out.println("cu previo a lla: "+ cu.getPorcentajeJefe());
-                        System.out.println("cu previo a lle: "+ cu.getPorcentajeAutoevaluacion());
+                        System.out.println("cu previo a lla: " + cu.getPorcentajeJefe());
+                        System.out.println("cu previo a lle: " + cu.getPorcentajeAutoevaluacion());
                         int porcJefe = cu.getPorcentajeJefe();
                         System.out.println("float porc jefe: " + porcJefe);
                         int porcEmp = cu.getPorcentajeAutoevaluacion();
                         System.out.println("float porc emp: " + porcEmp);
-                        double notaJefeRef = (notaJefe * porcJefe)/100;
-                        double notaEmpRef = (nota * porcEmp)/100;
+                        double notaJefeRef = (notaJefe * porcJefe) / 100;
+                        double notaEmpRef = (nota * porcEmp) / 100;
 
                         double notaFinal = notaJefeRef + notaEmpRef;
-                        int notaParse=(int) Math.round(notaFinal);
+                        int notaParse = (int) Math.round(notaFinal);
                         System.out.println("Nota final final: " + notaParse);
+
+                        boolean fin = new EvaluacionDAO().actualizarNotaFinal(notaParse, idEvaluacion);
+
+                        if (fin) {
+                            System.out.println("NOTA FINA ACTUALIZADA");
+                        }
 
                     } else {
                         System.out.println("No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
@@ -282,7 +308,6 @@ public class PintarEvaluacion extends HttpServlet {
 
             }
 
-            request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             Logger.getLogger(PintarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
