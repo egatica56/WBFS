@@ -42,9 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Persona.findByTelefonoFijo", query = "SELECT p FROM Persona p WHERE p.telefonoFijo = :telefonoFijo")
     , @NamedQuery(name = "Persona.findByTelefonoCelular", query = "SELECT p FROM Persona p WHERE p.telefonoCelular = :telefonoCelular")
     , @NamedQuery(name = "Persona.findByEmailPersona", query = "SELECT p FROM Persona p WHERE p.emailPersona = :emailPersona")
-    , @NamedQuery(name = "Persona.findBySexoPersona", query = "SELECT p FROM Persona p WHERE p.sexoPersona = :sexoPersona")
-    , @NamedQuery(name = "Persona.findByCargoPersona", query = "SELECT p FROM Persona p WHERE p.cargoPersona = :cargoPersona")
-    , @NamedQuery(name = "Persona.findByAreaPersona", query = "SELECT p FROM Persona p WHERE p.areaPersona = :areaPersona")})
+    , @NamedQuery(name = "Persona.findByCargoPersona", query = "SELECT p FROM Persona p WHERE p.cargoPersona = :cargoPersona")})
 public class Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -78,32 +76,13 @@ public class Persona implements Serializable {
     @Column(name = "EMAIL_PERSONA")
     private String emailPersona;
     @Basic(optional = false)
-    @Column(name = "SEXO_PERSONA")
-    private String sexoPersona;
-    @Basic(optional = false)
     @Column(name = "CARGO_PERSONA")
     private String cargoPersona;
-    @Basic(optional = false)
-    @Column(name = "AREA_PERSONA")
-    private String areaPersona;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
-    private Collection<Evaluacion> evaluacionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
-    private Collection<Usuario> usuarioCollection;
-    @JoinColumn(name = "ID_COMUNA", referencedColumnName = "ID_COMUNA")
-    @ManyToOne(optional = false)
-    private Comuna comuna;
-    @JoinColumn(name = "ID_PERFIL", referencedColumnName = "ID_PERFIL")
-    @ManyToOne(optional = false)
-    private Perfil perfil;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private Collection<Persona> personaCollection;
     @JoinColumn(name = "RUT_JEFE", referencedColumnName = "RUT_PERSONA")
     @ManyToOne(optional = false)
     private Persona persona;
-    @JoinColumn(name = "ID_SEXO", referencedColumnName = "ID_SEXO")
-    @ManyToOne(optional = false)
-    private Sexo sexo;
 
     public Persona() {
     }
@@ -112,7 +91,7 @@ public class Persona implements Serializable {
         this.rutPersona = rutPersona;
     }
 
-    public Persona(String rutPersona, String nombrePersona, String apellidoPaterno, String apellidoMaterno, String direccionPersona, String fechaNacimiento, String telefonoFijo, String telefonoCelular, String emailPersona, String sexoPersona, String cargoPersona, String areaPersona) {
+    public Persona(String rutPersona, String nombrePersona, String apellidoPaterno, String apellidoMaterno, String direccionPersona, String fechaNacimiento, String telefonoFijo, String telefonoCelular, String emailPersona, String cargoPersona) {
         this.rutPersona = rutPersona;
         this.nombrePersona = nombrePersona;
         this.apellidoPaterno = apellidoPaterno;
@@ -122,9 +101,7 @@ public class Persona implements Serializable {
         this.telefonoFijo = telefonoFijo;
         this.telefonoCelular = telefonoCelular;
         this.emailPersona = emailPersona;
-        this.sexoPersona = sexoPersona;
         this.cargoPersona = cargoPersona;
-        this.areaPersona = areaPersona;
     }
 
     public String getRutPersona() {
@@ -199,62 +176,12 @@ public class Persona implements Serializable {
         this.emailPersona = emailPersona;
     }
 
-    public String getSexoPersona() {
-        return sexoPersona;
-    }
-
-    public void setSexoPersona(String sexoPersona) {
-        this.sexoPersona = sexoPersona;
-    }
-
     public String getCargoPersona() {
         return cargoPersona;
     }
 
     public void setCargoPersona(String cargoPersona) {
         this.cargoPersona = cargoPersona;
-    }
-
-    public String getAreaPersona() {
-        return areaPersona;
-    }
-
-    public void setAreaPersona(String areaPersona) {
-        this.areaPersona = areaPersona;
-    }
-
-    @XmlTransient
-    public Collection<Evaluacion> getEvaluacionCollection() {
-        return evaluacionCollection;
-    }
-
-    public void setEvaluacionCollection(Collection<Evaluacion> evaluacionCollection) {
-        this.evaluacionCollection = evaluacionCollection;
-    }
-
-    @XmlTransient
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
-    }
-
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
-    }
-
-    public Comuna getComuna() {
-        return comuna;
-    }
-
-    public void setComuna(Comuna comuna) {
-        this.comuna = comuna;
-    }
-
-    public Perfil getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(Perfil perfil) {
-        this.perfil = perfil;
     }
 
     @XmlTransient
@@ -272,14 +199,6 @@ public class Persona implements Serializable {
 
     public void setPersona(Persona persona) {
         this.persona = persona;
-    }
-
-    public Sexo getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(Sexo sexo) {
-        this.sexo = sexo;
     }
 
     @Override

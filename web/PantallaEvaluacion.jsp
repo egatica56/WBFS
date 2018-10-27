@@ -30,6 +30,7 @@
                 <h3>Competencia : <small>${requestScope.competencia.getNombreCompetencia()}</small></h3>
                 <h3>ID Evaluación : <small>${param.idE}</small></h3>
                 <h1><input type="hidden" name="idE" value="${param.idE}"></h1>
+                
                 <h3>Preguntas</h3>
                 <hr>
                 <c:set var="np" value="1"></c:set>
@@ -53,5 +54,5 @@
         </form>
 
     </body>
-    <jsp:include page="Footer.jsp"></jsp:include>    
+    
 </html>
