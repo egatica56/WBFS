@@ -205,7 +205,9 @@ public class PintarEvaluacion extends HttpServlet {
                 if (resp) {
                     System.out.println("Ingreso Ok");
                     request.setAttribute("Mensaje", "Evaluacion Evaluada correctamente. Nota Obtenida: " + nota);
-
+                    if (evaluadoTieneNota()) {
+                        calcularNotaFinal();
+                    }
                 } else {
                     System.out.println("no Ok");
                     request.setAttribute("Mensaje", "Error al intentar evaluar.");
@@ -221,7 +223,11 @@ public class PintarEvaluacion extends HttpServlet {
                 if (resp) {
                     System.out.println("Ingreso Ok");
                     request.setAttribute("Mensaje", "Evaluacion Evaluada correctamente. Nota Obtenida: " + nota);
-
+                    //ACA DEBERIA BUSCAR LA NOTA DE LA CONTRA PARTE METODO NOTA JEFE;
+                    //SI LA NOTA DEL JEFE ES MAYOR A 0 IMPLEMENTO EL CALCULO;
+                    if (jefeTieneNota()) {
+                        calcularNotaFinal();
+                    }
                 } else {
                     System.out.println("no Ok");
                     request.setAttribute("Mensaje", "Error al intentar evaluar.");
@@ -277,6 +283,23 @@ public class PintarEvaluacion extends HttpServlet {
     }*/
     private void calcularCuestionario(HttpServletRequest request, HttpServletResponse response) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean jefeTieneNota() {
+        int notaJefe = obtenerNotaJefe();
+        return notaJefe > 0;
+    }
+
+    private void calcularNotaFinal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean evaluadoTieneNota() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private int obtenerNotaJefe() {
+        new DAO.EvaluacionDAO().validarNotaJefe(0, rutJefe)
     }
 
 }
