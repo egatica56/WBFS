@@ -97,6 +97,14 @@ public class PintarEvaluacion extends HttpServlet {
             String idE = request.getParameter("idE"); //rut persona
             System.out.println("Id Evaluacion para validar nota: " + idE);
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+            /*
+              Evaluacion eva = new EvaluacionDAO().buscarEvaluacion(Integer.parseInt(idE));
+            String rutJefe = eva.getRutJefe();
+            String rutPersona = eva.getPersona().getRutPersona();
+
+            System.out.println("Rut Jefe: " + rutJefe);
+            System.out.println("Rut Persona: " + rutPersona);*/
+
             int rol = usuario.getTipoUsuario().getIdTipoUsuario();
             String rut = usuario.getUsername();
             if (rol == 2) {
@@ -125,7 +133,7 @@ public class PintarEvaluacion extends HttpServlet {
             }
             if (rol == 3) {
                 Evaluacion evalemp = new EvaluacionDAO().validarNotaEmp(Integer.parseInt(idE), usuario.getUsername());
-                System.out.println("Nota Empleado: " + evalemp.getNotaFuncionario());
+                System.out.println("Nota Empleado GET: " + evalemp.getNotaFuncionario());
                 if (evalemp.getNotaFuncionario() != 0) {
                     request.setAttribute("mensaje", "Esta encuesta ya se ha respondido. intenta con otra");
                     List<Evaluacion> evaluacion = new EvaluacionDAO().listarEvaluacionXEmp(rut);
@@ -196,11 +204,15 @@ public class PintarEvaluacion extends HttpServlet {
             String rut = usuario.getUsername();
             int rol = usuario.getTipoUsuario().getIdTipoUsuario();
             int idEvaluacion = Integer.parseInt(request.getParameter("idE"));
-            
-            
-            
+            Evaluacion eva = new EvaluacionDAO().buscarEvaluacion(idEvaluacion);
+            String rutJefe = eva.getRutJefe();
+            String rutPersona = eva.getPersona().getRutPersona();
+
+            System.out.println("Rut Jefe: " + rutJefe);
+            System.out.println("Rut Persona: " + rutPersona);
+
             if (rol == 2) {
-                
+
                 System.out.println("rut: jefe: " + rut);
                 System.out.println("Rol Persona: " + rol);
                 System.out.println("Id Evaluacion: " + idEvaluacion);
@@ -209,14 +221,23 @@ public class PintarEvaluacion extends HttpServlet {
                 if (resp) {
                     System.out.println("Ingreso Ok");
                     request.setAttribute("Mensaje", "Evaluacion Evaluada correctamente. Nota Obtenida: " + nota);
-                    
-                    
+
+                    int notaFun = new EvaluacionDAO().validarNotaJefe(idEvaluacion, rutJefe).getNotaFuncionario();
+                    System.out.println("Nota Funcionario en Jefe: " + notaFun);
+                    if (notaFun > 0) {
+                        //calcularNotaFinal(notaFun, nota, idEvaluacion);
+                        request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
+                    } else {
+                        System.out.println("No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
+                        request.setAttribute("Mensaje", "No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
+
+                    }
+
                 } else {
                     System.out.println("no Ok");
                     request.setAttribute("Mensaje", "Error al intentar evaluar.");
 
                 }
-                request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
 
             } else if (rol == 3) {
                 System.out.println("rut: empleado: " + rut);
@@ -226,29 +247,42 @@ public class PintarEvaluacion extends HttpServlet {
                 if (resp) {
                     System.out.println("Ingreso Ok");
                     request.setAttribute("Mensaje", "Evaluacion Evaluada correctamente. Nota Obtenida: " + nota);
-                    //ACA DEBERIA BUSCAR LA NOTA DE LA CONTRA PARTE METODO NOTA JEFE;
-                    //SI LA NOTA DEL JEFE ES MAYOR A 0 IMPLEMENTO EL CALCULO;
-                
-                   /* int notaJefe = new EvaluacionDAO().validarNotaJefe(idEvaluacion, rutJefe).getNotaJefe();
-                    System.out.println("Nota Jefe: " + notaJefe);
-                    if (notaJefe != 0) {
-                        calcularNotaFinal();
-                    } else {
 
-                    }*/
+                    int notaJefe = new EvaluacionDAO().validarNotaJefe(idEvaluacion, rutJefe).getNotaJefe();
+                    System.out.println("Nota Jefe validando Funcionario : " + notaJefe);
+                    if (notaJefe > 0) {
+                        Cuestionario cu = new EvaluacionDAO().obtenerPorcentajes(idEvaluacion);
+                        System.out.println("cu previo a lla: "+ cu.getPorcentajeJefe());
+                        System.out.println("cu previo a lle: "+ cu.getPorcentajeAutoevaluacion());
+                        int porcJefe = cu.getPorcentajeJefe();
+                        System.out.println("float porc jefe: " + porcJefe);
+                        int porcEmp = cu.getPorcentajeAutoevaluacion();
+                        System.out.println("float porc emp: " + porcEmp);
+                        double notaJefeRef = (notaJefe * porcJefe)/100;
+                        double notaEmpRef = (nota * porcEmp)/100;
+
+                        double notaFinal = notaJefeRef + notaEmpRef;
+                        int notaParse=(int) Math.round(notaFinal);
+                        System.out.println("Nota final final: " + notaParse);
+
+                    } else {
+                        System.out.println("No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
+                        request.setAttribute("Mensaje", "No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
+
+                    }
+                    response.getWriter().println("Puntaje final : " + puntajeFinal);
+                    System.out.println("Puntaje Final: " + puntajeFinal);
+                    System.out.println("Nota Final: " + nota);
+
                 } else {
                     System.out.println("no Ok");
                     request.setAttribute("Mensaje", "Error al intentar evaluar.");
 
                 }
-                //request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
-            } else {
 
             }
-            response.getWriter().println("Puntaje final : " + puntajeFinal);
-            System.out.println("Puntaje Final: " + puntajeFinal);
-            System.out.println("Nota Final: " + nota);
 
+            request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             Logger.getLogger(PintarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
@@ -289,16 +323,24 @@ public class PintarEvaluacion extends HttpServlet {
             System.out.println(e.getMessage());
         }
     }*/
-    private void calcularCuestionario(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private boolean calcularNotaFinal(int notaFun, int notaJef, int idEvaluacion) {
+        try {
+            Cuestionario cu = new EvaluacionDAO().obtenerPorcentajes(idEvaluacion);
+            float porcJefe = cu.getPorcentajeJefe() / 100;
+            System.out.println("float porc jefe: " + porcJefe);
+            float porcEmp = cu.getPorcentajeAutoevaluacion() / 100;
+            System.out.println("float porc emp: " + porcEmp);
+            float notaJefeRef = notaJef * porcJefe;
+            float notaEmpRef = notaFun * porcEmp;
+
+            int notaFinal = Math.round(notaJefeRef + notaEmpRef);
+            System.out.println("Nota final final: " + notaFinal);
+
+        } catch (Exception e) {
+
+        }
+        return true;
+
     }
-
-    
-
-    private void calcularNotaFinal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
 
 }
