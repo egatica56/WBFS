@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 
-    <header class="container">
+    <header class="container-fluid">
 
         <div class="container-fluid" align="center" style="background-color: green!important">
             <h1>Bienvenido ${usuario.getPersona().getNombrePersona()} Usuario. sitio en construccion</h1>
@@ -143,7 +143,7 @@
 
                 </ul>
             </c:if>
-
+            <a class="nav-link" href="Main.jsp">Volver</a>
             <a class="nav-link" href="cerrar-sesion">Cerrar Sesion</a>
 
         </nav> 

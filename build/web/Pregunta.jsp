@@ -20,36 +20,36 @@
         <title>Cuestionario</title>
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
-    <body>
-        <h1 align="center" class="">Aca podras crear las preguntas para las cuestionario asociados</h1>
-        <div align center class="container-fluid">
-            <form action="pregunta" method="post">
-                <div class="container-fluid" align="center">
-                    <table>
-                        <!--tr><td>Id Cuestionario</td>
-                            <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
-                        </tr>
-                        <tr-->
-                        <td>Texto Pregunta</td>
-                        <td><input type="text" name="txtPregunta" id="txtPregunta" required=""></td>
-                        </tr>
-                        <tr>
-                            <td>Porcentaje Pregunta</td>
-                            <td><input type="number" name="txtPorcentajePregunta" id="txtPorcentajePregunta" min="0" max="100"  required=""></td>
-                        </tr>
-                        <tr>
-                            <td>Es Correcta</td>
-                            <td>
-                                <select name="cboCorrecta" id="cboCorrecta">
-                                    <option value="SI">Si</option>
-                                    <option value="NO">No</option>
-                                </select> </td>
-                        </tr>
-                        <tr>
-                            <td>Cuestionario Asociado</td>
-                            <td>
-                                <select name="cboCuestionario" id="cboCuestionario" required="">
-                                    <option value="">Seleccionar</option>                       
+        <body>
+            <h1 align="center" class="">Aca podras crear las preguntas para las cuestionario asociados</h1>
+            <div align center class="container-fluid">
+                <form action="pregunta" method="post">
+                    <div class="container-fluid" align="center">
+                        <table>
+                            <!--tr><td>Id Cuestionario</td>
+                                <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
+                            </tr>
+                            <tr-->
+                            <td>Texto Pregunta</td>
+                            <td><input type="text" name="txtPregunta" id="txtPregunta" required=""></td>
+                            </tr>
+                            <tr>
+                                <td>Porcentaje Pregunta</td>
+                                <td><input type="number" name="txtPorcentajePregunta" id="txtPorcentajePregunta" min="0" max="100"  required=""></td>
+                            </tr>
+                            <tr>
+                                <td>Es Correcta</td>
+                                <td>
+                                    <select name="cboCorrecta" id="cboCorrecta">
+                                        <option value="SI">Si</option>
+                                        <option value="NO">No</option>
+                                    </select> </td>
+                            </tr>
+                            <tr>
+                                <td>Cuestionario Asociado</td>
+                                <td>
+                                    <select name="cboCuestionario" id="cboCuestionario" required="">
+                                        <option value="">Seleccionar</option>                       
                                     <c:forEach items="${cuestionarios}" var="cu">
                                         <option value="${cu.getIdCuest()}">Cuestionario número: ${cu.getIdCuest()} -  ${cu.getCompetencia().getNombreCompetencia()}</option>
                                     </c:forEach>
@@ -69,12 +69,5 @@
 
 
 
-    <!-- Footer -->
-    <!-- Footer -->
-    <footer class="page-footer font-small blue fixed-bottom">
-        <div class="footer-copyright text-center py-3">© 2018 Copyright:
-            <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
-        </div>
-    </footer>
-    <!-- Footer -->
+    <jsp:include page="Footer.jsp"></jsp:include>    
 </html>

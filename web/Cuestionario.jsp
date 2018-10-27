@@ -20,13 +20,13 @@
         <title>Cuestionario</title>
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
-    <body>
-        <h1 align="center" class="">Aca podras crear los cuestionarios para las competencias asociadas</h1>
-        <div align center class="container-fluid">
-            <form action="cuestionario" method="post">
-                <div class="container-fluid" align="center">
-                    <table>
-                        <h1>${usuario.getPersona().getRutPersona()}</h1>
+        <body>
+            <h1 align="center" class="">Aca podras crear los cuestionarios para las competencias asociadas</h1>
+            <div align center class="container-fluid">
+                <form action="cuestionario" method="post">
+                    <div class="container-fluid" align="center">
+                        <table>
+                            <h1>${usuario.getPersona().getRutPersona()}</h1>
                         <!--tr><td>Id Cuestionario</td>
                             <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
                         </tr>
@@ -53,7 +53,7 @@
 
                     </table>
                 </div>
-               
+
                 <div class="container" align="center">
                     <table>
                         <c:if test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
@@ -87,12 +87,12 @@
                             <td>
                                 <select name="cboCuestionario" id="cboCuestionario" required="">
                                     <option value="">Seleccionar</option>                       
-                                    <c:forEach items="${cuestionarios}" var="cu">
-                                        <option value="${cu.getIdCuest()}">Cuestionario número: ${cu.getIdCuest()} -  ${cu.getCompetencia().getNombreCompetencia()}</option>
-                                    </c:forEach>
-                                </select>
-                            <td>
-                        </tr-->
+                        <c:forEach items="${cuestionarios}" var="cu">
+                            <option value="${cu.getIdCuest()}">Cuestionario número: ${cu.getIdCuest()} -  ${cu.getCompetencia().getNombreCompetencia()}</option>
+                        </c:forEach>
+                    </select>
+                <td>
+            </tr-->
                         <tr>
                             <td align="center" colspan="2"><input class="btn btn-primary" type="submit" id="btnAsignarCuest" name="btnAsignarCuest" value="Guardar"></td>
                         </tr>
@@ -109,12 +109,5 @@
 
 
 
-    <!-- Footer -->
-    <!-- Footer -->
-    <footer class="page-footer font-small blue fixed-bottom">
-        <div class="footer-copyright text-center py-3">© 2018 Copyright:
-            <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
-        </div>
-    </footer>
-    <!-- Footer -->
+    <jsp:include page="Footer.jsp"></jsp:include>    
 </html>

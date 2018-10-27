@@ -21,30 +21,37 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
+
+        <c:if  test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
             <h1 align="center" class="">Acá podras visualizar las Evaluaciones Previamente Asignadas a tus empleados</h1>
-            <div align center class="container-fluid">
-                <form action="pintarEvaluacion" method="get">
-                    <div class="container-fluid" align="center">
-                        <table class="table">
-                            <tr>
-                                <th>ID Evaluacion</th>
-                                <th>Rut Jefe</th>
-                                <th>Persona a Evaluar</th>
-                                <th>Fecha Evaluacion</th>
-                                <th>Id Cuestionario Asignado</th>
-                                <th>Opciones</th>
-                            </tr>
-                            <!--comentario-->
+        </c:if>    
+        <c:if  test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
+            <h1 align="center" class="">Acá podras visualizar Tus Evaluaciones Asignadas</h1>
+        </c:if>    
+
+        <div align center class="container-fluid">
+            <form action="pintarEvaluacion" method="get">
+                <div class="container-fluid" align="center">
+                    <table class="table">
+                        <tr>
+                            <th>ID Evaluacion</th>
+                            <th>Rut Jefe</th>
+                            <th>Persona a Evaluar</th>
+                            <th>Fecha Evaluacion</th>
+                            <th>Id Cuestionario Asignado</th>
+                            <th>Opciones</th>
+                        </tr>
+                        <!--comentario-->
                         <c:forEach items="${evaluaciones}" var="evaluacion">
                             <tr>    
                                 <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtIdEvaluacion" id="txtIdEvaluacion">${evaluacion.getIdEvaluacion()}</td>
                                 <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtRutJefe" id="txtRutJefe">${evaluacion.getRutJefe()}</td>
-                                
+
                                 <td>${evaluacion.getPersona().getNombrePersona()}</td>
                                 <td>${evaluacion.getFechaEvaluacion()}</td>
                                 <td>${evaluacion.getCuestAsig().getIdCuestAsig()}</td>
                                 <td class="text-center"><a href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}" class="btn btn-primary btn-sm">Responder</a></td>
-                                
+
                                 <td>
                                     <a href="eliminarCuestionario?id=${evaluacion.getIdEvaluacion()}">Eliminar</a>
                                     <a href="modificarCuestionario?id=${evaluacion.getIdEvaluacion()}">Modificar</a>
@@ -59,5 +66,6 @@
         </div>
     </body>
 
+    <jsp:include page="Footer.jsp"></jsp:include>    
 
-
+</html>
