@@ -19,41 +19,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Bienvenido a WBFS</title>
     </head>
-    
-    
+
+
     <jsp:include page="Header.jsp"></jsp:include>
-    
-     <body>
-        <div class="container-fluid" align="center" style="background-color: green!important">
-        <h1>Hola ${usuario.getPersona().getNombrePersona()} Usuario. sitio en construccion</h1>
 
-        </div>
-        <c:if test="${usuario.getTipoUsuario().getIdTipoUsuario()== 1}" >
-           
-            <div class="container-fluid">
-                
-                <a class="" href="cuestionario">Nuevo Cuestionario</a>      
-            </div>
-        </c:if>
+        <body>
 
-        <c:if test="${usuario.getTipoUsuario().getIdTipoUsuario()== 2}" >
-            <label for="">Label de ejemplo de jefe</label>
-        <li>
-            <ul>cuatro</ul>
-            <ul>cinco</ul>
-            <ul>seis</ul>
-        </li>
-    </c:if>
 
-    <c:if test="${usuario.getTipoUsuario().getIdTipoUsuario()== 3}" >
-        <label for="">Label de ejemplo de empleado</label>
-        <li>
-            <ul><a href="Cuestionario.jsp">Nuevo Cuestionario</a></ul>
-            <ul>ocho</ul>
-            <ul>nueve</ul>
-        </li>
-    </c:if>
-
-    ${mensaje}
-</body>
+        ${mensaje}
+    </body>
 </html>

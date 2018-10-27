@@ -98,12 +98,14 @@ public class PintarEvaluacion extends HttpServlet {
             System.out.println("Id Evaluacion para validar nota: " + idE);
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
             int rol = usuario.getTipoUsuario().getIdTipoUsuario();
-
+            String rut=usuario.getUsername();
             if (rol == 2) {
 
-                Evaluacion eval = new EvaluacionDAO().validarNotaJefe(rol, usuario.getUsername());
+                Evaluacion eval = new EvaluacionDAO().validarNotaJefe(Integer.parseInt(idE), usuario.getUsername());
                 if (eval.getNotaJefe()!= 0) {
                     request.setAttribute("mensaje", "Esta encuesta ya se ha respondido. intenta con otra");
+                    List<Evaluacion> evaluacion = new EvaluacionDAO().listarEvaluacionXJefe(rut);
+                    request.setAttribute("evaluaciones", evaluacion);
                     request.getRequestDispatcher("ListadoEvaluacion.jsp").forward(request, response);
                 } else {
                     CuestAsig cuestAsig = new CuestAsigDAO().buscarCuestAsig(Integer.parseInt(idC)); // aplicar metodo buscar en el cuestasig
@@ -122,11 +124,13 @@ public class PintarEvaluacion extends HttpServlet {
                 }
             }
             if (rol == 3) {
-                Evaluacion evalemp = new EvaluacionDAO().validarNotaEmp(rol, usuario.getUsername());
+                Evaluacion evalemp = new EvaluacionDAO().validarNotaEmp(Integer.parseInt(idE), usuario.getUsername());
                 System.out.println("Nota Empleado: "+evalemp.getNotaFuncionario() );
                 if (evalemp.getNotaFuncionario()!= 0) {
                     request.setAttribute("mensaje", "Esta encuesta ya se ha respondido. intenta con otra");
-                    request.getRequestDispatcher("ListadoEvaluacion.jsp").forward(request, response);
+                    List<Evaluacion> evaluacion = new EvaluacionDAO().listarEvaluacionXEmp(rut);
+                    request.setAttribute("evaluaciones", evaluacion);
+                    request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
                 } else {
                     CuestAsig cuestAsig = new CuestAsigDAO().buscarCuestAsig(Integer.parseInt(idC)); // aplicar metodo buscar en el cuestasig
                     Competencia competencia = cuestAsig.getCuestionario().getCompetencia();
@@ -146,7 +150,7 @@ public class PintarEvaluacion extends HttpServlet {
 
             } else {
                 request.setAttribute("mensaje", "Los administradores no pueden responder su encuesta");
-                request.getRequestDispatcher("ListadoEvaluacion.jsp").forward(request, response);
+                request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
             }
 
         } catch (Exception e) {

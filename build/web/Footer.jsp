@@ -10,7 +10,7 @@
 <!-- Footer -->
     <!-- Footer -->
     <footer class="page-footer font-small blue fixed-bottom">
-        <div class="footer-copyright text-center py-3">© 2018 Copyright:
+        <div class="footer-copyright text-center py-3">wfbs © 2018 Copyright:
             <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
         </div>
     </footer>

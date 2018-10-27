@@ -214,13 +214,13 @@ public class EvaluacionDAO {
     }
 
     public Evaluacion validarNotaEmp(int idEvaluacion, String rutEmpleado) throws SQLException {
-        Evaluacion evaluacion = new Evaluacion();
+        Evaluacion evaluacion = null;
         Persona persona = new Persona();
         try {
             this.conexion = new Conexion().obtenerConexion();
             String llamada = "{call PKG_EVALUACION_1.SP_BUSCAR_NOTA_EM(?,?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
-
+            evaluacion = new Evaluacion();
             cstmt.setInt(1, idEvaluacion);
             cstmt.setString(2, rutEmpleado);
             cstmt.registerOutParameter(3, OracleTypes.CURSOR);
@@ -231,11 +231,11 @@ public class EvaluacionDAO {
             ResultSet rs = (ResultSet) cstmt.getObject(3);
 
             while (rs.next()) {
-                persona.setRutPersona(rs.getString("RUT_PERSONA"));
-                evaluacion.setPersona(persona);
-                evaluacion.setRutJefe(rs.getString("RUT_JEFE"));
-                evaluacion.setIdEvaluacion(rs.getInt("ID_EVALUACION"));
-                evaluacion.setFechaEvaluacion(rs.getString("FECHA_EVALUACION"));
+                //             persona.setRutPersona(rs.getString("RUT_PERSONA"));
+                //             evaluacion.setPersona(persona);
+                //             evaluacion.setRutJefe(rs.getString("RUT_JEFE"));
+                //             evaluacion.setIdEvaluacion(rs.getInt("ID_EVALUACION"));
+                //              evaluacion.setFechaEvaluacion(rs.getString("FECHA_EVALUACION"));
                 evaluacion.setNotaFuncionario(rs.getInt("NOTA_FUNCIONARIO"));
 
             }
@@ -246,8 +246,8 @@ public class EvaluacionDAO {
             this.conexion.close();
 
         }
-        System.out.println("Nota Funcionario" + evaluacion.getNotaFuncionario());
-        return evaluacion;
+
+        return evaluacion.getNotaEvaluacion() == 0 ? evaluacion : null;
 
     }
 

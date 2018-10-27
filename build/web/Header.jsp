@@ -144,7 +144,7 @@
                 </ul>
             </c:if>
 
-
+            <a class="nav-link" href="cerrar-sesion">Cerrar Sesion</a>
 
         </nav> 
     </header>
