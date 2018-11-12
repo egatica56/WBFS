@@ -8,6 +8,7 @@ package Entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.lang.String;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,6 +41,18 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "CuestAsig.findByEstadoCuestionarioAsig", query = "SELECT c FROM CuestAsig c WHERE c.estadoCuestionarioAsig = :estadoCuestionarioAsig")})
 public class CuestAsig implements Serializable {
 
+    @Basic(optional = false)
+    @Column(name = "FECHA_INICIO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private String fechaInicio;
+    @Basic(optional = false)
+    @Column(name = "FECHA_TERMINO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private String fechaTermino;
+    @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO")
+    @ManyToOne
+    private ControlEstados controlEstados;
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -49,14 +62,6 @@ public class CuestAsig implements Serializable {
     @Basic(optional = false)
     @Column(name = "RUT_JEFE")
     private String rutJefe;
-    @Basic(optional = false)
-    @Column(name = "FECHA_INICIO")
-    @Temporal(TemporalType.TIMESTAMP)
-    private String fechaInicio;
-    @Basic(optional = false)
-    @Column(name = "FECHA_TERMINO")
-    @Temporal(TemporalType.TIMESTAMP)
-    private String fechaTermino;
     @Basic(optional = false)
     @Column(name = "ESTADO_CUESTIONARIO_ASIG")
     private String estadoCuestionarioAsig;
@@ -142,6 +147,15 @@ public class CuestAsig implements Serializable {
     @Override
     public String toString() {
         return "Entities.CuestAsig[ idCuestAsig=" + idCuestAsig + " ]";
+    }
+
+    
+    public ControlEstados getControlEstados() {
+        return controlEstados;
+    }
+
+    public void setControlEstados(ControlEstados controlEstados) {
+        this.controlEstados = controlEstados;
     }
     
 }

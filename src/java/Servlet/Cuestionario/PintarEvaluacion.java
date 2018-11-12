@@ -243,21 +243,23 @@ public class PintarEvaluacion extends HttpServlet {
                         boolean fin = new EvaluacionDAO().actualizarNotaFinal(notaParse, idEvaluacion);
 
                         if (fin) {
-                            System.out.println("NOTA FINAL ACTUALIZADA");
+                            System.out.println("NOTA FINAL ACTUALIZADA DE JEFE + EMPLEADO");
+                            request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
                         }
 
-                        request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
+                        
                     } else {
                         System.out.println("No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
                         request.setAttribute("Mensaje", "No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
-
+                        request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);    
                     }
 
                 } else {
                     System.out.println("no Ok");
                     request.setAttribute("Mensaje", "Error al intentar evaluar.");
-
+                    request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);    
                 }
+                request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
 
             } else if (rol == 3) {
                 System.out.println("rut: empleado: " + rut);

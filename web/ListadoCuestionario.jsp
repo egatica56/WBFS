@@ -24,25 +24,25 @@
             <h1 align="center" class="">Aca podras visualizar los cuestionarios que existen actualmente en el sistema</h1>
             <div align center class="container-fluid">
                 <form action="cuestionario/listar" method="get">
-                    <div class="container-fluid" align="center">
-                        <table class="table">
-                            <tr>
-                                <th>ID Cuestionario</th>
-                                <th>Porcentaje Jefe</th>
-                                <th>Porcentaje Autoevaluacion</th>
-                                <th>Competencia Asociada</th>
-                                <th>Opciones</th>
+                    <div class="container" align="center">
+                        <table class="table" align="center">
+                            <tr align="center">
+                                <th align="center">ID Cuestionario</th>
+                                <th align="center">Porcentaje Jefe</th>
+                                <th align="center">Porcentaje Autoevaluacion</th>
+                                <th align="center">Competencia Asociada</th>
+                                <th align="center">Opciones</th>
                             </tr>
                             <!--comentario-->
                         <c:forEach items="${cuestionarios}" var="cuestionario">
-                            <tr>    
-                                <td>${cuestionario.getIdCuest()}</td>
-                                <td>${cuestionario.getPorcentajeJefe()}</td>
-                                <td>${cuestionario.getPorcentajeAutoevaluacion()}</td>
-                                <td>${cuestionario.getCompetencia().getNombreCompetencia()}</td>
+                            <tr align="center">    
+                                <td align="center">${cuestionario.getIdCuest()}</td>
+                                <td align="center">${cuestionario.getPorcentajeJefe()}</td>
+                                <td align="center">${cuestionario.getPorcentajeAutoevaluacion()}</td>
+                                <td align="center">${cuestionario.getCompetencia().getNombreCompetencia()}</td>
                                 <td>
-                                    <a href="eliminarCuestionario?id=${cuestionario.getIdCuest()}">Eliminar</a>
-                                    <a href="modificarCuestionario?id=${cuestionario.getIdCuest()}">Modificar</a>
+                                    <a class="btn btn-primary" href="eliminarCuestionario?id=${cuestionario.getIdCuest()}">Eliminar</a>
+                                    <a class="btn btn-primary" href="modificarCuestionario?id=${cuestionario.getIdCuest()}">Modificar</a>
                                 </td>
                             </tr>   
                         </c:forEach>

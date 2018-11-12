@@ -33,13 +33,11 @@ public class PreguntaDAO {
 
             //Competencia com = new Competencia();
             this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_PREGUNTA_1.SP_AGREGAR_PREGUNTA(?,?,?,?)}";
+            String llamada = "{call PKG_PREGUNTA_1.SP_AGREGAR_PREGUNTA(?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
             cstmt.setString(1, pregunta.getTextoPregunta());
-            cstmt.setInt(2, pregunta.getPorcentajePregunta());
-            cstmt.setString(3, pregunta.getEsCorrecta());
-            cstmt.setInt(4, pregunta.getCuestionario().getIdCuest());
+            cstmt.setInt(2, pregunta.getCuestionario().getIdCuest());
 
             //ejecutamos la llamada al procedimiento almacenado
             cstmt.execute();
@@ -78,8 +76,6 @@ public class PreguntaDAO {
                 cu.setIdCuest(rs.getInt("ID_CUEST"));
                 pre.setIdPregunta(rs.getInt("ID_PREGUNTA"));
                 pre.setTextoPregunta(rs.getString("TEXTO_PREGUNTA"));
-                pre.setEsCorrecta(rs.getString("ES_CORRECTA"));
-                pre.setPorcentajePregunta(rs.getInt("PORCENTAJE_PREGUNTA"));
                 pre.setCuestionario(cu);
 
                 listado.add(pre);
@@ -119,8 +115,6 @@ public class PreguntaDAO {
                 cu.setIdCuest(rs.getInt("ID_CUEST"));
                 pre.setIdPregunta(rs.getInt("ID_PREGUNTA"));
                 pre.setTextoPregunta(rs.getString("TEXTO_PREGUNTA"));
-                pre.setEsCorrecta(rs.getString("ES_CORRECTA"));
-                pre.setPorcentajePregunta(rs.getInt("PORCENTAJE_PREGUNTA"));
                 pre.setOpcionRespuestaCollection(new RespuestaDAO().listarRespuestaXPregunta(pre.getIdPregunta()));
                 pre.setCuestionario(cu);
 

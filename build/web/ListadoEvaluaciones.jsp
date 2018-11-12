@@ -31,37 +31,39 @@
 
         <div align center class="container-fluid">
             <form action="pintarEvaluacion" method="get">
-                <div class="container-fluid" align="center">
+                <div class="container" align="center">
                     <table class="table">
-                        <tr>
-                            <th>ID Evaluacion</th>
-                            <th>Rut Jefe</th>
-                            <th>Persona a Evaluar</th>
-                            <th>Fecha Evaluacion</th>
-                            <th>Id Cuestionario Asignado</th>
-                            <th>Opciones</th>
+                        <tr align="center">
+                            <th align="center">ID Evaluacion</th>
+                            <th align="center">Rut Jefe</th>
+                            <th align="center">Persona a Evaluar</th>
+                            <th align="center">Fecha Evaluacion</th>
+                            <th align="center">Id Cuestionario Asignado</th>
+                            <th align="center" colspan="2">Opciones</th>
                         </tr>
                         <!--comentario-->
                         <c:forEach items="${evaluaciones}" var="evaluacion">
-                            <tr>    
+                            <tr align="center">    
                                 <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtIdEvaluacion" id="txtIdEvaluacion">${evaluacion.getIdEvaluacion()}</td>
                                 <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtRutJefe" id="txtRutJefe">${evaluacion.getRutJefe()}</td>
 
-                                <td>${evaluacion.getPersona().getNombrePersona()}</td>
-                                <td>${evaluacion.getFechaEvaluacion()}</td>
-                                <td>${evaluacion.getCuestAsig().getIdCuestAsig()}</td>
-                                <td class="text-center"><a href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}&rutJ=${evaluacion.getRutJefe()}" class="btn btn-primary btn-sm">Responder</a></td>
+                                <td align="center">${evaluacion.getPersona().getNombrePersona()}</td>
+                                <td align="center">${evaluacion.getFechaEvaluacion()}</td>
+                                <td align="center">${evaluacion.getCuestAsig().getIdCuestAsig()}</td>
+                                <td align="center"><a href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}&rutJ=${evaluacion.getRutJefe()}" class="btn btn-primary btn-sm">Responder</a></td>
 
-                                <td>
-                                    <a href="eliminarCuestionario?id=${evaluacion.getIdEvaluacion()}">Eliminar</a>
-                                    <a href="modificarCuestionario?id=${evaluacion.getIdEvaluacion()}">Modificar</a>
+                                <td align="center">
+                                    <a class="btn btn-primary" href="eliminarCuestionario?id=${evaluacion.getIdEvaluacion()}">Eliminar</a>
+                                    <a class="btn btn-primary" href="modificarCuestionario?id=${evaluacion.getIdEvaluacion()}">Modificar</a>
                                 </td>
                             </tr>   
                         </c:forEach>
 
                     </table>
                 </div>
-                <label for="">${mensaje}</label>
+                <div class="container" align="center">
+                <label for="" align="center" class="btn btn-danger">${mensaje}</label>
+                </div>
             </form>
         </div>
     </body>

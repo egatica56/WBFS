@@ -45,6 +45,27 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Persona.findByCargoPersona", query = "SELECT p FROM Persona p WHERE p.cargoPersona = :cargoPersona")})
 public class Persona implements Serializable {
 
+    @Basic(optional = false)
+    @Column(name = "FECHA_NACIMIENTO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private String fechaNacimiento;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+    private Collection<Evaluacion> evaluacionCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+    private Collection<Usuario> usuarioCollection;
+    @JoinColumn(name = "ID_COMUNA", referencedColumnName = "ID_COMUNA")
+    @ManyToOne(optional = false)
+    private Comuna comuna;
+    @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO")
+    @ManyToOne
+    private ControlEstados controlEstados;
+    @JoinColumn(name = "ID_PERFIL", referencedColumnName = "ID_PERFIL")
+    @ManyToOne(optional = false)
+    private Perfil perfil;
+    @JoinColumn(name = "ID_SEXO", referencedColumnName = "ID_SEXO")
+    @ManyToOne(optional = false)
+    private Sexo sexo;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -62,10 +83,6 @@ public class Persona implements Serializable {
     @Basic(optional = false)
     @Column(name = "DIRECCION_PERSONA")
     private String direccionPersona;
-    @Basic(optional = false)
-    @Column(name = "FECHA_NACIMIENTO")
-    @Temporal(TemporalType.TIMESTAMP)
-    private String fechaNacimiento;
     @Basic(optional = false)
     @Column(name = "TELEFONO_FIJO")
     private String telefonoFijo;
@@ -224,6 +241,57 @@ public class Persona implements Serializable {
     @Override
     public String toString() {
         return "Entities.Persona[ rutPersona=" + rutPersona + " ]";
+    }
+
+   
+    @XmlTransient
+    public Collection<Evaluacion> getEvaluacionCollection() {
+        return evaluacionCollection;
+    }
+
+    public void setEvaluacionCollection(Collection<Evaluacion> evaluacionCollection) {
+        this.evaluacionCollection = evaluacionCollection;
+    }
+
+    @XmlTransient
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
+    }
+
+    public Comuna getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(Comuna comuna) {
+        this.comuna = comuna;
+    }
+
+    public ControlEstados getControlEstados() {
+        return controlEstados;
+    }
+
+    public void setControlEstados(ControlEstados controlEstados) {
+        this.controlEstados = controlEstados;
+    }
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
     }
     
 }

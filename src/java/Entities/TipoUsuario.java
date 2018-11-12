@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -31,6 +33,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TipoUsuario.findByIdTipoUsuario", query = "SELECT t FROM TipoUsuario t WHERE t.idTipoUsuario = :idTipoUsuario")
     , @NamedQuery(name = "TipoUsuario.findByNombreTipoUsuario", query = "SELECT t FROM TipoUsuario t WHERE t.nombreTipoUsuario = :nombreTipoUsuario")})
 public class TipoUsuario implements Serializable {
+
+    @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO")
+    @ManyToOne
+    private ControlEstados controlEstados;
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -85,6 +91,14 @@ public class TipoUsuario implements Serializable {
     @Override
     public String toString() {
         return "Entities.TipoUsuario[ idTipoUsuario=" + idTipoUsuario + " ]";
+    }
+
+    public ControlEstados getControlEstados() {
+        return controlEstados;
+    }
+
+    public void setControlEstados(ControlEstados controlEstados) {
+        this.controlEstados = controlEstados;
     }
     
 }

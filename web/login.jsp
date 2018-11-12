@@ -23,22 +23,22 @@
         <h1 align="center">Bienvenido a WBFS</h1>
         <h1 align="center">Ingresar Credenciales</h1>
         <div align="center" class="container">
-            <div align="center" class="container" style="border: black solid;background-color: #d4d4d4 !important;width: 400px">
+            <div align="center" class="form-group" style="border: black solid;background-color: #d4d4d4 !important;width: 400px">
                 <form action="login" method="POST">
                     <div class="container">
                         <p><span class="fa fa-user-o" style="font-size:48px;color:black;"></span></p>
                         <p> Nombre usuario</p>
-                        <p> <input type="text" name="txtUsuario" id="txtUsuario"></p>
+                        <p> <input type="text" class="form-control" name="txtUsuario" id="txtUsuario"></p>
                     </div>
 
                     <div class="container">
                         <p><span class="fa fa-key" style="font-size:48px;color:black;"></span></p>
                         <p> Contraseña</p>
-                        <p> <input type="password" name="txtPassword" id="txtPassword"></p>
+                        <p> <input type="password" class="form-control" name="txtPassword" id="txtPassword"></p>
                     </div>
 
                     <div class="container">   
-                        <p  align="center" colspan="2"><input type="submit" value="Ingresar" name="btnLogin" id="btnLogin"></p> 
+                        <p  align="center" colspan="2"><input type="submit" class="btn btn-primary" value="Ingresar" name="btnLogin" id="btnLogin"></p> 
                     </div>                  
                 </form>
 

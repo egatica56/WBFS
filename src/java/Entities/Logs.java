@@ -34,12 +34,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Logs.findByTiempoSesion", query = "SELECT l FROM Logs l WHERE l.tiempoSesion = :tiempoSesion")})
 public class Logs implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
-    @Basic(optional = false)
-    @Column(name = "ID_LOG")
-    private int idLog;
     @Basic(optional = false)
     @Column(name = "FECHA_INGESO")
     @Temporal(TemporalType.TIMESTAMP)
@@ -48,6 +42,13 @@ public class Logs implements Serializable {
     @Column(name = "TIEMPO_SESION")
     @Temporal(TemporalType.TIMESTAMP)
     private String tiempoSesion;
+
+    private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Id
+    @Basic(optional = false)
+    @Column(name = "ID_LOG")
+    private int idLog;
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne(optional = false)
     private Usuario usuario;
@@ -102,5 +103,6 @@ public class Logs implements Serializable {
     public String toString() {
         return "Entities.Logs[ idLog=" + idLog + " ]";
     }
+
     
 }

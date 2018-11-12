@@ -41,15 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Evaluacion.findByBrecha", query = "SELECT e FROM Evaluacion e WHERE e.brecha = :brecha")})
 public class Evaluacion implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
-    @Basic(optional = false)
-    @Column(name = "ID_EVALUACION")
-    private int idEvaluacion;
-    @Basic(optional = false)
-    @Column(name = "RUT_JEFE")
-    private String rutJefe;
     @Basic(optional = false)
     @Column(name = "NOTA_EVALUACION")
     private int notaEvaluacion;
@@ -63,6 +54,19 @@ public class Evaluacion implements Serializable {
     private int notaJefe;
     @Column(name = "BRECHA")
     private int brecha;
+    @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO")
+    @ManyToOne
+    private ControlEstados controlEstados;
+
+    private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Id
+    @Basic(optional = false)
+    @Column(name = "ID_EVALUACION")
+    private int idEvaluacion;
+    @Basic(optional = false)
+    @Column(name = "RUT_JEFE")
+    private String rutJefe;
     @JoinColumn(name = "ID_CUEST_ASIG", referencedColumnName = "ID_CUEST_ASIG")
     @ManyToOne(optional = false)
     private CuestAsig cuestAsig;
@@ -133,13 +137,6 @@ public class Evaluacion implements Serializable {
         this.notaJefe = notaJefe;
     }
 
-    public int getBrecha() {
-        return brecha;
-    }
-
-    public void setBrecha(int brecha) {
-        this.brecha = brecha;
-    }
 
     public CuestAsig getCuestAsig() {
         return cuestAsig;
@@ -162,6 +159,22 @@ public class Evaluacion implements Serializable {
     @Override
     public String toString() {
         return "Entities.Evaluacion[ idEvaluacion=" + idEvaluacion + " ]";
+    }
+
+    public int getBrecha() {
+        return brecha;
+    }
+
+    public void setBrecha(int brecha) {
+        this.brecha = brecha;
+    }
+
+    public ControlEstados getControlEstados() {
+        return controlEstados;
+    }
+
+    public void setControlEstados(ControlEstados controlEstados) {
+        this.controlEstados = controlEstados;
     }
     
 }

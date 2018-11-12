@@ -91,13 +91,9 @@ public class AgregarPregunta extends HttpServlet {
             int idCuest= Integer.parseInt(request.getParameter("cboCuestionario"));
             cuestionario.setIdCuest(idCuest);
             String pre = request.getParameter("txtPregunta");
-            int porcPre = Integer.parseInt(request.getParameter("txtPorcentajePregunta"));
-            String correcta= request.getParameter("cboCorrecta");
-           
+            
             //cuestionario.setIdCuest(idCuest);
             pregunta.setTextoPregunta(pre);
-            pregunta.setPorcentajePregunta(porcPre);
-            pregunta.setEsCorrecta(correcta);
             pregunta.setCuestionario(cuestionario);
             
 

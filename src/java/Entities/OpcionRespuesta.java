@@ -31,15 +31,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "OpcionRespuesta.findByTextoRespuesta", query = "SELECT o FROM OpcionRespuesta o WHERE o.textoRespuesta = :textoRespuesta")})
 public class OpcionRespuesta implements Serializable {
 
+    @Basic(optional = false)
+    @Column(name = "PORCENTAJE_RESPUESTA")
+    private int porcentajeRespuesta;
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "ID_OPCION_RESPUESTA")
     private int idOpcionRespuesta;
-    @Basic(optional = false)
-    @Column(name = "PORCENTAJE_RESPUESTA")
-    private int porcentajeRespuesta;
     @Basic(optional = false)
     @Column(name = "TEXTO_RESPUESTA")
     private String textoRespuesta;
@@ -98,5 +99,5 @@ public class OpcionRespuesta implements Serializable {
     public String toString() {
         return "Entities.OpcionRespuesta[ idOpcionRespuesta=" + idOpcionRespuesta + " ]";
     }
-    
+
 }

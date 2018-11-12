@@ -21,29 +21,31 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <h1 align="center" class="">Aca podras visualizar las preguntas que existen actualmente en el sistema</h1>
+            <br>
+            <h1 align="center">Aca podras visualizar las preguntas que existen actualmente en el sistema</h1>
+            <br>
             <div align center class="container-fluid">
                 <form action="listarRespuesta" method="get">
-                    <div class="container-fluid" align="center">
+                    <div class="container" align="center">
                         <table class="table">
-                            <tr>
-                                <th>ID Respuesta</th>
-                                <th>Texto Respuesta</th>
-                                <th>Porcentaje Respuesta</th>
-                                <th>Pregunta Asociada</th>
-                                <th>Opciones</th>
+                            <tr align="center">
+                                <th align="center">ID Respuesta</th>
+                                <th align="center">Texto Respuesta</th>
+                                <th align="center">Porcentaje Respuesta</th>
+                                <th align="center">Pregunta Asociada</th>
+                                <!--th align="center" colspan="2">Opciones</th-->
                             </tr>
                             <!--comentario-->
                         <c:forEach items="${respuestas}" var="respuesta">
                             <tr>    
-                                <td>${respuesta.getIdOpcionRespuesta()}</td>
-                                <td>${respuesta.getTextoRespuesta()}</td>
-                                <td>${respuesta.getPorcentajeRespuesta()}</td>
-                                <td>${respuesta.getPregunta().getIdPregunta()} : ${respuesta.getPregunta().getTextoPregunta()}</td>
-                                <td>
-                                    <a href="eliminarCuestionario?id=${cuestionario.getIdCuest()}">Eliminar</a>
-                                    <a href="modificarCuestionario?id=${cuestionario.getIdCuest()}">Modificar</a>
-                                </td>
+                                <td align="center">${respuesta.getIdOpcionRespuesta()}</td>
+                                <td align="center">${respuesta.getTextoRespuesta()}</td>
+                                <td align="center">${respuesta.getPorcentajeRespuesta()}</td>
+                                <td align="center">${respuesta.getPregunta().getIdPregunta()} : ${respuesta.getPregunta().getTextoPregunta()}</td>
+                                <!--td>
+                                    <a class="btn btn-primary" href="eliminarCuestionario?id=${cuestionario.getIdCuest()}">Eliminar</a>
+                                    <a class="btn btn-primary" href="modificarCuestionario?id=${cuestionario.getIdCuest()}">Modificar</a>
+                                </td-->
                             </tr>   
                         </c:forEach>
 

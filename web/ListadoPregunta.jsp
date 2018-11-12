@@ -24,12 +24,11 @@
             <h1 align="center" class="">Aca podras visualizar las preguntas que existen actualmente en el sistema</h1>
             <div align center class="container-fluid">
                 <form action="listarPregunta" method="get">
-                    <div class="container-fluid" align="center">
+                    <div class="container" align="center">
                         <table class="table">
                             <tr>
                                 <th>ID Pregunta</th>
                                 <th>Texto Pregunta</th>
-                                <th>Porcentaje Pregunta</th>
                                 <th>Cuestionario Asociado</th>
                                 <th>Opciones</th>
                             </tr>
@@ -38,12 +37,11 @@
                             <tr>    
                                 <td>${pregunta.getIdPregunta()}</td>
                                 <td>${pregunta.getTextoPregunta()}</td>
-                                <td>${pregunta.getPorcentajePregunta()}</td>
                                 <td>Cuestionario asociado: ${pregunta.getCuestionario().getIdCuest()}</td>
-                                <td>
+                                <!--td>
                                     <a href="eliminarCuestionario?id=${cuestionario.getIdCuest()}">Eliminar</a>
                                     <a href="modificarCuestionario?id=${cuestionario.getIdCuest()}">Modificar</a>
-                                </td>
+                                </td-->
                             </tr>   
                         </c:forEach>
 

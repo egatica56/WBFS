@@ -11,7 +11,7 @@
 
     <header class="container-fluid">
 
-        <div class="container-fluid" align="center" style="background-color: green!important">
+        <div class="container-fluid" align="center" style="background-color: #4038BE!important">
             <h1>Bienvenido ${usuario.getPersona().getNombrePersona()} Usuario. sitio en construccion</h1>
         </div>
 

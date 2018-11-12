@@ -31,9 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Pregunta.findAll", query = "SELECT p FROM Pregunta p")
     , @NamedQuery(name = "Pregunta.findByIdPregunta", query = "SELECT p FROM Pregunta p WHERE p.idPregunta = :idPregunta")
-    , @NamedQuery(name = "Pregunta.findByTextoPregunta", query = "SELECT p FROM Pregunta p WHERE p.textoPregunta = :textoPregunta")
-    , @NamedQuery(name = "Pregunta.findByPorcentajePregunta", query = "SELECT p FROM Pregunta p WHERE p.porcentajePregunta = :porcentajePregunta")
-    , @NamedQuery(name = "Pregunta.findByEsCorrecta", query = "SELECT p FROM Pregunta p WHERE p.esCorrecta = :esCorrecta")})
+    , @NamedQuery(name = "Pregunta.findByTextoPregunta", query = "SELECT p FROM Pregunta p WHERE p.textoPregunta = :textoPregunta")})
 public class Pregunta implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,12 +43,6 @@ public class Pregunta implements Serializable {
     @Basic(optional = false)
     @Column(name = "TEXTO_PREGUNTA")
     private String textoPregunta;
-    @Basic(optional = false)
-    @Column(name = "PORCENTAJE_PREGUNTA")
-    private int porcentajePregunta;
-    @Basic(optional = false)
-    @Column(name = "ES_CORRECTA")
-    private String esCorrecta;
     @JoinColumn(name = "ID_CUEST", referencedColumnName = "ID_CUEST")
     @ManyToOne(optional = false)
     private Cuestionario cuestionario;
@@ -64,11 +56,9 @@ public class Pregunta implements Serializable {
         this.idPregunta = idPregunta;
     }
 
-    public Pregunta(int idPregunta, String textoPregunta, int porcentajePregunta, String esCorrecta) {
+    public Pregunta(int idPregunta, String textoPregunta) {
         this.idPregunta = idPregunta;
         this.textoPregunta = textoPregunta;
-        this.porcentajePregunta = porcentajePregunta;
-        this.esCorrecta = esCorrecta;
     }
 
     public int getIdPregunta() {
@@ -87,22 +77,6 @@ public class Pregunta implements Serializable {
         this.textoPregunta = textoPregunta;
     }
 
-    public int getPorcentajePregunta() {
-        return porcentajePregunta;
-    }
-
-    public void setPorcentajePregunta(int porcentajePregunta) {
-        this.porcentajePregunta = porcentajePregunta;
-    }
-
-    public String getEsCorrecta() {
-        return esCorrecta;
-    }
-
-    public void setEsCorrecta(String esCorrecta) {
-        this.esCorrecta = esCorrecta;
-    }
-
     public Cuestionario getCuestionario() {
         return cuestionario;
     }
@@ -115,11 +89,10 @@ public class Pregunta implements Serializable {
     public Collection<OpcionRespuesta> getOpcionRespuestaCollection() {
         return opcionRespuestaCollection;
     }
-
+    
     public void setOpcionRespuestaCollection(Collection<OpcionRespuesta> opcionRespuestaCollection) {
         this.opcionRespuestaCollection = opcionRespuestaCollection;
     }
-
     @Override
     public String toString() {
         return "Entities.Pregunta[ idPregunta=" + idPregunta + " ]";

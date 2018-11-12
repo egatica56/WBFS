@@ -31,6 +31,23 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "ControlEstados.findByDescripcionEstado", query = "SELECT c FROM ControlEstados c WHERE c.descripcionEstado = :descripcionEstado")})
 public class ControlEstados implements Serializable {
 
+    @OneToMany(mappedBy = "controlEstados")
+    private Collection<Cuestionario> cuestionarioCollection;
+    @OneToMany(mappedBy = "controlEstados")
+    private Collection<TipoUsuario> tipoUsuarioCollection;
+    @OneToMany(mappedBy = "controlEstados")
+    private Collection<CuestAsig> cuestAsigCollection;
+    @OneToMany(mappedBy = "controlEstados")
+    private Collection<Evaluacion> evaluacionCollection;
+    @OneToMany(mappedBy = "controlEstados")
+    private Collection<Nivel> nivelCollection;
+    @OneToMany(mappedBy = "controlEstados")
+    private Collection<Persona> personaCollection;
+    @OneToMany(mappedBy = "controlEstados")
+    private Collection<Competencia> competenciaCollection;
+    @OneToMany(mappedBy = "controlEstados")
+    private Collection<Perfil> perfilCollection;
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -83,6 +100,78 @@ public class ControlEstados implements Serializable {
     @Override
     public String toString() {
         return "Entities.ControlEstados[ idEstado=" + idEstado + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Cuestionario> getCuestionarioCollection() {
+        return cuestionarioCollection;
+    }
+
+    public void setCuestionarioCollection(Collection<Cuestionario> cuestionarioCollection) {
+        this.cuestionarioCollection = cuestionarioCollection;
+    }
+
+    @XmlTransient
+    public Collection<TipoUsuario> getTipoUsuarioCollection() {
+        return tipoUsuarioCollection;
+    }
+
+    public void setTipoUsuarioCollection(Collection<TipoUsuario> tipoUsuarioCollection) {
+        this.tipoUsuarioCollection = tipoUsuarioCollection;
+    }
+
+    @XmlTransient
+    public Collection<CuestAsig> getCuestAsigCollection() {
+        return cuestAsigCollection;
+    }
+
+    public void setCuestAsigCollection(Collection<CuestAsig> cuestAsigCollection) {
+        this.cuestAsigCollection = cuestAsigCollection;
+    }
+
+    @XmlTransient
+    public Collection<Evaluacion> getEvaluacionCollection() {
+        return evaluacionCollection;
+    }
+
+    public void setEvaluacionCollection(Collection<Evaluacion> evaluacionCollection) {
+        this.evaluacionCollection = evaluacionCollection;
+    }
+
+    @XmlTransient
+    public Collection<Nivel> getNivelCollection() {
+        return nivelCollection;
+    }
+
+    public void setNivelCollection(Collection<Nivel> nivelCollection) {
+        this.nivelCollection = nivelCollection;
+    }
+
+    @XmlTransient
+    public Collection<Persona> getPersonaCollection() {
+        return personaCollection;
+    }
+
+    public void setPersonaCollection(Collection<Persona> personaCollection) {
+        this.personaCollection = personaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Competencia> getCompetenciaCollection() {
+        return competenciaCollection;
+    }
+
+    public void setCompetenciaCollection(Collection<Competencia> competenciaCollection) {
+        this.competenciaCollection = competenciaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Perfil> getPerfilCollection() {
+        return perfilCollection;
+    }
+
+    public void setPerfilCollection(Collection<Perfil> perfilCollection) {
+        this.perfilCollection = perfilCollection;
     }
     
 }

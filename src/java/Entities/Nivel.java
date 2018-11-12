@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -32,6 +34,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Nivel.findByNota", query = "SELECT n FROM Nivel n WHERE n.nota = :nota")
     , @NamedQuery(name = "Nivel.findByNombreNota", query = "SELECT n FROM Nivel n WHERE n.nombreNota = :nombreNota")})
 public class Nivel implements Serializable {
+
+    @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO")
+    @ManyToOne
+    private ControlEstados controlEstados;
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -96,6 +102,14 @@ public class Nivel implements Serializable {
     @Override
     public String toString() {
         return "Entities.Nivel[ idNivel=" + idNivel + " ]";
+    }
+
+    public ControlEstados getControlEstados() {
+        return controlEstados;
+    }
+
+    public void setControlEstados(ControlEstados controlEstados) {
+        this.controlEstados = controlEstados;
     }
     
 }

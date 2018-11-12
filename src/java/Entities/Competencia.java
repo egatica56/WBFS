@@ -38,6 +38,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Competencia.findBySiglaCompetencia", query = "SELECT c FROM Competencia c WHERE c.siglaCompetencia = :siglaCompetencia")})
 public class Competencia implements Serializable {
 
+    @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO")
+    @ManyToOne
+    private ControlEstados controlEstados;
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -152,6 +156,14 @@ public class Competencia implements Serializable {
     @Override
     public String toString() {
         return "Entities.Competencia[ idComp=" + idComp + " ]";
+    }
+
+    public ControlEstados getControlEstados() {
+        return controlEstados;
+    }
+
+    public void setControlEstados(ControlEstados controlEstados) {
+        this.controlEstados = controlEstados;
     }
     
 }
