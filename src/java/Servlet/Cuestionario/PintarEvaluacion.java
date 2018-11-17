@@ -246,7 +246,8 @@ public class PintarEvaluacion extends HttpServlet {
                             System.out.println("NOTA FINAL ACTUALIZADA DE JEFE + EMPLEADO");
                             request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
                         }
-
+                        
+                       // int brecha
                         
                     } else {
                         System.out.println("No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");

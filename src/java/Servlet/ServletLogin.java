@@ -86,21 +86,21 @@ public class ServletLogin extends HttpServlet {
                 HttpSession sesion = request.getSession();
                 sesion.setAttribute("usuario", usuario);
 
-                if (usuario.getTipoUsuario().getIdTipoUsuario() == 1) {
+                if (usuario.getTipoUsuario().getIdTipoUsuario() == 1 && usuario.getControlEstados().getIdEstado()==1 ) {
                     request.setAttribute("mensaje", "Login Ok Como Admin");
                     request.setAttribute("usuario", usuario);
                     request.getRequestDispatcher("Main.jsp").forward(request, response);
                     //response.sendRedirect("Demo.jsp");
                     return;
 
-                } else if ((usuario.getTipoUsuario().getIdTipoUsuario() == 2)) {
+                } else if ((usuario.getTipoUsuario().getIdTipoUsuario() == 2 && usuario.getControlEstados().getIdEstado()==1)) {
                     request.setAttribute("mensaje", "Login Ok Como Jefe");
                     request.setAttribute("usuario", usuario);
                     request.getRequestDispatcher("Main.jsp").forward(request, response);
                     return;
                     //request.getRequestDispatcher("login.jsp").forward(request, response);
 
-                } else if ((usuario.getTipoUsuario().getIdTipoUsuario() == 3)) {
+                } else if ((usuario.getTipoUsuario().getIdTipoUsuario() == 3 && usuario.getControlEstados().getIdEstado()==1)) {
                     request.setAttribute("mensaje", "Login Ok Como Empleado");
                     request.setAttribute("usuario", usuario);
                     request.getRequestDispatcher("Main.jsp").forward(request, response);
@@ -108,7 +108,7 @@ public class ServletLogin extends HttpServlet {
                     //request.getRequestDispatcher("login.jsp").forward(request, response);
 
                 } else {
-                    request.setAttribute("mensaje", "Error no existe el empleado.");
+                    request.setAttribute("mensaje", "Error el empleado no existe o se encuntra bloqueado o inhabilitado.");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
 
                 }

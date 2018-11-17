@@ -122,7 +122,16 @@
                         </div>
 
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Notas
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="consultarNota">Consultar Nota</a>
+                        </div>
 
+                    </li>
+                       
                 </ul>
             </c:if>
 
