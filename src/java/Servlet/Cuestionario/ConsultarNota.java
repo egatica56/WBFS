@@ -5,12 +5,18 @@
  */
 package Servlet.Cuestionario;
 
+import DAO.ObservacionDAO;
+import DAO.CompetenciaDAO;
 import DAO.CuestAsigDAO;
+import DAO.CuestionarioDAO;
 import DAO.EvaluacionDAO;
 import DAO.UsuarioDAO;
+import Entities.Competencia;
 import Entities.CuestAsig;
+import Entities.Cuestionario;
 import Entities.Evaluacion;
 import Entities.Nivel;
+import Entities.Observacion;
 import Entities.Persona;
 import Entities.Usuario;
 import java.io.IOException;
@@ -105,17 +111,32 @@ public class ConsultarNota extends HttpServlet {
         int evaluacion = Integer.parseInt(request.getParameter("cboEvaluacion"));
 
         try {
+            
             Evaluacion nota = new EvaluacionDAO().buscarEvaluacion(evaluacion);
-
+            int idCuestionario = nota.getCuestAsig().getCuestionario().getIdCuest();
+            Cuestionario cu= new CuestionarioDAO().buscarCuestionario(idCuestionario);
+            Competencia comp = new CompetenciaDAO().buscarCompetencia(cu.getCompetencia().getIdComp());
             int not = nota.getNotaEvaluacion();
-
+            System.out.println("Nota Evaluacion en consultarNota.Java: " + not);
+            int brecha = nota.getBrecha();
+            System.out.println("Brecha Evaluacion en consultarNota.Java: " + brecha);
+            int idCompetencia=comp.getIdComp();
+            System.out.println("idCompetencia Evaluacion en consultarNota.Java: " + idCompetencia);
             if (not > 0) {
                 request.setAttribute("mensaje", "La nota de la evaluación es: <br>" + "<h1>" + not + "</h1>");
                 System.out.println("la nota de la evaluacion es: " + not);
-                //request.getRequestDispatcher("ConsultarNota.jsp").forward(request, response);
 
-                //aca deberia llamar la brecha y la observacion.
-                
+                if (brecha >= -2) {
+                 //llamo un metodo para llamar la observacion positiva       
+                    Observacion ob= new ObservacionDAO().obtenerObsPos(idCompetencia);
+                    String observacion= ob.getMensajePuntajeSuperior();
+                    request.setAttribute("observacion", "Observacion: "+observacion);
+                } else {
+                    Observacion ob= new ObservacionDAO().obtenerObsNeg(idCompetencia);    
+                    String observacion= ob.getMensajePuntajeInferior();
+                    request.setAttribute("observacion", "Observacion: "+observacion);
+                }
+
                 try {
 
                     if (rol == 2) {

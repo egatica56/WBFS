@@ -90,7 +90,7 @@ public class CompetenciaDAO {
             ResultSet rs = (ResultSet) cstmt.getObject(2);
 
             while (rs.next()) {
-                
+               comp.setIdComp(rs.getInt("ID_COMP"));
                nivel.setIdNivel(rs.getInt("ID_NIVEL"));
                comp.setNivel(nivel);
                 

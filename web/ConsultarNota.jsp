@@ -54,6 +54,10 @@
                 <div align="center">
                     <h1  align="center" for="">${mensaje}</h1>
                 </div>
+                
+                <div align="center">
+                    <h1  align="center" for="">${observacion}</h1>
+                </div>
 
             </form>
         </div>

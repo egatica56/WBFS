@@ -425,8 +425,7 @@ public class EvaluacionDAO {
 
         }
     }
-    
-    
+
     public boolean actualizarNotaFinal(int nota, int idEvaluacion) throws SQLException {
         try {
 
@@ -436,7 +435,6 @@ public class EvaluacionDAO {
 
             cstmt.setInt(1, idEvaluacion);
             cstmt.setInt(2, nota);
-            
 
             //ejecutamos la llamada al procedimiento almacenado
             cstmt.execute();
@@ -452,23 +450,36 @@ public class EvaluacionDAO {
 
         }
     }
-    
-    
-    public boolean actualizarBrecha(int brecha,int idEvaluacion){
-    return false;
+
+    public boolean actualizarBrecha(int brecha, int idEvaluacion) throws SQLException {
+        try {
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_EVALUACION_1.SP_ACTUALIZAR_BRECHA(?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+
+            cstmt.setInt(1, idEvaluacion);
+            cstmt.setInt(2, brecha);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            return true;
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+
+        } finally {
+            this.conexion.close();
+
+        }
     }
-    
-    
-    
-    
-    
-    
 
     public Evaluacion buscarEvaluacion(int idEvaluacion) throws SQLException {
         Evaluacion evaluacion = new Evaluacion();
         Persona persona = new Persona();
-        Cuestionario cu=new Cuestionario();
-        CuestAsig cuA= new CuestAsig();
+        Cuestionario cu = new Cuestionario();
+        CuestAsig cuA = new CuestAsig();
         try {
             this.conexion = new Conexion().obtenerConexion();
             String llamada = "{call PKG_EVALUACION_1.SP_BUSCAR_EVALUACION(?,?)}";
@@ -482,12 +493,13 @@ public class EvaluacionDAO {
             ResultSet rs = (ResultSet) cstmt.getObject(2);
 
             while (rs.next()) {
-                
+
                 cu.setIdCuest(rs.getInt("ID_CUEST"));
                 cuA.setCuestionario(cu);
                 persona.setRutPersona(rs.getString("RUT_PERSONA"));
                 evaluacion.setRutJefe(rs.getString("RUT_JEFE"));
                 evaluacion.setNotaEvaluacion(rs.getInt("NOTA_EVALUACION"));
+                evaluacion.setBrecha(rs.getInt("BRECHA"));
                 evaluacion.setCuestAsig(cuA);
                 evaluacion.setPersona(persona);
 
@@ -506,7 +518,7 @@ public class EvaluacionDAO {
 
     public Evaluacion buscarNotaEvaluacion(int idEvaluacion) throws SQLException {
         Evaluacion evaluacion = new Evaluacion();
-        
+
         try {
             this.conexion = new Conexion().obtenerConexion();
             String llamada = "{call PKG_EVALUACION_1.SP_BUSCAR_NOTA_FINAL(?,?)}";
@@ -520,10 +532,8 @@ public class EvaluacionDAO {
             ResultSet rs = (ResultSet) cstmt.getObject(2);
 
             while (rs.next()) {
-                
-                
+
                 evaluacion.setNotaEvaluacion(rs.getInt("NOTA_EVALUACION"));
-                
 
             }
 
@@ -537,12 +547,7 @@ public class EvaluacionDAO {
         return evaluacion;
 
     }
-    
-    
-    
-    
-    
-    
+
     public Cuestionario obtenerPorcentajes(int idEvaluacion) throws SQLException {
         Evaluacion evaluacion = new Evaluacion();
         CuestAsig cuestAsig = new CuestAsig();
@@ -562,7 +567,7 @@ public class EvaluacionDAO {
             while (rs.next()) {
 
                 cuestionario.setPorcentajeAutoevaluacion(rs.getInt("PORCENTAJE_AUTOEVALUACION"));
-                cuestionario.setPorcentajeJefe(rs.getInt("PORCENTAJE_JEFE"));            
+                cuestionario.setPorcentajeJefe(rs.getInt("PORCENTAJE_JEFE"));
                 cuestAsig.setCuestionario(cuestionario);
                 cuestAsig.setIdCuestAsig(rs.getInt("ID_CUEST_ASIG"));
                 evaluacion.setCuestAsig(cuestAsig);
@@ -577,8 +582,8 @@ public class EvaluacionDAO {
             this.conexion.close();
 
         }
-        System.out.println("porc jefe: "+cuestionario.getPorcentajeJefe());
-        System.out.println("porc eval: "+cuestionario.getPorcentajeAutoevaluacion());
+        System.out.println("porc jefe: " + cuestionario.getPorcentajeJefe());
+        System.out.println("porc eval: " + cuestionario.getPorcentajeAutoevaluacion());
         return cuestionario;
     }
 
