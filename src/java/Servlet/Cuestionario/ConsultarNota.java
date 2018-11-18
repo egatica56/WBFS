@@ -110,10 +110,12 @@ public class ConsultarNota extends HttpServlet {
             int not = nota.getNotaEvaluacion();
 
             if (not > 0) {
-                request.setAttribute("mensaje", "la nota de la evaluacion es: " + not);
+                request.setAttribute("mensaje", "La nota de la evaluación es: <br>" + "<h1>" + not + "</h1>");
                 System.out.println("la nota de la evaluacion es: " + not);
                 //request.getRequestDispatcher("ConsultarNota.jsp").forward(request, response);
 
+                //aca deberia llamar la brecha y la observacion.
+                
                 try {
 
                     if (rol == 2) {
@@ -129,7 +131,7 @@ public class ConsultarNota extends HttpServlet {
                 }
 
             } else {
-                request.setAttribute("mensaje", "aun no puedes consultar tu nota. debes esperar a que tu contraparte responda la evaluacion es: " + not);
+                request.setAttribute("mensaje", "Aún no puedes consultar tu nota. debes esperar a que tu contraparte responda la evaluacion. <br>" + "<h1>" + "Actualmente la nota de la evaluacion es:" + "</h1>" + "<br>" + "<h1>" + not + "</h1>");
                 System.out.println("aun no puedes consultar tu nota. debes esperar a que tu contraparte responda la evaluacion es: " + not);
 
                 try {

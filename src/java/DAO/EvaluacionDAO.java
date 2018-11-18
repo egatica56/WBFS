@@ -247,7 +247,7 @@ public class EvaluacionDAO {
             this.conexion.close();
 
         }
-        System.out.println("Nota Jefe en daoEvaluacion: " + evaluacion.getNotaFuncionario());
+        System.out.println("Nota Empleado en daoEvaluacion: " + evaluacion.getNotaFuncionario());
         return evaluacion.getNotaEvaluacion() == 0 ? evaluacion : null;
 
     }
@@ -454,11 +454,21 @@ public class EvaluacionDAO {
     }
     
     
+    public boolean actualizarBrecha(int brecha,int idEvaluacion){
+    return false;
+    }
+    
+    
+    
+    
+    
     
 
     public Evaluacion buscarEvaluacion(int idEvaluacion) throws SQLException {
         Evaluacion evaluacion = new Evaluacion();
         Persona persona = new Persona();
+        Cuestionario cu=new Cuestionario();
+        CuestAsig cuA= new CuestAsig();
         try {
             this.conexion = new Conexion().obtenerConexion();
             String llamada = "{call PKG_EVALUACION_1.SP_BUSCAR_EVALUACION(?,?)}";
@@ -472,9 +482,13 @@ public class EvaluacionDAO {
             ResultSet rs = (ResultSet) cstmt.getObject(2);
 
             while (rs.next()) {
+                
+                cu.setIdCuest(rs.getInt("ID_CUEST"));
+                cuA.setCuestionario(cu);
                 persona.setRutPersona(rs.getString("RUT_PERSONA"));
                 evaluacion.setRutJefe(rs.getString("RUT_JEFE"));
                 evaluacion.setNotaEvaluacion(rs.getInt("NOTA_EVALUACION"));
+                evaluacion.setCuestAsig(cuA);
                 evaluacion.setPersona(persona);
 
             }
@@ -490,6 +504,45 @@ public class EvaluacionDAO {
 
     }
 
+    public Evaluacion buscarNotaEvaluacion(int idEvaluacion) throws SQLException {
+        Evaluacion evaluacion = new Evaluacion();
+        
+        try {
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_EVALUACION_1.SP_BUSCAR_NOTA_FINAL(?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+            cstmt.setInt(1, idEvaluacion);
+            cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            ResultSet rs = (ResultSet) cstmt.getObject(2);
+
+            while (rs.next()) {
+                
+                
+                evaluacion.setNotaEvaluacion(rs.getInt("NOTA_EVALUACION"));
+                
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            this.conexion.close();
+
+        }
+
+        return evaluacion;
+
+    }
+    
+    
+    
+    
+    
+    
     public Cuestionario obtenerPorcentajes(int idEvaluacion) throws SQLException {
         Evaluacion evaluacion = new Evaluacion();
         CuestAsig cuestAsig = new CuestAsig();

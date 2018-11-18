@@ -5,6 +5,7 @@
  */
 package Servlet.Cuestionario;
 
+import DAO.CompetenciaDAO;
 import DAO.CuestAsigDAO;
 import DAO.CuestionarioDAO;
 import DAO.EvaluacionDAO;
@@ -207,7 +208,8 @@ public class PintarEvaluacion extends HttpServlet {
             Evaluacion eva = new EvaluacionDAO().buscarEvaluacion(idEvaluacion);
             String rutJefe = eva.getRutJefe();
             String rutPersona = eva.getPersona().getRutPersona();
-
+            int idCuestionario=eva.getCuestAsig().getCuestionario().getIdCuest();
+            System.out.println("IdCuestionario: "+ idCuestionario);
             System.out.println("Rut Jefe: " + rutJefe);
             System.out.println("Rut Persona: " + rutPersona);
 
@@ -222,7 +224,7 @@ public class PintarEvaluacion extends HttpServlet {
                     System.out.println("Ingreso Ok");
                     request.setAttribute("Mensaje", "Evaluacion Evaluada correctamente. Nota Obtenida: " + nota);
 
-                    int notaFun = new EvaluacionDAO().validarNotaJefe(idEvaluacion, rutJefe).getNotaFuncionario();
+                    int notaFun = new EvaluacionDAO().validarNotaEmp(idEvaluacion, rutPersona).getNotaFuncionario();
                     System.out.println("Nota Funcionario en Jefe: " + notaFun);
                     if (notaFun > 0) {
 
@@ -244,23 +246,30 @@ public class PintarEvaluacion extends HttpServlet {
 
                         if (fin) {
                             System.out.println("NOTA FINAL ACTUALIZADA DE JEFE + EMPLEADO");
-                            request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
-                        }
                         
-                       // int brecha
+                        }
+                        int brecha=0;
+                        Cuestionario cu2 = new CuestionarioDAO().buscarCuestionario(idCuestionario);
+                        System.out.println("ID cuestionario: "+ cu2.getIdCuest());
+                        System.out.println("ID competencia: "+ cu2.getCompetencia().getIdComp());
+                        Competencia comp= new CompetenciaDAO().buscarCompetencia(cu2.getCompetencia().getIdComp());
+                        int notaCompetencia=comp.getNivel().getIdNivel();
+                        brecha = notaParse- notaCompetencia;
+                        System.out.println("La brecha es: "+ brecha);
+                        
                         
                     } else {
                         System.out.println("No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
                         request.setAttribute("Mensaje", "No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
-                        request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);    
+                        
                     }
 
                 } else {
                     System.out.println("no Ok");
                     request.setAttribute("Mensaje", "Error al intentar evaluar.");
-                    request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);    
+                    
                 }
-                request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
+    
 
             } else if (rol == 3) {
                 System.out.println("rut: empleado: " + rut);
@@ -291,8 +300,17 @@ public class PintarEvaluacion extends HttpServlet {
                         boolean fin = new EvaluacionDAO().actualizarNotaFinal(notaParse, idEvaluacion);
 
                         if (fin) {
-                            System.out.println("NOTA FINA ACTUALIZADA");
+                            System.out.println("NOTA FINAL ACTUALIZADA");
                         }
+                        
+                        int brecha=0;
+                        Cuestionario cu2 = new CuestionarioDAO().buscarCuestionario(idCuestionario);
+                        System.out.println("ID competencia: "+ cu2.getCompetencia().getIdComp());
+                        Competencia comp= new CompetenciaDAO().buscarCompetencia(cu2.getCompetencia().getIdComp());
+                        int notaCompetencia= comp.getNivel().getIdNivel();
+                        brecha = notaParse- notaCompetencia;
+                        System.out.println("La brecha es: "+ brecha);
+                        
 
                     } else {
                         System.out.println("No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");

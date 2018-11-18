@@ -51,11 +51,10 @@
 
                     </table>
                 </div>
-                    <div align="center">
-                        <label  align="center" for="">${mensaje}</label>
-                        
-                    </div>
-                
+                <div align="center">
+                    <h1  align="center" for="">${mensaje}</h1>
+                </div>
+
             </form>
         </div>
     </body>

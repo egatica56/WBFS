@@ -36,37 +36,7 @@ public class NotaDAO {
     }
     private Connection conexion;
 
-    public Nivel buscarNota() throws SQLException {
-
-        try {
-            //Cuestionario cu = new Cuestionario();
-            //Competencia com = new Competencia();
-            this.conexion = new Conexion().obtenerConexion();
-            String llamada = "{call PKG_NIVEL_1.SP_ADD_EVAL(?,?,?,?,?)}";
-            CallableStatement cstmt = conexion.prepareCall(llamada);
-
-            // cstmt.setInt(1, cuestionario.getIdCuest());
-            //cstmt.setString(1, evaluacion.getRutJefe());
-            //cstmt.setString(2, evaluacion.getFechaEvaluacion());
-            //cstmt.setInt(3, evaluacion.getCuestAsig().getIdCuestAsig());
-            //cstmt.setString(4, evaluacion.getPersona().getRutPersona());
-            //cstmt.registerOutParameter(5, Types.INTEGER);
-            //ejecutamos la llamada al procedimiento almacenado
-            cstmt.execute();
-            int indice = cstmt.getInt(5);
-
-            return true;
-
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            return false;
-
-        } finally {
-            this.conexion.close();
-
-        }
-
-    }
+    
 
     public List<Usuario> listarPersonasPorJefe(String rut) throws SQLException {
         List<Usuario> listado = new ArrayList<Usuario>();
