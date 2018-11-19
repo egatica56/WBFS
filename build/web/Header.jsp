@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+
 
     <header class="container-fluid">
 
@@ -131,7 +131,17 @@
                         </div>
 
                     </li>
-                       
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                         Reportes
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="reportejefe">Consultar empleados</a>
+                            
+                        </div>
+
+                    </li>
+
                 </ul>
             </c:if>
 
@@ -149,7 +159,15 @@
                         </div>
 
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Notas
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="consultarNota">Consultar Nota</a>
+                        </div>
 
+                    </li>
                 </ul>
             </c:if>
             <a class="nav-link" href="Main.jsp">Volver</a>
@@ -159,4 +177,4 @@
     </header>
 
 
-</html>
+
