@@ -20,46 +20,45 @@
         <title>Cuestionario</title>
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
-    <body>
-        <h1 align="center" class="">Aca podras crear los cuestionarios para las competencias asociadas</h1>
-        <div align center class="container-fluid">
-            <form action="modificarCuestionario" method="post">
-                <div class="container-fluid" align="center">
-                    <table>
-                        <tr><td>Id Cuestionario</td>
-                            <td><input disabled="" type="number" name="txtId" id="txtId" required="" value="${cuestionario.getIdCuest()}"></td>
-                        </tr>
+        <body>
+            <h1 align="center" class="">Acá podrás modificar los porcentajes de evaluacion de los cuestionarios existentes</h1>
+            <br>
+            <br>
+            <div align center class="form-group">
+                <br>
+                <div align="center">
+                    <label for="">${mensaje}</label>
+                </div>         
+                <br>
+                <form action="modificarCuestionario" method="post">
+                    <div class="container-fluid" align="center">
+                        <table align ="center" style="width: 400px!important">
+
+                            <tr>
+                                <td><input type="hidden" name="txtIdCuestionario" value="${cuestionario.getIdCuest()}"></td>
+                            <td>Id del cuestionario a modificar ${cuestionario.getIdCuest()}</td>
+                        </tr>   
                         <tr>
                             <td>Porcentaje Jefe</td>
-                            <td><input type="number" name="txtPorcentajeJefe" id="txtPorcentajeJefe" min="0" max="100" value="${cuestionario.getPorcentajeJefe()}"  required=""></td>
+                            <td><input type="number" class="form-control" name="txtPorcentajeJefe" id="txtPorcentajeJefe" min="0" max="100"   required="" value="${cuestionario.getPorcentajeJefe()}"></td>
                         </tr>
                         <tr>
                             <td>Porcentaje Evaluado</td>
-                            <td><input type="number" name="txtPorcentajeEvaluado" id="txtPorcentajeEvaluado" min="0" max="100" value="${cuestionario.getPorcentajeAutoevaluacion()}"  required=""></td>
-                        </tr>
-                        <tr>
-                            <td>Competencia Asociada</td>
-                            <td>
-                                <select name="cboCompetencia" id="cboCompetencia" required="">
-                                    <option value="">Seleccionar</option>                       
-                                    <c:forEach items="${competencias}" var="com">
-                                        <option value="${com.getIdComp()}">${com.getNombreCompetencia()}</option>
-                                    </c:forEach>
-                                </select>
-                            <td>
-                        </tr>
-                        <tr>
-                            <td align="center" colspan="2"><input class="btn btn-primary" type="submit" id="btnGuardarCuest" name="btnGuardarCuest" value="Guardar"></td>
+                            <td><input type="number" class="form-control" name="txtPorcentajeEvaluado" id="txtPorcentajeEvaluado" min="0" max="100"  required="" value="${cuestionario.getPorcentajeAutoevaluacion()}"></td>
                         </tr>
 
                     </table>
+                    <br>
+
+                    <div align="center">
+                        <label for=""><input class="btn btn-primary" type="submit" id="btnAsignarCuest" name="btnAsignarCuest" value="Guardar"></label> 
+                    </div>   
                 </div>
-                <label for="">${mensaje}</label>
             </form>
         </div>
     </body>
-   
-    
-    
-<jsp:include page="Footer.jsp"></jsp:include>
+
+
+
+    <jsp:include page="Footer.jsp"></jsp:include>    
 </html>

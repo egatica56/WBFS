@@ -141,4 +141,36 @@ public class CuestionarioDAO {
         return cuestionario;
     }
 
+    public boolean modificarCuestionario(int idCuest, int porcEval, int porcJefe) throws SQLException {
+          try {
+
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_CUESTIONARIO_1.SP_MODIFICAR_PORCENTAJES(?,?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+
+            
+            cstmt.setInt(1,idCuest);
+            cstmt.setInt(2,porcJefe);
+            cstmt.setInt(3,porcEval);
+            
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+                  
+            
+            return true;
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+              System.out.println("Error al modificar el cuestionario.");
+            return false;
+            
+
+        } finally {
+            this.conexion.close();
+
+        }
+
+    }
+
 }

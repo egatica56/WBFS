@@ -7,11 +7,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<!-- Footer -->
     <!-- Footer -->
-    <footer class="page-footer font-small blue fixed-bottom">
-        <div class="footer-copyright text-center py-3">wfbs © 2018 Copyright:
-            <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
+    <!-- Footer -->
+    <footer align="center">
+        <div class="footer-copyright text-center py-3">Data Design © 2018 Copyright:
         </div>
     </footer>
     <!-- Footer -->

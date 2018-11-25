@@ -21,10 +21,15 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <h1 align="center" class="">Aca podras crear las respuestas para las preguntas</h1>
+            <h1 align="center" class="">Acá podrás crear las respuestas para las preguntas creadas.</h1>
             <br>
             <br>
             <div align center class="container-fluid">
+                <br>
+                <div align="center">
+                    ${mensaje}
+                </div>
+                <br>
                 <form action="respuesta" method="post">
                     <div class="container-fluid" align="center">
                         <table>

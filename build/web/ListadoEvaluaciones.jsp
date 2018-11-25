@@ -4,6 +4,7 @@
     Author     : EduardoGatica
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,19 +18,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Listado de Evaluacion</title>
+        <title>Listado de Evaluaciones</title>
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
 
         <c:if  test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
-            <h1 align="center" class="">Acá podras visualizar las Evaluaciones Previamente Asignadas a tus empleados</h1>
+            <h1 align="center" class="">Acá podrás visualizar las Evaluaciones Previamente Asignadas a tus empleados</h1>
         </c:if>    
         <c:if  test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
-            <h1 align="center" class="">Acá podras visualizar Tus Evaluaciones Asignadas</h1>
+            <h1 align="center" class="">Acá podrás visualizar Tus Evaluaciones Asignadas</h1>
         </c:if>    
 
         <div align center class="container-fluid">
+            <br>
+            <div class="container" align="center">
+                ${mensaje}
+            </div>
+            <br>              
             <form action="pintarEvaluacion" method="get">
                 <div class="container" align="center">
                     <table class="table">
@@ -43,6 +49,9 @@
                         </tr>
                         <!--comentario-->
                         <c:forEach items="${evaluaciones}" var="evaluacion">
+
+                            
+                            
                             <tr align="center">    
                                 <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtIdEvaluacion" id="txtIdEvaluacion">${evaluacion.getIdEvaluacion()}</td>
                                 <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtRutJefe" id="txtRutJefe">${evaluacion.getRutJefe()}</td>
@@ -50,20 +59,19 @@
                                 <td align="center">${evaluacion.getPersona().getNombrePersona()}</td>
                                 <td align="center">${evaluacion.getFechaEvaluacion()}</td>
                                 <td align="center">${evaluacion.getCuestAsig().getIdCuestAsig()}</td>
-                                <td align="center"><a href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}&rutJ=${evaluacion.getRutJefe()}" class="btn btn-primary btn-sm">Responder</a></td>
+
 
                                 <td align="center">
+                                    <a class="btn btn-primary" href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}&rutJ=${evaluacion.getRutJefe()}">Responder</a>
                                     <a class="btn btn-primary" href="eliminarCuestionario?id=${evaluacion.getIdEvaluacion()}">Eliminar</a>
-                                    <a class="btn btn-primary" href="modificarCuestionario?id=${evaluacion.getIdEvaluacion()}">Modificar</a>
                                 </td>
-                            </tr>   
+                            </tr>
+
                         </c:forEach>
 
                     </table>
                 </div>
-                <div class="container" align="center">
-                <label for="" align="center" class="btn btn-danger">${mensaje}</label>
-                </div>
+
             </form>
         </div>
     </body>

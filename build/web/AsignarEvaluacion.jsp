@@ -21,18 +21,23 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>    
         <body>
-            <h1 align="center" class="">Acá podras Asignar las evaluaciones a los empleados</h1>
+            <h1 align="center" class="">Acá podrás Asignar las evaluaciones a los empleados</h1>
             <br>
             <div align center class="container-fluid">
-                
-                <form action="asignarEvaluacion" method="Post">
-                    <div class="container" align="center">
-                        <br>
-                        <table align="center" style="width: 400px!important">
-                            <tr align="left">
-                                <td>Rut Jefe</td>
-                                <td>
-                                    <input type="hidden" name="txtRutJefe" id="txtRutJefe" value="${usuario.getUsername()}">
+            <br>
+                <div align="center">
+                    <strong>${mensaje}</strong>
+                </div>
+            <br>    
+
+            <form action="asignarEvaluacion" method="Post">
+                <div class="container" align="center">
+                    <br>
+                    <table align="center" style="width: 400px!important">
+                        <tr align="left">
+                            <td>Rut Jefe</td>
+                            <td>
+                                <input type="hidden" name="txtRutJefe" id="txtRutJefe" value="${usuario.getUsername()}">
                                 ${usuario.getUsername()}
                             </td>
                         </tr >
@@ -64,7 +69,7 @@
                         </tr>
                     </table>
                 </div>
-                <label for="">${mensaje}</label>
+    
             </form>
         </div>
     </body>

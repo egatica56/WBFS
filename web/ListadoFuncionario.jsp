@@ -21,8 +21,13 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <h1 align="center" class="">Aca podras visualizar a los funcionarios y sus cuestionarios asignados en el sistema</h1>
+            <h1 align="center" class="">Acá podrás visualizar a los funcionarios y sus cuestionarios asignados en el sistema</h1>
+            <br>
             <div align center class="container-fluid">
+                <br>
+                <div align="center">
+                    ${mensaje}
+                </div>
                 <form action="cuestionario/listar" method="get">
                     <div class="container-fluid" align="center">
                         <table class="table">
@@ -50,7 +55,7 @@
 
                     </table>
                 </div>
-                <label for="">${mensaje}</label>
+
             </form>
         </div>
     </body>

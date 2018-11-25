@@ -21,7 +21,7 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <h1 align="center" class="">Aca podras consultar por la nota de tus evaluaciones.</h1>
+            <h1 align="center" class="">Acá podrás consultar por la nota de tus evaluaciones.</h1>
             <br>
             <div align center class="container-fluid">
                 <form action="consultarNota" method="post">

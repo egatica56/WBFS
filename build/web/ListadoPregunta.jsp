@@ -21,8 +21,12 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <h1 align="center" class="">Aca podras visualizar las preguntas que existen actualmente en el sistema</h1>
+            <h1 align="center" class="">Acá podrás visualizar las preguntas que existen actualmente en el sistema</h1>
             <div align center class="container-fluid">
+                <div align="center">
+                    ${mensaje}
+                </div>
+                
                 <form action="listarPregunta" method="get">
                     <div class="container" align="center">
                         <table class="table">
@@ -47,7 +51,6 @@
 
                     </table>
                 </div>
-                <label for="">${mensaje}</label>
             </form>
         </div>
     </body>

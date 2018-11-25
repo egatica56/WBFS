@@ -21,19 +21,25 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>   
         <body>
-            <h1 align="center" class="">Aca podras visualizar los cuestionarios que existen actualmente en el sistema</h1>
+            <h1 align="center" class="">Acá podrás visualizar los cuestionarios que existen actualmente en el sistema</h1>
+
             <div align center class="container-fluid">
-                <form action="cuestionario/listar" method="get">
-                    <div class="container" align="center">
-                        <table class="table" align="center">
-                            <tr align="center">
-                                <th align="center">ID Cuestionario</th>
-                                <th align="center">Porcentaje Jefe</th>
-                                <th align="center">Porcentaje Autoevaluacion</th>
-                                <th align="center">Competencia Asociada</th>
-                                <th align="center">Opciones</th>
-                            </tr>
-                            <!--comentario-->
+                <br>
+                <div align="center">
+                    <strong>${mensaje}</strong>
+                </div>
+            <br>
+            <form action="cuestionario/listar" method="get">
+                <div class="container" align="center">
+                    <table class="table" align="center">
+                        <tr align="center">
+                            <th align="center">ID Cuestionario</th>
+                            <th align="center">Porcentaje Jefe</th>
+                            <th align="center">Porcentaje Autoevaluacion</th>
+                            <th align="center">Competencia Asociada</th>
+                            <th align="center">Opciones</th>
+                        </tr>
+                        <!--comentario-->
                         <c:forEach items="${cuestionarios}" var="cuestionario">
                             <tr align="center">    
                                 <td align="center">${cuestionario.getIdCuest()}</td>
@@ -49,8 +55,11 @@
 
                     </table>
                 </div>
-                <label for="">${mensaje}</label>
+
             </form>
+
+
+
         </div>
     </body>
 

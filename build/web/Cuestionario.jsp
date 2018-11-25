@@ -21,13 +21,19 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <h1 align="center" class="">Aca podras crear los cuestionarios para las competencias asociadas</h1>
+            <h1 align="center" class="">Acá podrás crear los cuestionarios para las competencias asociadas</h1>
             <br>
             <div align center class="form-group">
-                <form action="cuestionario" method="post">
-                    <div class="container-fluid" align="center">
-                        <table align ="center" style="width: 400px!important">
-                            <!--h1>${usuario.getPersona().getRutPersona()}</h1-->
+                <br>
+                <div align="center">
+                    <strong>${mensaje}</strong>
+                </div>
+            <br>
+
+            <form action="cuestionario" method="post">
+                <div class="container-fluid" align="center">
+                    <table align ="center" style="width: 400px!important">
+                        <!--h1>${usuario.getPersona().getRutPersona()}</h1-->
                         <!--tr><td>Id Cuestionario</td>
                             <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
                         </tr>
@@ -53,10 +59,10 @@
 
 
                     </table>
-                        <br>
-                        <br>
+                    <br>
+                    <br>
 
-                
+
                     <table align ="center" style="width: 400px!important">
                         <c:if test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
                             <tr>
@@ -96,17 +102,13 @@
                 <td>
             </tr-->
                         <tr>
-                        
+
                             <td  colspan="2" align="center" colspan="2"><input class="btn btn-primary" type="submit" id="btnAsignarCuest" name="btnAsignarCuest" value="Guardar"></td>
                         </tr>
                     </table>
                 </div>
-                <label for="">${mensaje}</label>
+
             </form>
-
-
-
-
         </div>
     </body>
 

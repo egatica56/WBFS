@@ -22,9 +22,14 @@
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
             <br>
-            <h1 align="center">Aca podras visualizar las preguntas que existen actualmente en el sistema</h1>
+            <h1 align="center">Acá podrás visualizar las preguntas que existen actualmente en el sistema</h1>
             <br>
             <div align center class="container-fluid">
+                <br>
+                <div align="center">
+                    ${mensaje}
+                </div>
+                <br>
                 <form action="listarRespuesta" method="get">
                     <div class="container" align="center">
                         <table class="table">
@@ -51,7 +56,7 @@
 
                     </table>
                 </div>
-                <label for="">${mensaje}</label>
+                
             </form>
         </div>
     </body>

@@ -114,7 +114,7 @@ public class Evaluacion implements Serializable {
     }
 
     public String getFechaEvaluacion() {
-        return fechaEvaluacion;
+        return fechaEvaluacion.substring(0, 10);
     }
 
     public void setFechaEvaluacion(String fechaEvaluacion) {

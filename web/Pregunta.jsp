@@ -21,27 +21,32 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <h1 align="center" class="">Aca podras crear las preguntas para las cuestionario asociados</h1>
+            <h1 align="center" class="">Acá podrás crear las preguntas para los cuestionarios asociados.</h1>
             <br>
             <div align center class="container-fluid">
-                <form action="pregunta" method="post">
-                    <div class="container-fluid" align="center">
-                        <br>
-                        <table>
-                            <!--tr><td>Id Cuestionario</td>
-                                <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
-                            </tr>
-                            <tr-->
-                            <td>Texto Pregunta</td>
-                            <td><input type="text" name="txtPregunta" id="txtPregunta" class="form-control" required=""></td>
-                            </tr>
-                            <tr><td><br></td>
-                                <td><br></td></tr>
-                            <tr>
-                                <td>Cuestionario Asociado</td>
-                                <td>
-                                    <select name="cboCuestionario" class="form-control" id="cboCuestionario" required="">
-                                        <option  value="">Seleccionar</option>                       
+                <br>
+                <div align="center">
+                ${mensaje}
+            </div>
+            <br>
+            <form action="pregunta" method="post">
+                <div class="container-fluid" align="center">
+                    <br>
+                    <table>
+                        <!--tr><td>Id Cuestionario</td>
+                            <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
+                        </tr>
+                        <tr-->
+                        <td>Texto Pregunta</td>
+                        <td><input type="text" name="txtPregunta" id="txtPregunta" class="form-control" required=""></td>
+                        </tr>
+                        <tr><td><br></td>
+                            <td><br></td></tr>
+                        <tr>
+                            <td>Cuestionario Asociado</td>
+                            <td>
+                                <select name="cboCuestionario" class="form-control" id="cboCuestionario" required="">
+                                    <option  value="">Seleccionar</option>                       
                                     <c:forEach items="${cuestionarios}" var="cu">
                                         <option  value="${cu.getIdCuest()}">Cuestionario número: ${cu.getIdCuest()} -  ${cu.getCompetencia().getNombreCompetencia()}</option>
                                     </c:forEach>
@@ -56,7 +61,6 @@
 
                     </table>
                 </div>
-                <label for="">${mensaje}</label>
             </form>
         </div>
     </body>

@@ -9,12 +9,12 @@
 <!DOCTYPE html>
 
 
-    <header class="container-fluid">
+<header class="container-fluid">
 
-        <div class="container-fluid" align="center" style="background-color: #4038BE!important">
-            <h1>Bienvenido ${usuario.getPersona().getNombrePersona()} Usuario. sitio en construccion</h1>
-        </div>
-
+    <div class="container-fluid" align="center" style="background-color: #4038BE!important">
+        <h1>Bienvenido ${usuario.getPersona().getNombrePersona()}.</h1>
+    </div>
+    
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <!-- Brand -->
             <a class="navbar-brand" href="#">Logo</a>
@@ -133,11 +133,11 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                         Reportes
+                            Reportes
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="reportejefe">Consultar empleados</a>
-                            
+
                         </div>
 
                     </li>
@@ -173,8 +173,10 @@
             <a class="nav-link" href="Main.jsp">Volver</a>
             <a class="nav-link" href="cerrar-sesion">Cerrar Sesion</a>
 
-        </nav> 
-    </header>
+        </nav>
+        <br>
+
+</header>
 
 
 
