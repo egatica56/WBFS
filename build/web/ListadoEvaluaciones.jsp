@@ -24,12 +24,12 @@
         <body>
 
         <c:if  test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
-            <h1 align="center" class="">Acá podrás visualizar las Evaluaciones Previamente Asignadas a tus empleados</h1>
+            <h1 align="center" class="">Acá podrás visualizar las evaluaciones previamente asignadas a tus empleados</h1>
         </c:if>    
         <c:if  test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
-            <h1 align="center" class="">Acá podrás visualizar Tus Evaluaciones Asignadas</h1>
+            <h1 align="center" class="">Acá podrás visualizar Tus evaluaciones asignadas</h1>
         </c:if>    
-
+        
         <div align center class="container-fluid">
             <br>
             <div class="container" align="center">
@@ -50,23 +50,32 @@
                         <!--comentario-->
                         <c:forEach items="${evaluaciones}" var="evaluacion">
 
-                            
-                            
-                            <tr align="center">    
-                                <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtIdEvaluacion" id="txtIdEvaluacion">${evaluacion.getIdEvaluacion()}</td>
-                                <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtRutJefe" id="txtRutJefe">${evaluacion.getRutJefe()}</td>
+                            <c:if test="${evaluacion.getControlEstados().getIdEstado()==1}">
 
-                                <td align="center">${evaluacion.getPersona().getNombrePersona()}</td>
-                                <td align="center">${evaluacion.getFechaEvaluacion()}</td>
-                                <td align="center">${evaluacion.getCuestAsig().getIdCuestAsig()}</td>
+                                <tr align="center">    
+                                    <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtIdEvaluacion" id="txtIdEvaluacion">${evaluacion.getIdEvaluacion()}</td>
+                                    <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtRutJefe" id="txtRutJefe">${evaluacion.getRutJefe()}</td>
 
+                                    <td align="center">${evaluacion.getPersona().getNombrePersona()}</td>
+                                    <td align="center">${evaluacion.getFechaEvaluacion()}</td>
+                                    <td align="center">${evaluacion.getCuestAsig().getIdCuestAsig()}</td>
 
-                                <td align="center">
-                                    <a class="btn btn-primary" href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}&rutJ=${evaluacion.getRutJefe()}">Responder</a>
-                                    <a class="btn btn-primary" href="eliminarCuestionario?id=${evaluacion.getIdEvaluacion()}">Eliminar</a>
-                                </td>
-                            </tr>
+                                    <c:choose>
+                                        <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
+                                            <td align="center">
+                                                <a class="btn btn-primary" href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}&rutJ=${evaluacion.getRutJefe()}">Responder</a>
+                                                <a class="btn btn-primary" href="eliminarCuestionario?id=${evaluacion.getIdEvaluacion()}">Eliminar</a>
+                                            </td>
+                                        </c:when>
+                                        <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
+                                            <td align="center">
+                                                <a class="btn btn-primary" href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}&rutJ=${evaluacion.getRutJefe()}">Responder</a>
 
+                                            </td>
+                                        </c:when>
+                                    </c:choose>
+                                </tr>
+                            </c:if>
                         </c:forEach>
 
                     </table>

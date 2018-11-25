@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Entities.ControlEstados;
 import Entities.CuestAsig;
 import Entities.Cuestionario;
 import Entities.Evaluacion;
@@ -140,6 +141,8 @@ public class EvaluacionDAO {
                 TipoUsuario tipoUsuario = new TipoUsuario();
                 Persona persona = new Persona();
                 Usuario usuario = new Usuario();
+                ControlEstados control=new ControlEstados();
+                control.setIdEstado(rs.getInt("ID_ESTADO"));
                 cuestAsig.setIdCuestAsig(rs.getInt("ID_CUEST_ASIG"));
                 usuario.setIdUsuario(rs.getInt("ID_USUARIO"));
                 usuario.setUsername(rs.getString("USERNAME"));
@@ -157,6 +160,7 @@ public class EvaluacionDAO {
                 evaluacion.setFechaEvaluacion(rs.getString("FECHA_EVALUACION"));
                 evaluacion.setPersona(persona);
                 evaluacion.setCuestAsig(cuestAsig);
+                evaluacion.setControlEstados(control);
                 listado.add(evaluacion);
                 System.out.println("INFO: " + tipoUsuario.getIdTipoUsuario());
 
@@ -275,6 +279,8 @@ public class EvaluacionDAO {
                 TipoUsuario tipoUsuario = new TipoUsuario();
                 Persona persona = new Persona();
                 Usuario usuario = new Usuario();
+                ControlEstados control= new ControlEstados();
+                control.setIdEstado(rs.getInt("ID_ESTADO"));
                 cuestAsig.setIdCuestAsig(rs.getInt("ID_CUEST_ASIG"));
                 usuario.setIdUsuario(rs.getInt("ID_USUARIO"));
                 usuario.setUsername(rs.getString("USERNAME"));
@@ -292,6 +298,7 @@ public class EvaluacionDAO {
                 evaluacion.setFechaEvaluacion(rs.getString("FECHA_EVALUACION"));
                 evaluacion.setPersona(persona);
                 evaluacion.setCuestAsig(cuestAsig);
+                evaluacion.setControlEstados(control);
                 listado.add(evaluacion);
                 System.out.println("INFO: " + tipoUsuario.getIdTipoUsuario());
 

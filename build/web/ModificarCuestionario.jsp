@@ -21,41 +21,48 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <h1 align="center" class="">Acá podrás modificar los porcentajes de evaluacion de los cuestionarios existentes</h1>
-            <br>
-            <br>
-            <div align center class="form-group">
+        <c:choose>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
+                <h1 align="center" class="">Acá podrás modificar los porcentajes de evaluacion de los cuestionarios existentes</h1>
                 <br>
-                <div align="center">
-                    <label for="">${mensaje}</label>
-                </div>         
                 <br>
-                <form action="modificarCuestionario" method="post">
-                    <div class="container-fluid" align="center">
-                        <table align ="center" style="width: 400px!important">
-
-                            <tr>
-                                <td><input type="hidden" name="txtIdCuestionario" value="${cuestionario.getIdCuest()}"></td>
-                            <td>Id del cuestionario a modificar ${cuestionario.getIdCuest()}</td>
-                        </tr>   
-                        <tr>
-                            <td>Porcentaje Jefe</td>
-                            <td><input type="number" class="form-control" name="txtPorcentajeJefe" id="txtPorcentajeJefe" min="0" max="100"   required="" value="${cuestionario.getPorcentajeJefe()}"></td>
-                        </tr>
-                        <tr>
-                            <td>Porcentaje Evaluado</td>
-                            <td><input type="number" class="form-control" name="txtPorcentajeEvaluado" id="txtPorcentajeEvaluado" min="0" max="100"  required="" value="${cuestionario.getPorcentajeAutoevaluacion()}"></td>
-                        </tr>
-
-                    </table>
+                <div align center class="form-group">
                     <br>
-
                     <div align="center">
-                        <label for=""><input class="btn btn-primary" type="submit" id="btnAsignarCuest" name="btnAsignarCuest" value="Guardar"></label> 
-                    </div>   
+                        <label for="">${mensaje}</label>
+                    </div>         
+                    <br>
+                    <form action="modificarCuestionario" method="post">
+                        <div class="container-fluid" align="center">
+                            <table align ="center" style="width: 400px!important">
+
+                                <tr>
+                                    <td><input type="hidden" name="txtIdCuestionario" value="${cuestionario.getIdCuest()}"></td>
+                                    <td>Id del cuestionario a modificar ${cuestionario.getIdCuest()}</td>
+                                </tr>   
+                                <tr>
+                                    <td>Porcentaje Jefe</td>
+                                    <td><input type="number" class="form-control" name="txtPorcentajeJefe" id="txtPorcentajeJefe" min="0" max="100"   required="" value="${cuestionario.getPorcentajeJefe()}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Porcentaje Evaluado</td>
+                                    <td><input type="number" class="form-control" name="txtPorcentajeEvaluado" id="txtPorcentajeEvaluado" min="0" max="100"  required="" value="${cuestionario.getPorcentajeAutoevaluacion()}"></td>
+                                </tr>
+
+                            </table>
+                            <br>
+
+                            <div align="center">
+                                <label for=""><input class="btn btn-primary" type="submit" id="btnAsignarCuest" name="btnAsignarCuest" value="Guardar"></label> 
+                            </div>   
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
+            </c:when>  
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
+                <jsp:include page="Error.jsp"></jsp:include>
+            </c:when>                   
+        </c:choose>                
     </body>
 
 

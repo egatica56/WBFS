@@ -158,7 +158,7 @@ public class PintarEvaluacion extends HttpServlet {
                 }
 
             } else {
-                request.setAttribute("mensaje", "Los administradores no pueden responder encuesta");
+                request.setAttribute("mensaje", "Los administradores no pueden responder encuestas");
                 request.getRequestDispatcher("ListadoEvaluaciones.jsp").forward(request, response);
             }
 

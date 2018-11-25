@@ -50,7 +50,7 @@ public class ReporteJefeDAO {
                 repJefe.setCompetencia(rs.getString("NOMBRE_COMPETENCIA"));
                 repJefe.setNotaEsperada(rs.getInt("ID_NIVEL"));
                 repJefe.setNota(rs.getInt("NOTA_EVALUACION"));
-                repJefe.setNota(rs.getInt("BRECHA"));
+                repJefe.setBrecha(rs.getInt("BRECHA"));
               
                 listado_reportes.add(repJefe);
 

@@ -22,23 +22,24 @@
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
             <h1 align="center" class="">Acá podrás visualizar las preguntas que existen actualmente en el sistema</h1>
+            <br>
             <div align center class="container-fluid">
                 <div align="center">
-                    ${mensaje}
-                </div>
-                
-                <form action="listarPregunta" method="get">
-                    <div class="container" align="center">
-                        <table class="table">
-                            <tr>
-                                <th>ID Pregunta</th>
-                                <th>Texto Pregunta</th>
-                                <th>Cuestionario Asociado</th>
-                                <th>Opciones</th>
-                            </tr>
-                            <!--comentario-->
+                ${mensaje}
+            </div>
+            <br>
+            <form action="listarPregunta" method="get">
+                <div class="container" align="center">
+                    <table class="table" align="center">
+                        <tr align="center">
+                            <th>ID Pregunta</th>
+                            <th>Texto Pregunta</th>
+                            <th>Cuestionario Asociado</th>
+                            <th>Opciones</th>
+                        </tr>
+                        <!--comentario-->
                         <c:forEach items="${preguntas}" var="pregunta">
-                            <tr>    
+                            <tr align="center">    
                                 <td>${pregunta.getIdPregunta()}</td>
                                 <td>${pregunta.getTextoPregunta()}</td>
                                 <td>Cuestionario asociado: ${pregunta.getCuestionario().getIdCuest()}</td>
@@ -56,5 +57,5 @@
     </body>
 
 
-<jsp:include page="Footer.jsp"></jsp:include>    
+    <jsp:include page="Footer.jsp"></jsp:include>    
 </html>

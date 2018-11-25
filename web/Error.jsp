@@ -17,17 +17,16 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Bienvenido a WBFS</title>
+
     </head>
 
+    <div align="center">
+        <h1 align="center">Usuario no autorizado. Acceso denegado</h1>
+        <img src="https://vignette.wikia.nocookie.net/chilenipedia/images/6/63/Jesus-bailarin.gif/revision/latest?cb=20150227175526&path-prefix=es" alt="Funny image">
+    </div>
 
-    <jsp:include page="Header.jsp"></jsp:include>
-
-        <body>
 
 
-        ${mensaje}
-    </body>
-    <jsp:include page="Footer.jsp"></jsp:include>    
-    
+
+
 </html>
