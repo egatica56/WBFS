@@ -161,6 +161,7 @@ public class EvaluacionDAO {
                 evaluacion.setPersona(persona);
                 evaluacion.setCuestAsig(cuestAsig);
                 evaluacion.setControlEstados(control);
+                evaluacion.setNotaEvaluacion(rs.getInt("NOTA_EVALUACION"));
                 listado.add(evaluacion);
                 System.out.println("INFO: " + tipoUsuario.getIdTipoUsuario());
 
