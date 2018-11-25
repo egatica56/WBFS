@@ -6,6 +6,7 @@
 package DAO;
 
 import Entities.Competencia;
+import Entities.ControlEstados;
 import Entities.CuestAsig;
 import Entities.Cuestionario;
 import Entities.OpcionRespuesta;
@@ -16,6 +17,7 @@ import Util.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -172,4 +174,30 @@ public class CuestAsigDAO {
 
     }
 
+    public List<CuestAsig> cuestionariosPorRutJefe(String rutJefe) throws SQLException {
+
+        List<CuestAsig> listado = new ArrayList<CuestAsig>();
+
+        try {
+            this.conexion = new Conexion().obtenerConexion();
+            PreparedStatement ps = conexion.prepareStatement("select * from cuest_asig where rut_jefe = ? order by id_cuest_asig asc");
+            ps.setString(1, rutJefe);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                CuestAsig cuestAsig = new CuestAsig();
+                cuestAsig.setIdCuestAsig(rs.getInt("ID_CUEST_ASIG"));
+                cuestAsig.setRutJefe(rs.getString("RUT_JEFE"));
+                cuestAsig.setFechaInicio(rs.getString("FECHA_INICIO"));
+                cuestAsig.setFechaTermino(rs.getString("FECHA_TERMINO"));
+                cuestAsig.setEstadoCuestionarioAsig(rs.getString("ESTADO_CUESTIONARIO_ASIG"));
+                cuestAsig.setControlEstados(new ControlEstados());
+                listado.add(cuestAsig);
+            }
+        } catch (Exception ex) {
+            System.out.println("Error : " + ex.getMessage());
+        } finally {
+            this.conexion.close();
+        }
+        return listado;
+    }
 }

@@ -157,6 +157,7 @@ public class EvaluacionDAO {
                 evaluacion.setFechaEvaluacion(rs.getString("FECHA_EVALUACION"));
                 evaluacion.setPersona(persona);
                 evaluacion.setCuestAsig(cuestAsig);
+                evaluacion.setNotaEvaluacion(rs.getInt("NOTA_EVALUACION"));
                 listado.add(evaluacion);
                 System.out.println("INFO: " + tipoUsuario.getIdTipoUsuario());
 
