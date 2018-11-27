@@ -22,7 +22,7 @@
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
         <c:choose>
-            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=3}">
                 <h1 align="center" class="">Acá podrás modificar los porcentajes de evaluacion de los cuestionarios existentes</h1>
                 <br>
                 <br>

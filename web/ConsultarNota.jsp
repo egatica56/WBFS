@@ -21,6 +21,8 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
+        <c:choose>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=1}">
             <h1 align="center" class="">Acá podrás consultar por la nota de tus evaluaciones.</h1>
             <br>
             <div align center class="container-fluid">
@@ -62,7 +64,12 @@
             </form>
         </div>
     </body>
-
+        </c:when>
+    <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==1}">
+        <jsp:include page="Error.jsp"></jsp:include>
+    </c:when>
+   
+</c:choose>
 
 
     <jsp:include page="Footer.jsp"></jsp:include>    

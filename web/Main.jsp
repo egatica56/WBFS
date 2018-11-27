@@ -25,9 +25,10 @@
 
         <body>
 
-
-        ${mensaje}
-    </body>
+            <div align="center">
+                <h1 align="center">${mensaje}</h1>
+        </div>
+        </body>
     <jsp:include page="Footer.jsp"></jsp:include>    
-    
+
 </html>

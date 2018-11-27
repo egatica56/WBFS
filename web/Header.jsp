@@ -137,6 +137,7 @@
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="reportejefe">Consultar empleados</a>
+                               <a class="dropdown-item" href="reporte-jefe"> Consultar Estado Evaluaciones</a>
 
                         </div>
 

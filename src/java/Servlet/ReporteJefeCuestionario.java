@@ -9,6 +9,7 @@ import DAO.CuestAsigDAO;
 import DAO.EvaluacionDAO;
 import Entities.CuestAsig;
 import Entities.Evaluacion;
+import Entities.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -31,12 +32,16 @@ public class ReporteJefeCuestionario extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     try {
+      Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+      String rutJefe = usuario.getUsername();  
+      
+      if(usuario.getTipoUsuario().getIdTipoUsuario()==2){
       CuestAsigDAO cuestAsigDao = new CuestAsigDAO();
-      List<CuestAsig> cuestionariosPorRutJefe = cuestAsigDao.cuestionariosPorRutJefe("18882760-8");
+      List<CuestAsig> cuestionariosPorRutJefe = cuestAsigDao.cuestionariosPorRutJefe(rutJefe);
       EvaluacionDAO evaluacionDao = new EvaluacionDAO();
-      List<Evaluacion> evaluacionXjefe = evaluacionDao.listarEvaluacionXJefe("18882760-8");
+      List<Evaluacion> evaluacionXjefe = evaluacionDao.listarEvaluacionXJefe(rutJefe);
+         
       evaluacionXjefe.get(0).getNotaEvaluacion();
-
       cuestionariosPorRutJefe.forEach(e -> {
         System.out.println("CuestPorRut : " + e.getIdCuestAsig());
       });
@@ -48,8 +53,18 @@ public class ReporteJefeCuestionario extends HttpServlet {
       request.setAttribute("evaluacionXjefe", evaluacionXjefe);
       request.setAttribute("cuestionariosPorRutJefe", cuestionariosPorRutJefe);
       request.getRequestDispatcher("reporte-jefe-cuestionario.jsp").forward(request, response);
+      
+      
+      
+      }else
+      {
+          System.out.println("Lo sentimos no tiene acceso a este Recurso");
+          request.setAttribute("mensaje", "<h1>"+"Lo sentimos.No tienes permisos para acceder a este Recurso."+"</h1>");
+           request.getRequestDispatcher("Main.jsp").forward(request, response);
+      }
     } catch (SQLException ex) {
       Logger.getLogger(ReporteJefeCuestionario.class.getName()).log(Level.SEVERE, null, ex);
+      request.getRequestDispatcher("Error.jsp").forward(request, response);
     }
   }
 

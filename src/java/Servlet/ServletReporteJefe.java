@@ -57,9 +57,9 @@ public class ServletReporteJefe extends HttpServlet {
         
       try{
          
-//            Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-//            String rutJefe = usuario.getUsername();
-            String rutJefe = "18882760-8";
+           Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+            String rutJefe = usuario.getUsername();
+//            String rutJefe = "18882760-8";
             System.out.println("Rut Jefe a usar en el listado: " + rutJefe);
             List<ReporteJefe> reporJefe = new ReporteJefeDAO().listarReporteJefe(rutJefe);
             request.setAttribute("usuarios", reporJefe);
@@ -71,6 +71,7 @@ public class ServletReporteJefe extends HttpServlet {
 //            reporJefe.get(0).getBrecha();
             request.getRequestDispatcher("ReporteJefe.jsp").forward(request, response);
         } catch (SQLException ex) {
+          
             
         }
         

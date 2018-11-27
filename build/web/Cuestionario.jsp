@@ -21,95 +21,102 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <h1 align="center" class="">Acá podrás crear los cuestionarios para las competencias asociadas</h1>
-            <br>
-            <div align center class="form-group">
+        <c:choose>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=3}">
+                <h1 align="center" class="">Acá podrás crear los cuestionarios para las competencias asociadas</h1>
                 <br>
-                <div align="center">
-                    <strong>${mensaje}</strong>
-                </div>
-            <br>
-
-            <form action="cuestionario" method="post">
-                <div class="container-fluid" align="center">
-                    <table align ="center" style="width: 400px!important">
-                        <!--h1>${usuario.getPersona().getRutPersona()}</h1-->
-                        <!--tr><td>Id Cuestionario</td>
-                            <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
-                        </tr>
-                        <tr-->
-                        <td>Porcentaje Jefe</td>
-                        <td><input type="number" class="form-control" name="txtPorcentajeJefe" id="txtPorcentajeJefe" min="0" max="100"   required=""></td>
-                        </tr>
-                        <tr>
-                            <td>Porcentaje Evaluado</td>
-                            <td><input type="number" class="form-control" name="txtPorcentajeEvaluado" id="txtPorcentajeEvaluado" min="0" max="100"  required=""></td>
-                        </tr>
-                        <tr>
-                            <td>Competencia Asociada</td>
-                            <td>
-                                <select name="cboCompetencia" class="form-control" id="cboCompetencia" required="">
-                                    <option value="">Seleccionar</option>                       
-                                    <c:forEach items="${competencias}" var="com">
-                                        <option value="${com.getIdComp()}">${com.getNombreCompetencia()}</option>
-                                    </c:forEach>
-                                </select>
-                            <td>
-                        </tr>
-
-
-                    </table>
+                <div align center class="form-group">
                     <br>
+                    <div align="center">
+                        <strong>${mensaje}</strong>
+                    </div>
                     <br>
 
+                    <form action="cuestionario" method="post">
+                        <div class="container-fluid" align="center">
+                            <table align ="center" style="width: 400px!important">
+                                <!--h1>${usuario.getPersona().getRutPersona()}</h1-->
+                                <!--tr><td>Id Cuestionario</td>
+                                    <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
+                                </tr>
+                                <tr-->
+                                <td>Porcentaje Jefe</td>
+                                <td><input type="number" class="form-control" name="txtPorcentajeJefe" id="txtPorcentajeJefe" min="0" max="100"   required=""></td>
+                                </tr>
+                                <tr>
+                                    <td>Porcentaje Evaluado</td>
+                                    <td><input type="number" class="form-control" name="txtPorcentajeEvaluado" id="txtPorcentajeEvaluado" min="0" max="100"  required=""></td>
+                                </tr>
+                                <tr>
+                                    <td>Competencia Asociada</td>
+                                    <td>
+                                        <select name="cboCompetencia" class="form-control" id="cboCompetencia" required="">
+                                            <option value="">Seleccionar</option>                       
+                                            <c:forEach items="${competencias}" var="com">
+                                                <option value="${com.getIdComp()}">${com.getNombreCompetencia()}</option>
+                                            </c:forEach>
+                                        </select>
+                                    <td>
+                                </tr>
 
-                    <table align ="center" style="width: 400px!important">
-                        <c:if test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
-                            <tr>
-                                <td colspan="2" align="center">Jefe: ${usuario.getPersona().getNombrePersona()}</td>
-                                <td> <input type="hidden" name="txtRutJefe" id="txtRutJefe" value="${usuario.getPersona().getRutPersona()}"></td>
 
-                            </tr>
-                        </c:if>    
+                            </table>
+                            <br>
+                            <br>
 
-                        <tr>
-                            <td>Fecha Incio</td>
-                            <td><input type="text" class="form-control" name="txtFechaInicio" id="txtFechaInicio" required="" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" placeholder="Ej:1994-10-01" ></td>
-                        </tr>
-                        <tr>
-                            <td>Fecha Termino</td>
-                            <td><input type="text" class="form-control" name="txtFechaTermino" id="txtFechaTermino" required="" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" placeholder="Ej:1994-10-01"></td>
-                        </tr>
-                        <tr>
-                            <td>Estado Cuestionario</td>
-                            <td>
-                                <select class="form-control" name="cboEstado" id="cboEstado">
-                                    <option value="">Seleccione</option>
-                                    <option value="1">Activo</option>
-                                    <option value="2">Inactivo</option> 
-                                </select>
-                            </td> 
-                        </tr>
-                        <!--tr>
-                            <td>Cuestionario a  Asociar</td>
-                            <td>
-                                <select name="cboCuestionario" id="cboCuestionario" required="">
-                                    <option value="">Seleccionar</option>                       
-                        <c:forEach items="${cuestionarios}" var="cu">
-                            <option value="${cu.getIdCuest()}">Cuestionario número: ${cu.getIdCuest()} -  ${cu.getCompetencia().getNombreCompetencia()}</option>
-                        </c:forEach>
-                    </select>
-                <td>
-            </tr-->
-                        <tr>
 
-                            <td  colspan="2" align="center" colspan="2"><input class="btn btn-primary" type="submit" id="btnAsignarCuest" name="btnAsignarCuest" value="Guardar"></td>
-                        </tr>
-                    </table>
+                            <table align ="center" style="width: 400px!important">
+                                <c:if test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
+                                    <tr>
+                                        <td colspan="2" align="center">Jefe: ${usuario.getPersona().getNombrePersona()}</td>
+                                        <td> <input type="hidden" name="txtRutJefe" id="txtRutJefe" value="${usuario.getPersona().getRutPersona()}"></td>
+
+                                    </tr>
+                                </c:if>    
+
+                                <tr>
+                                    <td>Fecha Incio</td>
+                                    <td><input type="text" class="form-control" name="txtFechaInicio" id="txtFechaInicio" required="" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" placeholder="Ej:1994-10-01" ></td>
+                                </tr>
+                                <tr>
+                                    <td>Fecha Termino</td>
+                                    <td><input type="text" class="form-control" name="txtFechaTermino" id="txtFechaTermino" required="" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" placeholder="Ej:1994-10-01"></td>
+                                </tr>
+                                <tr>
+                                    <td>Estado Cuestionario</td>
+                                    <td>
+                                        <select class="form-control" name="cboEstado" id="cboEstado">
+                                            <option value="">Seleccione</option>
+                                            <option value="1">Activo</option>
+                                            <option value="2">Inactivo</option> 
+                                        </select>
+                                    </td> 
+                                </tr>
+                                <!--tr>
+                                    <td>Cuestionario a  Asociar</td>
+                                    <td>
+                                        <select name="cboCuestionario" id="cboCuestionario" required="">
+                                            <option value="">Seleccionar</option>                       
+                                <c:forEach items="${cuestionarios}" var="cu">
+                                    <option value="${cu.getIdCuest()}">Cuestionario número: ${cu.getIdCuest()} -  ${cu.getCompetencia().getNombreCompetencia()}</option>
+                                </c:forEach>
+                            </select>
+                        <td>
+                    </tr-->
+                                <tr>
+
+                                    <td  colspan="2" align="center" colspan="2"><input class="btn btn-primary" type="submit" id="btnAsignarCuest" name="btnAsignarCuest" value="Guardar"></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </form>
                 </div>
-
-            </form>
-        </div>
+            </c:when>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
+                <jsp:include page="Error.jsp"></jsp:include>
+            </c:when>
+        </c:choose>
     </body>
 
 

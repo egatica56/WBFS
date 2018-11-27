@@ -172,6 +172,7 @@ public class EvaluacionDAO {
             }
 
         } catch (Exception ex) {
+            System.out.println("ARRAY VACIO");
             System.out.println(ex.getMessage());
         } finally {
             this.conexion.close();
