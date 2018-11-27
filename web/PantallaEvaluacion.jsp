@@ -23,35 +23,45 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
+        <c:choose>
+               <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=1}">
             <form action="responderEvaluacion" method="POST">
                 <div class="container">
-                <h3>Persona : <small>${requestScope.persona.getNombrePersona()} ${param.rutP}</small></h3>
-                <h3>Jefe : <small>${requestScope.jefe.getNombrePersona()}</small></h3>
-                <h3>Competencia : <small>${requestScope.competencia.getNombreCompetencia()}</small></h3>
-                <h3>ID Evaluación : <small>${param.idE}</small></h3>
-                <h1><input type="hidden" name="idE" value="${param.idE}"></h1>
-                
-                <h3>Preguntas</h3>
-                <hr>
-                <c:set var="np" value="1"></c:set>
+                    <h3>Persona : <small>${requestScope.persona.getNombrePersona()} ${param.rutP}</small></h3>
+                    <h3>Jefe : <small>${requestScope.jefe.getNombrePersona()}</small></h3>
+                    <h3>Competencia : <small>${requestScope.competencia.getNombreCompetencia()}</small></h3>
+                    <h3>ID Evaluación : <small>${param.idE}</small></h3>
+                    <h1><input type="hidden" name="idE" value="${param.idE}"></h1>
 
-                <c:forEach var="p" items="${requestScope.preguntas}">
+                    <h3>Preguntas</h3>
+                    <hr>
+                    <c:set var="np" value="1"></c:set>
 
-                    <h4>${np}. ¿${p.getTextoPregunta()}?</h4>
-                    <c:forEach var="r" items="${p.getOpcionRespuestaCollection()}">
+                    <c:forEach var="p" items="${requestScope.preguntas}">
 
-                        <div class="radio container">
-                            <label><input type="radio" name="${p.getIdPregunta()}" value="${r.getIdOpcionRespuesta()}" required="">${r.getTextoRespuesta()}</label>
-                        </div>
+                        <h4>${np}. ¿${p.getTextoPregunta()}?</h4>
+                        <c:forEach var="r" items="${p.getOpcionRespuestaCollection()}">
+
+                            <div class="radio container">
+                                <label><input type="radio" name="${p.getIdPregunta()}" value="${r.getIdOpcionRespuesta()}" required="">${r.getTextoRespuesta()}</label>
+                            </div>
+                        </c:forEach>
+                        <c:set var="np" value="${np + 1}"></c:set>
+                            <br>
                     </c:forEach>
-                    <c:set var="np" value="${np + 1}"></c:set>
-                        <br>
-                </c:forEach>
+                    <div align="center">
+                        <input class="btn btn-primary" type="submit" value="Enviar Evaluacion">
+                    </div>       
+                </div>
+            </form>
+               </c:when>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==1}">
                 <div align="center">
-                <input class="btn btn-primary" type="submit" value="Enviar Evaluacion">
-                </div>       
-            </div>
-        </form>
+                    <h1 align="center">Lo sentimos. Los administradores no pueden responder evaluaciones.</h1>
+                    <a class="btn btn-primary" href="home">Volver</a>
+                </div>
+            </c:when>
+        </c:choose>
     </body>
-    
+
 </html>

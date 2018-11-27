@@ -22,67 +22,83 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
+        <c:choose>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=1}">
 
-        <c:if  test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
-            <h1 align="center" class="">Acá podrás visualizar las evaluaciones previamente asignadas a tus empleados</h1>
-        </c:if>    
-        <c:if  test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
-            <h1 align="center" class="">Acá podrás visualizar Tus evaluaciones asignadas</h1>
-        </c:if>    
-        
-        <div align center class="container-fluid">
-            <br>
-            <div class="container" align="center">
-                ${mensaje}
-            </div>
-            <br>              
-            <form action="pintarEvaluacion" method="get">
-                <div class="container" align="center">
-                    <table class="table">
-                        <tr align="center">
-                            <th align="center">ID Evaluacion</th>
-                            <th align="center">Rut Jefe</th>
-                            <th align="center">Persona a Evaluar</th>
-                            <th align="center">Fecha Evaluacion</th>
-                            <th align="center">Id Cuestionario Asignado</th>
-                            <th align="center" colspan="2">Opciones</th>
-                        </tr>
-                        <!--comentario-->
-                        <c:forEach items="${evaluaciones}" var="evaluacion">
 
-                            <c:if test="${evaluacion.getControlEstados().getIdEstado()==1}">
+                <c:if  test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
+                    <h1 align="center" class="">Acá podrás visualizar las evaluaciones previamente asignadas a tus empleados</h1>
+                </c:if>    
+                <c:if  test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
+                    <h1 align="center" class="">Acá podrás visualizar Tus evaluaciones asignadas</h1>
+                </c:if>    
 
-                                <tr align="center">    
-                                    <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtIdEvaluacion" id="txtIdEvaluacion">${evaluacion.getIdEvaluacion()}</td>
-                                    <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtRutJefe" id="txtRutJefe">${evaluacion.getRutJefe()}</td>
-
-                                    <td align="center">${evaluacion.getPersona().getNombrePersona()}</td>
-                                    <td align="center">${evaluacion.getFechaEvaluacion()}</td>
-                                    <td align="center">${evaluacion.getCuestAsig().getIdCuestAsig()}</td>
-
-                                    <c:choose>
-                                        <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
-                                            <td align="center">
-                                                <a class="btn btn-primary" href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}&rutJ=${evaluacion.getRutJefe()}">Responder</a>
-                                                <a class="btn btn-primary" href="eliminarCuestionario?id=${evaluacion.getIdEvaluacion()}">Eliminar</a>
-                                            </td>
-                                        </c:when>
-                                        <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
-                                            <td align="center">
-                                                <a class="btn btn-primary" href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}&rutJ=${evaluacion.getRutJefe()}">Responder</a>
-
-                                            </td>
-                                        </c:when>
-                                    </c:choose>
+                <div align center class="container-fluid">
+                    <br>
+                    <div class="container" align="center">
+                        ${mensaje}
+                    </div>
+                    <br>              
+                    <form action="pintarEvaluacion" method="get">
+                        <div class="container" align="center">
+                            <table class="table">
+                                <tr align="center">
+                                    <th align="center">ID Evaluacion</th>
+                                    <th align="center">Rut Jefe</th>
+                                    <th align="center">Persona a Evaluar</th>
+                                    <th align="center">Fecha Evaluacion</th>
+                                    <th align="center">Id Cuestionario Asignado</th>
+                                    <th align="center" colspan="2">Opciones</th>
                                 </tr>
-                            </c:if>
-                        </c:forEach>
+                                <!--comentario-->
+                                <c:forEach items="${evaluaciones}" var="evaluacion">
 
-                    </table>
+                                    <c:if test="${evaluacion.getControlEstados().getIdEstado()==1}">
+
+                                        <tr align="center">    
+                                            <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtIdEvaluacion" id="txtIdEvaluacion">${evaluacion.getIdEvaluacion()}</td>
+                                            <td><input type="hidden" value="${evaluacion.getIdEvaluacion()}" name="txtRutJefe" id="txtRutJefe">${evaluacion.getRutJefe()}</td>
+
+                                            <td align="center">${evaluacion.getPersona().getNombrePersona()}</td>
+                                            <td align="center">${evaluacion.getFechaEvaluacion()}</td>
+                                            <td align="center">${evaluacion.getCuestAsig().getIdCuestAsig()}</td>
+
+                                            <c:choose>
+                                                <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
+                                                    <td align="center">
+                                                        <a class="btn btn-primary" href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}&rutJ=${evaluacion.getRutJefe()}">Responder</a>
+                                                        <a class="btn btn-primary" href="eliminarCuestionario?id=${evaluacion.getIdEvaluacion()}">Eliminar</a>
+                                                    </td>
+                                                </c:when>
+                                                <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
+                                                    <td align="center">
+                                                        <a class="btn btn-primary" href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}&rutJ=${evaluacion.getRutJefe()}">Responder</a>
+
+                                                    </td>
+                                                </c:when>
+                                            </c:choose>
+                                        </tr>
+                                    </c:if>
+                                </c:forEach>
+
+                            </table>
+                        </div>
+
+                    </form>
                 </div>
+            </c:when>
 
-            </form>
-        </div>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==1}">
+                <div class="container" align="center">
+
+                    <h1 align="center">Lo sentimos. Los administradores no pueden visualizar ni responder evaluaciones.</h1>
+
+                    <a class="btn btn-primary" href="home" align="center">Volver</a>
+
+
+                </div>
+            </c:when>
+        </c:choose>
     </body>
 
     <jsp:include page="Footer.jsp"></jsp:include>    

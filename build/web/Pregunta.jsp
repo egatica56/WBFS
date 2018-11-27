@@ -21,48 +21,55 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <h1 align="center" class="">Acá podrás crear las preguntas para los cuestionarios asociados.</h1>
-            <br>
-            <div align center class="container-fluid">
+        <c:choose>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=3}">
+                <h1 align="center" class="">Acá podrás crear las preguntas para los cuestionarios asociados.</h1>
                 <br>
-                <div align="center">
-                ${mensaje}
-            </div>
-            <br>
-            <form action="pregunta" method="post">
-                <div class="container-fluid" align="center">
+                <div align center class="container-fluid">
                     <br>
-                    <table>
-                        <!--tr><td>Id Cuestionario</td>
-                            <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
-                        </tr>
-                        <tr-->
-                        <td>Texto Pregunta</td>
-                        <td><input type="text" name="txtPregunta" id="txtPregunta" class="form-control" required=""></td>
-                        </tr>
-                        <tr><td><br></td>
-                            <td><br></td></tr>
-                        <tr>
-                            <td>Cuestionario Asociado</td>
-                            <td>
-                                <select name="cboCuestionario" class="form-control" id="cboCuestionario" required="">
-                                    <option  value="">Seleccionar</option>                       
-                                    <c:forEach items="${cuestionarios}" var="cu">
-                                        <option  value="${cu.getIdCuest()}">Cuestionario número: ${cu.getIdCuest()} -  ${cu.getCompetencia().getNombreCompetencia()}</option>
-                                    </c:forEach>
-                                </select>
-                            <td>
-                        </tr>
-                        <tr><td><br></td>
-                            <td><br></td></tr>
-                        <tr>
-                            <td align="center" colspan="2"><input class="btn btn-primary" type="submit" id="btnGuardarPreg" name="btnGuardarPreg" value="Guardar"></td>
-                        </tr>
+                    <div align="center">
+                        ${mensaje}
+                    </div>
+                    <br>
+                    <form action="pregunta" method="post">
+                        <div class="container-fluid" align="center">
+                            <br>
+                            <table>
+                                <!--tr><td>Id Cuestionario</td>
+                                    <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
+                                </tr>
+                                <tr-->
+                                <td>Texto Pregunta</td>
+                                <td><input type="text" name="txtPregunta" id="txtPregunta" class="form-control" required=""></td>
+                                </tr>
+                                <tr><td><br></td>
+                                    <td><br></td></tr>
+                                <tr>
+                                    <td>Cuestionario Asociado</td>
+                                    <td>
+                                        <select name="cboCuestionario" class="form-control" id="cboCuestionario" required="">
+                                            <option  value="">Seleccionar</option>                       
+                                            <c:forEach items="${cuestionarios}" var="cu">
+                                                <option  value="${cu.getIdCuest()}">Cuestionario número: ${cu.getIdCuest()} -  ${cu.getCompetencia().getNombreCompetencia()}</option>
+                                            </c:forEach>
+                                        </select>
+                                    <td>
+                                </tr>
+                                <tr><td><br></td>
+                                    <td><br></td></tr>
+                                <tr>
+                                    <td align="center" colspan="2"><input class="btn btn-primary" type="submit" id="btnGuardarPreg" name="btnGuardarPreg" value="Guardar"></td>
+                                </tr>
 
-                    </table>
+                            </table>
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
+            </c:when>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
+                <jsp:include page="Error.jsp"></jsp:include>
+            </c:when>
+        </c:choose>
     </body>
 
 

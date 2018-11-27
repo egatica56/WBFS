@@ -17,14 +17,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Listado de Cuestionarios</title>
+        <title>Listado de Preguntas</title>
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <h1 align="center" class="">Acá podrás visualizar las preguntas que existen actualmente en el sistema</h1>
-            <br>
-            <div align center class="container-fluid">
-                <div align="center">
+        <c:choose>
+        <c:when  test="${usuario.getTipoUsuario().getIdTipoUsuario()!=3}">
+        <h1 align="center" class="">Acá podrás visualizar las preguntas que existen actualmente en el sistema</h1>
+        <br>
+        <div align center class="container-fluid">
+            <div align="center">
                 ${mensaje}
             </div>
             <br>
@@ -54,8 +56,13 @@
                 </div>
             </form>
         </div>
-    </body>
+    </c:when>
+    <c:when  test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
+        <jsp:include page="Error.jsp"></jsp:include>
+    </c:when> 
+</c:choose>
+</body>
 
 
-    <jsp:include page="Footer.jsp"></jsp:include>    
+<jsp:include page="Footer.jsp"></jsp:include>    
 </html>

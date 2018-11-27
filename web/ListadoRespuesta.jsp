@@ -21,44 +21,51 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <br>
-            <h1 align="center">Acá podrás visualizar las preguntas que existen actualmente en el sistema</h1>
-            <br>
-            <div align center class="container-fluid">
+        <c:choose>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=3}">
                 <br>
-                <div align="center">
-                    ${mensaje}
-                </div>
+                <h1 align="center">Acá podrás visualizar las preguntas que existen actualmente en el sistema</h1>
                 <br>
-                <form action="listarRespuesta" method="get">
-                    <div class="container" align="center">
-                        <table class="table">
-                            <tr align="center">
-                                <th align="center">ID Respuesta</th>
-                                <th align="center">Texto Respuesta</th>
-                                <th align="center">Porcentaje Respuesta</th>
-                                <th align="center">Pregunta Asociada</th>
-                                <!--th align="center" colspan="2">Opciones</th-->
-                            </tr>
-                            <!--comentario-->
-                        <c:forEach items="${respuestas}" var="respuesta">
-                            <tr>    
-                                <td align="center">${respuesta.getIdOpcionRespuesta()}</td>
-                                <td align="center">${respuesta.getTextoRespuesta()}</td>
-                                <td align="center">${respuesta.getPorcentajeRespuesta()}</td>
-                                <td align="center">${respuesta.getPregunta().getIdPregunta()} : ${respuesta.getPregunta().getTextoPregunta()}</td>
-                                <!--td>
-                                    <a class="btn btn-primary" href="eliminarCuestionario?id=${cuestionario.getIdCuest()}">Eliminar</a>
-                                    <a class="btn btn-primary" href="modificarCuestionario?id=${cuestionario.getIdCuest()}">Modificar</a>
-                                </td-->
-                            </tr>   
-                        </c:forEach>
+                <div align center class="container-fluid">
+                    <br>
+                    <div align="center">
+                        ${mensaje}
+                    </div>
+                    <br>
+                    <form action="listarRespuesta" method="get">
+                        <div class="container" align="center">
+                            <table class="table">
+                                <tr align="center">
+                                    <th align="center">ID Respuesta</th>
+                                    <th align="center">Texto Respuesta</th>
+                                    <th align="center">Porcentaje Respuesta</th>
+                                    <th align="center">Pregunta Asociada</th>
+                                    <!--th align="center" colspan="2">Opciones</th-->
+                                </tr>
+                                <!--comentario-->
+                                <c:forEach items="${respuestas}" var="respuesta">
+                                    <tr>    
+                                        <td align="center">${respuesta.getIdOpcionRespuesta()}</td>
+                                        <td align="center">${respuesta.getTextoRespuesta()}</td>
+                                        <td align="center">${respuesta.getPorcentajeRespuesta()}</td>
+                                        <td align="center">${respuesta.getPregunta().getIdPregunta()} : ${respuesta.getPregunta().getTextoPregunta()}</td>
+                                        <!--td>
+                                            <a class="btn btn-primary" href="eliminarCuestionario?id=${cuestionario.getIdCuest()}">Eliminar</a>
+                                            <a class="btn btn-primary" href="modificarCuestionario?id=${cuestionario.getIdCuest()}">Modificar</a>
+                                        </td-->
+                                    </tr>   
+                                </c:forEach>
 
-                    </table>
+                            </table>
+                        </div>
+
+                    </form>
                 </div>
-                
-            </form>
-        </div>
+            </c:when>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
+                <jsp:include page="Error.jsp"></jsp:include>
+            </c:when>
+        </c:choose>
     </body>
 
 

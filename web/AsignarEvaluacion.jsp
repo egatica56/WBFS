@@ -17,13 +17,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cuestionario</title>
+        <title>Asignar Evaluaciones.</title>
     </head>
     <jsp:include page="Header.jsp"></jsp:include>    
         <body>
 
         <c:choose>
-            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=3}">
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
                 <h1 align="center" class="">Acá podrás Asignar las evaluaciones a los empleados</h1>
                 <br>
                 <div align center class="container-fluid">
@@ -80,9 +80,9 @@
             <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
                <jsp:include page="Error.jsp"></jsp:include>
             </c:when>
-            <c:otherwise>
-                <jsp:include page="Error.jsp"></jsp:include>
-            </c:otherwise>    
+             <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==1}">
+               <jsp:include page="Error.jsp"></jsp:include>
+            </c:when>
         </c:choose>
     </body>
 

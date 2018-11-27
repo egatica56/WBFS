@@ -71,10 +71,10 @@
                                             <c:set var="flagNota" value="${e.getNotaEvaluacion() > 0}"></c:set>
                                             <c:if test="${flag}">
                                                 <!--<span class="glyphicon glyphicon-ok"></span>-->
-                                                <span class="fa ${flagNota?'fa-check respondida':'fa-remove asignada'}"></span>
+                                                <span class="fa ${flagNota?'fa-check respondida':'fa-remove asignada'}">${flagNota? 'Respondido':'Asignado'}</span>
                                             </c:if>
                                             <c:if test="${!flag}">
-                                                <span class="fa fa-ban" style="color:red"></span>
+                                                <span class="fa fa-ban" style="color:red">No asignado</span>
                                             </c:if>
                                         </td>
                                     </c:forEach>

@@ -21,79 +21,87 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <h1 align="center" class="">Acá podrás crear las respuestas para las preguntas creadas.</h1>
-            <br>
-            <br>
-            <div align center class="container-fluid">
+        <c:choose>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=3}">
+                <h1 align="center" class="">Acá podrás crear las respuestas para las preguntas creadas.</h1>
                 <br>
-                <div align="center">
-                    ${mensaje}
-                </div>
                 <br>
-                <form action="respuesta" method="post">
-                    <div class="container-fluid" align="center">
-                        <table>
-                            <!--tr><td>Id Cuestionario</td>
-                                <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
-                            </tr>
-                            <tr-->
-                            <tr>
-                            <td>Porcentaje Respuesta</td>
-                            <td><input type="number" name="txtPorcentajeRespuesta" class="form-control" id="txtPorcentajeRespuesta" min="0" max="100" required=""></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <br>
-                                </td>
-                                <td>
-                                    <br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Texto Respuesta</td>
-                                <td><input type="text" name="txtRespuesta" class="form-control" id="txtRespuesta"  required=""></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <br>
-                                </td>
-                                <td>
-                                    <br>
-                                </td>
-                            </tr>
+                <div align center class="container-fluid">
+                    <br>
+                    <div align="center">
+                        ${mensaje}
+                    </div>
+                    <br>
+                    <form action="respuesta" method="post">
+                        <div class="container-fluid" align="center">
+                            <table>
+                                <!--tr><td>Id Cuestionario</td>
+                                    <td><input disabled="" type="number" name="txtId" id="txtId" required="" ></td>
+                                </tr>
+                                <tr-->
+                                <tr>
+                                    <td>Porcentaje Respuesta</td>
+                                    <td><input type="number" name="txtPorcentajeRespuesta" class="form-control" id="txtPorcentajeRespuesta" min="0" max="100" required=""></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br>
+                                    </td>
+                                    <td>
+                                        <br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Texto Respuesta</td>
+                                    <td><input type="text" name="txtRespuesta" class="form-control" id="txtRespuesta"  required=""></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br>
+                                    </td>
+                                    <td>
+                                        <br>
+                                    </td>
+                                </tr>
 
-                            <tr>
-                                <td>Pregunta Asociada</td>
-                                <td>
-                                    <select name="cboPregunta" class="form-control" id="cboPregunta" required="">
-                                        <option value="">Seleccionar</option>                       
-                                    <c:forEach items="${preguntas}" var="pre">
-                                        <option value="${pre.getIdPregunta()}">${pre.getTextoPregunta()}</option>
-                                    </c:forEach>
-                                </select>
-                            <td>
-                        </tr>
-                        <tr>
-                                <td>
-                                    <br>
-                                </td>
-                                <td>
-                                    <br>
-                                </td>
-                            </tr>
-                        <tr>
-                            <td align="center" colspan="2"><input class="btn btn-primary" type="submit" id="btnGuardarRespuesta" name="btnGuardarRespuesta" value="Guardar"></td>
-                        </tr>
+                                <tr>
+                                    <td>Pregunta Asociada</td>
+                                    <td>
+                                        <select name="cboPregunta" class="form-control" id="cboPregunta" required="">
+                                            <option value="">Seleccionar</option>                       
+                                            <c:forEach items="${preguntas}" var="pre">
+                                                <option value="${pre.getIdPregunta()}">${pre.getTextoPregunta()}</option>
+                                            </c:forEach>
+                                        </select>
+                                    <td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br>
+                                    </td>
+                                    <td>
+                                        <br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="2"><input class="btn btn-primary" type="submit" id="btnGuardarRespuesta" name="btnGuardarRespuesta" value="Guardar"></td>
+                                </tr>
 
-                    </table>
+                            </table>
+                        </div>
+                        <label for="">${mensaje}</label>
+                    </form>
                 </div>
-                <label for="">${mensaje}</label>
-            </form>
-        </div>
+            </c:when>
+
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
+                <jsp:include page="Error.jsp"></jsp:include>
+            </c:when>
+        </c:choose>
     </body>
 
 
 
-    
+
     <jsp:include page="Footer.jsp"></jsp:include>    
 </html>

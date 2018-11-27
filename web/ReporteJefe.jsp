@@ -34,101 +34,109 @@
     </head>
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
-            <div class="container" align="center">
-                <h1>Reporte Funcionarios</h1>
-                <table id="reporte" class="table table-condensed table-striped">
-                    <thead>
-                        <tr>
-                            <th>Rut</th>
-                            <th>Perfil</th>
-                            <th>Competencia</th>
-                            <th>Nota Esperada</th>
-                            <th>Nota</th>
-                            <th>Brecha</th>
-                        </tr>
-                    </thead>
-                <c:forEach var="r" items="${usuarios}">
-                    <tr>
-                        <td>${r.getRutEvaluado()}</td>
-                        <td>${r.getPerfil()}</td>
-                        <td>${r.getCompetencia()}</td>
-                        <td>${r.getNotaEsperada()}</td>
-                        <td>${r.getNota()}</td>
-                        <td>${r.getBrecha()}</td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </div>
-        <script>
-            $(document).ready(function () {
-                $('#reporte').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: [
-                        {extend: 'copy', text: 'Copiar al portapapeles'},
-                        {extend: 'excel', text: 'Exportar a Excel', title: 'Reporte de Empleados'},
-                        {extend: 'csv', text: 'Exportar a CSV'},
-                        {extend: 'pdf', text: 'Exportar a Pdf', download: '', title: 'Reporte de Empleados'},
-                    ]
+        <c:choose>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=3}">
+                <div class="container" align="center">
+                    <h1>Reporte Funcionarios</h1>
+                    <table id="reporte" class="table table-condensed table-striped">
+                        <thead>
+                            <tr>
+                                <th>Rut</th>
+                                <th>Perfil</th>
+                                <th>Competencia</th>
+                                <th>Nota Esperada</th>
+                                <th>Nota</th>
+                                <th>Brecha</th>
+                            </tr>
+                        </thead>
+                        <c:forEach var="r" items="${usuarios}">
+                            <tr>
+                                <td>${r.getRutEvaluado()}</td>
+                                <td>${r.getPerfil()}</td>
+                                <td>${r.getCompetencia()}</td>
+                                <td>${r.getNotaEsperada()}</td>
+                                <td>${r.getNota()}</td>
+                                <td>${r.getBrecha()}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $('#reporte').DataTable({
+                            dom: 'Bfrtip',
+                            buttons: [
+                                {extend: 'copy', text: 'Copiar al portapapeles'},
+                                {extend: 'excel', text: 'Exportar a Excel', title: 'Reporte de Empleados'},
+                                {extend: 'csv', text: 'Exportar a CSV'},
+                                {extend: 'pdf', text: 'Exportar a Pdf', download: '', title: 'Reporte de Empleados'},
+                            ]
 
 
-                });
+                        });
 
-            });
-
-
+                    });
 
 
-        </script>
-        <style>
-            button
-            {   
-                
-                display: inline-block;
-                font-weight: 400;
-                text-align: center;
-                white-space: nowrap;
-                vertical-align: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-                border: 1px solid transparent;
-                border-top-color: transparent;
-                border-right-color: transparent;
-                border-bottom-color: transparent;
-                border-left-color: transparent;
-                padding: .375rem .75rem;
-                font-size: 1rem;
-                line-height: 1.5;
-                border-radius: .25rem;
-                transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-                color: #fff;
-                background-color: #007bff;
-                border-color: #007bff;
-                border-top-color: rgb(0, 123, 255);
-                border-right-color: rgb(0, 123, 255);
-                border-bottom-color: rgb(0, 123, 255);
-                border-left-color: rgb(0, 123, 255);
 
-            }
 
-            input
-            {
+                </script>
+                <style>
+                    button
+                    {   
 
-                display: block;
-                width: 100%;
-                height: calc(2.25rem + 2px);
-                padding: .375rem .75rem;
-                font-size: 1rem;
-                line-height: 1.5;
-                color: #495057;
-                background-color: #fff;
-                background-clip: padding-box;
-                border: 1px solid #ced4da;
-                border-radius: .25rem;
-                transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-            }
+                        display: inline-block;
+                        font-weight: 400;
+                        text-align: center;
+                        white-space: nowrap;
+                        vertical-align: middle;
+                        -webkit-user-select: none;
+                        -moz-user-select: none;
+                        -ms-user-select: none;
+                        user-select: none;
+                        border: 1px solid transparent;
+                        border-top-color: transparent;
+                        border-right-color: transparent;
+                        border-bottom-color: transparent;
+                        border-left-color: transparent;
+                        padding: .375rem .75rem;
+                        font-size: 1rem;
+                        line-height: 1.5;
+                        border-radius: .25rem;
+                        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+                        color: #fff;
+                        background-color: #007bff;
+                        border-color: #007bff;
+                        border-top-color: rgb(0, 123, 255);
+                        border-right-color: rgb(0, 123, 255);
+                        border-bottom-color: rgb(0, 123, 255);
+                        border-left-color: rgb(0, 123, 255);
 
-        </style>
+                    }
+
+                    input
+                    {
+
+                        display: block;
+                        width: 100%;
+                        height: calc(2.25rem + 2px);
+                        padding: .375rem .75rem;
+                        font-size: 1rem;
+                        line-height: 1.5;
+                        color: #495057;
+                        background-color: #fff;
+                        background-clip: padding-box;
+                        border: 1px solid #ced4da;
+                        border-radius: .25rem;
+                        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+                    }
+
+                </style>
+            </c:when>
+
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=3}">
+                <jsp:include page="Error.jsp"></jsp:include>
+            </c:when>
+        </c:choose>
     </body>
 </html>

@@ -56,7 +56,7 @@ public class ServletLogin extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+       request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     /**
