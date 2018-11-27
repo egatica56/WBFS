@@ -506,6 +506,9 @@ public class EvaluacionDAO {
                 cu.setIdCuest(rs.getInt("ID_CUEST"));
                 cuA.setCuestionario(cu);
                 persona.setRutPersona(rs.getString("RUT_PERSONA"));
+                persona.setNombrePersona(rs.getString("NOMBRE_PERSONA"));
+                persona.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
+                evaluacion.setIdEvaluacion(rs.getInt("ID_EVALUACION"));
                 evaluacion.setRutJefe(rs.getString("RUT_JEFE"));
                 evaluacion.setNotaEvaluacion(rs.getInt("NOTA_EVALUACION"));
                 evaluacion.setBrecha(rs.getInt("BRECHA"));

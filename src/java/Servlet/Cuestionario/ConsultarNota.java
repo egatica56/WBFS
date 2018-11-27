@@ -123,7 +123,7 @@ public class ConsultarNota extends HttpServlet {
             int idCompetencia=comp.getIdComp();
             System.out.println("idCompetencia Evaluacion en consultarNota.Java: " + idCompetencia);
             if (not > 0) {
-                request.setAttribute("mensaje", "La nota de la evaluación es: <br>" + "<h1>" + not + "</h1>");
+                request.setAttribute("mensaje", "La nota de la evaluación numero "+ nota.getIdEvaluacion() +" del Empleado: "+nota.getPersona().getNombrePersona()+" "+nota.getPersona().getApellidoPaterno() +" es: <br>" + "<h1>" + not + "</h1>");
                 System.out.println("la nota de la evaluacion es: " + not);
 
                 if (brecha >= -2) {
@@ -152,7 +152,7 @@ public class ConsultarNota extends HttpServlet {
                 }
 
             } else {
-                request.setAttribute("mensaje", "Aún no puedes consultar tu nota. debes esperar a que tu contraparte responda la evaluacion. <br>" + "<h1>" + "Actualmente la nota de la evaluacion es:" + "</h1>" + "<br>" + "<h1>" + not + "</h1>");
+                request.setAttribute("mensaje", "Aún no puedes consultar tu nota. debes esperar a que tu contraparte responda la evaluacion.numero: "+nota.getIdEvaluacion() +" <br>" + "<h1>" + "Actualmente la nota de la evaluacion del empleado "+nota.getPersona().getNombrePersona()+" "+nota.getPersona().getApellidoPaterno() + " es:" + "</h1>" + "<br>" + "<h1>" + not + "</h1>");
                 System.out.println("aun no puedes consultar tu nota. debes esperar a que tu contraparte responda la evaluacion es: " + not);
 
                 try {
