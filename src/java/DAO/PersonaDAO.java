@@ -47,7 +47,7 @@ public class PersonaDAO {
                 persona.setRutPersona(rs.getString("RUT_PERSONA"));
                 persona.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
                 persona.setApellidoMaterno(rs.getString("APELLIDO_MATERNO"));
-                
+                 persona.setEmailPersona(rs.getString("EMAIL_PERSONA"));
             }
 
         } catch (Exception ex) {

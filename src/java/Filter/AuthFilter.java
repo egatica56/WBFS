@@ -61,7 +61,7 @@ public class AuthFilter implements Filter {
        if (sesion.getAttribute("usuario")==null)
         {
         //si el usuario no está validado los devolvemos al login
-            httpResponse.sendRedirect("login");
+           httpResponse.sendRedirect("login");
             return;
         }
     }    

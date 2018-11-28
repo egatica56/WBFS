@@ -25,7 +25,7 @@
         <body>
         <c:choose>
                <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=1}">
-            <form action="responderEvaluacion" method="POST">
+            <form action="pintarEvaluacion" method="POST">
                 <div class="container">
                     <h3>Persona : <small>${requestScope.persona.getNombrePersona()} ${param.rutP}</small></h3>
                     <h3>Jefe : <small>${requestScope.jefe.getNombrePersona()}</small></h3>

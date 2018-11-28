@@ -20,6 +20,8 @@ import Entities.OpcionRespuesta;
 import Entities.Persona;
 import Entities.Pregunta;
 import Entities.Usuario;
+import Util.Mail;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -212,6 +214,8 @@ public class PintarEvaluacion extends HttpServlet {
             System.out.println("IdCuestionario: " + idCuestionario);
             System.out.println("Rut Jefe: " + rutJefe);
             System.out.println("Rut Persona: " + rutPersona);
+            Persona persona= new PersonaDAO().buscarPersona(rut);
+            Mail mail= new Mail();
 
             if (rol == 2) {
 
@@ -223,6 +227,8 @@ public class PintarEvaluacion extends HttpServlet {
                 if (respJefe) {
                     System.out.println("Ingreso Ok");
                     //request.setAttribute("mensaje", "Evaluacion Respondida correctamente. Nota Obtenida: " + nota);
+                    mail.enviarMailEvaluacion(persona);
+
 
                     int notaFun = new EvaluacionDAO().validarNotaEmp(idEvaluacion, rutPersona).getNotaFuncionario();
                     System.out.println("Nota Funcionario en Jefe: " + notaFun);
