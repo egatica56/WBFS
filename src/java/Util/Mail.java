@@ -24,10 +24,41 @@ public class Mail {
 
     private final String PASSWORD = "portafolio2018";
     private String bodyEvaluacionRespondida = "<div style='text-align:center'>\n"
-            + "<h1>Mensaje de Evaluacion</h1><br>\n"
+            + "<h1>Mensaje de Evaluación</h1><br>\n"
             + "<h3>Estimado : _nombre_</h3>\n"
             + "<p>Gracias por responder la evaluacion.</p>\n"
             + "<p>Debes esperar a que tu contraparte responda la evaluacion que queda para obtnener tu nota final.</p>\n"
+            + "<p>Agencia Investigadores wfbs</p>\n"
+            + "</div>";
+
+    private String bodyEvaluacionFinal = "<div style='text-align:center'>\n"
+            + "<h1>Mensaje de Evaluación</h1><br>\n"
+            + "<h3>Estimado :_nombre_</h3>\n"
+            + "<p>Gracias por responder la evaluacion.</p>\n"
+            + "<p>tu contraparte ha respondido la evaluacion pendiente.</p>\n"
+            + "<p>por lo tanto podemos obtener tu nota.</p>\n"
+            + "<p>La nota obtnenida en la evaluacion número _numero_ es: _nota_ .</p>\n"
+            + "<p>Si tienes dudas favor acercarte a tu jefe.</p>\n"
+            + "<p>Agencia Investigadores wfbs</p>\n"
+            + "</div>";
+
+    private String bodyConsultarNotaOK = "<div style='text-align:center'>\n"
+            + "<h1>Mensaje de Evaluación</h1><br>\n"
+            + "<h3>Estimado :_nombre_</h3>\n"
+            + "<p>Gracias por consultar por tu nota.</p>\n"
+            + "<p>La persona evaluada en este cuestionario fue: _persona_ .</p>\n"
+            + "<p>La nota obtnenida en la evaluación número _numero_ es: _nota_ .</p>\n"
+            + "<p>Como observación has obtenido lo siguiente:</p>\n"
+            + "<p>_observacion_</p>\n"
+            + "<p>Agencia Investigadores wfbs</p>\n"
+            + "</div>";
+
+    private String bodyConsultarNotaNoOK = "<div style='text-align:center'>\n"
+            + "<h1>Mensaje de Evaluación</h1><br>\n"
+            + "<h3>Estimado :_nombre_</h3>\n"
+            + "<p>Gracias por consultar por tu nota.</p>\n"
+            + "<p>Tu contraparte aún no responde la Evaluacion.</p>\n"
+            + "<p>Debes esperar a que finalice la evaluación.</p>\n"
             + "<p>Agencia Investigadores wfbs</p>\n"
             + "</div>";
 
@@ -41,13 +72,9 @@ public class Mail {
         properties.put("mail.smtp.mail.sender", "investigaciones.wfbs@gmail.com");
         properties.put("mail.smtp.user", "investigaciones.wfbs@gmail.com");
 
-
-        
-
-
         session = Session.getDefaultInstance(properties);
-        session.getProperties().put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        session.getProperties().put("mail.smtp.starttls.enable", "true");
+        //    session.getProperties().put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        //    session.getProperties().put("mail.smtp.starttls.enable", "true");
     }
 
     public void enviarMailEvaluacion(Persona cliente) {
@@ -72,4 +99,56 @@ public class Mail {
         }
     }
 
+    public void enviarMailEvaluacionFinal(Persona cliente, String nota, String idEvaluacion) {
+        init();
+        try {
+
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(cliente.getEmailPersona()));
+            message.setSubject("Evaluaciones WFBS");
+            bodyEvaluacionFinal = bodyEvaluacionFinal.replace("_nombre_", cliente.getNombrePersona() + " " + cliente.getApellidoPaterno());
+            bodyEvaluacionFinal = bodyEvaluacionFinal.replace("_numero_", idEvaluacion);
+            bodyEvaluacionFinal = bodyEvaluacionFinal.replace("_nota_", nota);
+            message.setContent(bodyEvaluacionFinal, "text/html; charset=utf-8");
+            Transport t = session.getTransport("smtp");
+            t.connect((String) properties.get("mail.smtp.user"), PASSWORD);
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
+        } catch (MessagingException me) {
+            System.out.println(me.getMessage());
+            //Aqui se deberia o mostrar un mensaje de error o en lugar
+            //de no hacer nada con la excepcion, lanzarla para que el modulo
+            //superior la capture y avise al usuario con un popup, por ejemplo.
+            return;
+        }
+    }
+
+    
+     public void enviarNotaOk(Persona cliente, String nota, String idEvaluacion,String observacion) {
+        init();
+        try {
+
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(cliente.getEmailPersona()));
+            message.setSubject("Evaluaciones WFBS");
+            bodyConsultarNotaOK = bodyConsultarNotaOK.replace("_nombre_", cliente.getNombrePersona() + " " + cliente.getApellidoPaterno());
+            bodyConsultarNotaOK = bodyConsultarNotaOK.replace("_numero_", idEvaluacion);
+            bodyConsultarNotaOK = bodyConsultarNotaOK.replace("_nota_", nota);
+            bodyConsultarNotaOK = bodyConsultarNotaOK.replace("_observacion_", observacion);
+            message.setContent(bodyEvaluacionFinal, "text/html; charset=utf-8");
+            Transport t = session.getTransport("smtp");
+            t.connect((String) properties.get("mail.smtp.user"), PASSWORD);
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
+        } catch (MessagingException me) {
+            System.out.println(me.getMessage());
+            //Aqui se deberia o mostrar un mensaje de error o en lugar
+            //de no hacer nada con la excepcion, lanzarla para que el modulo
+            //superior la capture y avise al usuario con un popup, por ejemplo.
+            return;
+        }
+    }
+    
 }

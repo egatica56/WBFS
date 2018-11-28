@@ -214,8 +214,8 @@ public class PintarEvaluacion extends HttpServlet {
             System.out.println("IdCuestionario: " + idCuestionario);
             System.out.println("Rut Jefe: " + rutJefe);
             System.out.println("Rut Persona: " + rutPersona);
-            Persona persona= new PersonaDAO().buscarPersona(rut);
-            Mail mail= new Mail();
+            Persona persona = new PersonaDAO().buscarPersona(rut);
+            Mail mail = new Mail();
 
             if (rol == 2) {
 
@@ -228,7 +228,6 @@ public class PintarEvaluacion extends HttpServlet {
                     System.out.println("Ingreso Ok");
                     //request.setAttribute("mensaje", "Evaluacion Respondida correctamente. Nota Obtenida: " + nota);
                     mail.enviarMailEvaluacion(persona);
-
 
                     int notaFun = new EvaluacionDAO().validarNotaEmp(idEvaluacion, rutPersona).getNotaFuncionario();
                     System.out.println("Nota Funcionario en Jefe: " + notaFun);
@@ -273,7 +272,6 @@ public class PintarEvaluacion extends HttpServlet {
                     } else {
                         System.out.println("No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
                         //request.setAttribute("mensaje", "No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
-                        
 
                     }
 
@@ -290,7 +288,7 @@ public class PintarEvaluacion extends HttpServlet {
                 boolean respEmple = new EvaluacionDAO().actualizarNotaEmpleado(nota, idEvaluacion, rut);
                 if (respEmple) {
                     System.out.println("Ingreso Ok");
-                   // request.setAttribute("mensaje", "Evaluacion Evaluada correctamente. Nota Obtenida: " + nota);
+                    // request.setAttribute("mensaje", "Evaluacion Evaluada correctamente. Nota Obtenida: " + nota);
 
                     int notaJefe = new EvaluacionDAO().validarNotaJefe(idEvaluacion, rutJefe).getNotaJefe();
                     System.out.println("Nota Jefe validando Funcionario : " + notaJefe);
@@ -314,6 +312,11 @@ public class PintarEvaluacion extends HttpServlet {
                         if (fin) {
                             System.out.println("NOTA FINAL ACTUALIZADA");
 
+                            String n = Integer.toString(notaParse);
+                            String idEv = Integer.toString(idEvaluacion);
+                            
+                            mail.enviarMailEvaluacionFinal(persona, n, idEv);
+
                             int brecha = 0;
                             Cuestionario cu2 = new CuestionarioDAO().buscarCuestionario(idCuestionario);
                             System.out.println("ID cuestionario: " + cu2.getIdCuest());
@@ -333,7 +336,7 @@ public class PintarEvaluacion extends HttpServlet {
 
                     } else {
                         System.out.println("No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
-                     //   request.setAttribute("mensaje", "No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
+                        //   request.setAttribute("mensaje", "No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
 
                     }
                     response.getWriter().println("Puntaje final : " + puntajeFinal);
