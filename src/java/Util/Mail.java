@@ -58,7 +58,7 @@ public class Mail {
             + "<h3>Estimado :_nombre_</h3>\n"
             + "<p>Gracias por consultar por tu nota.</p>\n"
             + "<p>Tu contraparte aún no responde la Evaluacion.</p>\n"
-            + "<p>Debes esperar a que finalice la evaluación.</p>\n"
+            + "<p>Debes esperar a que finalice la evaluación, intenta más tarde.</p>\n"
             + "<p>Agencia Investigadores wfbs</p>\n"
             + "</div>";
 
@@ -125,7 +125,7 @@ public class Mail {
     }
 
     
-     public void enviarNotaOk(Persona cliente, String nota, String idEvaluacion,String observacion) {
+     public void enviarNotaOk(Persona cliente, String nota, String idEvaluacion,String observacion,String personaEval) {
         init();
         try {
 
@@ -136,8 +136,38 @@ public class Mail {
             bodyConsultarNotaOK = bodyConsultarNotaOK.replace("_nombre_", cliente.getNombrePersona() + " " + cliente.getApellidoPaterno());
             bodyConsultarNotaOK = bodyConsultarNotaOK.replace("_numero_", idEvaluacion);
             bodyConsultarNotaOK = bodyConsultarNotaOK.replace("_nota_", nota);
+            bodyConsultarNotaOK = bodyConsultarNotaOK.replace("_persona_", personaEval);
             bodyConsultarNotaOK = bodyConsultarNotaOK.replace("_observacion_", observacion);
-            message.setContent(bodyEvaluacionFinal, "text/html; charset=utf-8");
+            message.setContent(bodyConsultarNotaOK, "text/html; charset=utf-8");
+            Transport t = session.getTransport("smtp");
+            t.connect((String) properties.get("mail.smtp.user"), PASSWORD);
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
+        } catch (MessagingException me) {
+            System.out.println(me.getMessage());
+            //Aqui se deberia o mostrar un mensaje de error o en lugar
+            //de no hacer nada con la excepcion, lanzarla para que el modulo
+            //superior la capture y avise al usuario con un popup, por ejemplo.
+            return;
+        }
+    }
+     
+     
+     
+        public void enviarNotaNoOk(Persona cliente, String nota, String idEvaluacion,String observacion,String personaEval) {
+        init();
+        try {
+
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(cliente.getEmailPersona()));
+            message.setSubject("Evaluaciones WFBS");
+            bodyConsultarNotaNoOK = bodyConsultarNotaNoOK.replace("_nombre_", cliente.getNombrePersona() + " " + cliente.getApellidoPaterno());
+            bodyConsultarNotaNoOK = bodyConsultarNotaNoOK.replace("_numero_", idEvaluacion);
+            bodyConsultarNotaNoOK = bodyConsultarNotaNoOK.replace("_nota_", nota);
+            bodyConsultarNotaNoOK = bodyConsultarNotaNoOK.replace("_persona_", personaEval);
+            bodyConsultarNotaNoOK = bodyConsultarNotaNoOK.replace("_observacion_", observacion);
+            message.setContent(bodyConsultarNotaNoOK, "text/html; charset=utf-8");
             Transport t = session.getTransport("smtp");
             t.connect((String) properties.get("mail.smtp.user"), PASSWORD);
             t.sendMessage(message, message.getAllRecipients());

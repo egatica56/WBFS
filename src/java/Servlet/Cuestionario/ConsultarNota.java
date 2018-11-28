@@ -129,19 +129,20 @@ public class ConsultarNota extends HttpServlet {
             if (not > 0) {
                 request.setAttribute("mensaje", "La nota de la evaluación numero "+ nota.getIdEvaluacion() +" del Empleado: "+nota.getPersona().getNombrePersona()+" "+nota.getPersona().getApellidoPaterno() +" es: <br>" + "<h1>" + not + "</h1>");
                 System.out.println("la nota de la evaluacion es: " + not);
-                String n=
-                String idE=    
+                String n= Integer.toString(not);
+                String idE=Integer.toString(nota.getIdEvaluacion());
+                String personaEval= nota.getPersona().getNombrePersona()+" "+nota.getPersona().getApellidoPaterno();
                 if (brecha >= -2) {
                  //llamo un metodo para llamar la observacion positiva       
                     Observacion ob= new ObservacionDAO().obtenerObsPos(idCompetencia);
                     String observacion= ob.getMensajePuntajeSuperior();
                     request.setAttribute("observacion", "Observacion: "+observacion);
-                    mail.enviarNotaOk(persona, rutJefe, rutJefe, observacion);
+                    mail.enviarNotaOk(persona, n, idE, observacion,personaEval);
                 } else {
                     Observacion ob= new ObservacionDAO().obtenerObsNeg(idCompetencia);    
                     String observacion= ob.getMensajePuntajeInferior();
                     request.setAttribute("observacion", "Observacion: "+observacion);
-                    mail.enviarNotaOk(persona, rutJefe, rutJefe, observacion);
+                    mail.enviarNotaOk(persona, n,idE,observacion,personaEval);
                 }
             
                         
