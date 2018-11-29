@@ -23,9 +23,11 @@
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
         <c:choose>
-            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=1}">
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=0}">
 
-
+                 <c:if  test="${usuario.getTipoUsuario().getIdTipoUsuario()==1}">
+                    <h1 align="center" class="">Acá podrás visualizar Todas las evaluaciones Existentes.</h1>
+                </c:if>      
                 <c:if  test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
                     <h1 align="center" class="">Acá podrás visualizar las evaluaciones previamente asignadas a tus empleados</h1>
                 </c:if>    
@@ -76,6 +78,12 @@
 
                                                     </td>
                                                 </c:when>
+                                                <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==1}">
+                                                    <td align="center">
+                                                        
+
+                                                    </td>
+                                                </c:when>    
                                             </c:choose>
                                         </tr>
                                     </c:if>
@@ -88,7 +96,7 @@
                 </div>
             </c:when>
 
-            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==1}">
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==0}">
                 <div class="container" align="center">
 
                     <h1 align="center">Lo sentimos. Los administradores no pueden visualizar ni responder evaluaciones.</h1>

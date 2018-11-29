@@ -73,7 +73,9 @@ public class ListarEvaluacion extends HttpServlet {
             } else if (rol == 3) {
                 List<Evaluacion> evaluacion = new EvaluacionDAO().listarEvaluacionXEmp(rutJefe);
                 request.setAttribute("evaluaciones", evaluacion);
-            }
+            }else if (rol == 1) {
+                List<Evaluacion> evaluacion = new EvaluacionDAO().listarEvaluaciones();
+                request.setAttribute("evaluaciones", evaluacion);}
 
             
             //List<Usuario> listado = new EvaluacionDAO().listarPersonasPorJefe(rutJefe);

@@ -181,6 +181,71 @@ public class EvaluacionDAO {
         return listado;
 
     }
+    
+    public List<Evaluacion> listarEvaluaciones() throws SQLException {
+
+        List<Evaluacion> listado = new ArrayList<Evaluacion>();
+
+        try {
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_EVALUACION_1.SP_LISTAR_EVALUACIONES(?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+
+            
+            cstmt.registerOutParameter(1, OracleTypes.CURSOR);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            ResultSet rs = (ResultSet) cstmt.getObject(1);
+
+            while (rs.next()) {
+                CuestAsig cuestAsig = new CuestAsig();
+                Evaluacion evaluacion = new Evaluacion();
+                TipoUsuario tipoUsuario = new TipoUsuario();
+                Persona persona = new Persona();
+                Usuario usuario = new Usuario();
+                ControlEstados control=new ControlEstados();
+                control.setIdEstado(rs.getInt("ID_ESTADO"));
+                cuestAsig.setIdCuestAsig(rs.getInt("ID_CUEST_ASIG"));
+                usuario.setIdUsuario(rs.getInt("ID_USUARIO"));
+                usuario.setUsername(rs.getString("USERNAME"));
+                usuario.setPassword(rs.getString("PASSWORD"));
+                tipoUsuario.setIdTipoUsuario(rs.getInt("ID_TIPO_USUARIO"));
+                tipoUsuario.setNombreTipoUsuario(rs.getString("NOMBRE_TIPO_USUARIO"));
+                persona.setNombrePersona(rs.getString("NOMBRE_PERSONA"));
+                persona.setRutPersona(rs.getString("RUT_PERSONA"));
+                persona.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
+                tipoUsuario.setNombreTipoUsuario(rs.getString("NOMBRE_TIPO_USUARIO"));
+                usuario.setTipoUsuario(tipoUsuario);
+                usuario.setPersona(persona);
+                evaluacion.setRutJefe(rs.getString("RUT_JEFE"));
+                evaluacion.setIdEvaluacion(rs.getInt("ID_EVALUACION"));
+                evaluacion.setFechaEvaluacion(rs.getString("FECHA_EVALUACION"));
+                evaluacion.setPersona(persona);
+                evaluacion.setCuestAsig(cuestAsig);
+                evaluacion.setControlEstados(control);
+                evaluacion.setNotaEvaluacion(rs.getInt("NOTA_EVALUACION"));
+                listado.add(evaluacion);
+                System.out.println("INFO: " + tipoUsuario.getIdTipoUsuario());
+
+            }
+            for (Evaluacion u : listado) {
+                System.out.println("usuario: " + u.getPersona().getNombrePersona());
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println("ARRAY VACIO");
+            System.out.println(ex.getMessage());
+        } finally {
+            this.conexion.close();
+
+        }
+        return listado;
+
+    }
+    
 
     public Evaluacion validarNotaJefe(int idEvaluacion, String rutJefe) throws SQLException {
         Evaluacion evaluacion = new Evaluacion();
