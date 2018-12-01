@@ -664,4 +664,30 @@ public class EvaluacionDAO {
         return cuestionario;
     }
 
+    public boolean eliminarEvaluacion(int idEvaluacion) throws SQLException
+    {
+        try {
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_EVALUACION_1.SP_ELIMINAR_EVALUACION(?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+
+            cstmt.setInt(1, idEvaluacion);
+            
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            return true;
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+
+        } finally {
+            this.conexion.close();
+
+        }
+        
+    }
+    
 }

@@ -134,8 +134,7 @@ public class CuestAsigDAO {
         CuestAsig cuestAsig = new CuestAsig();
         Cuestionario cuestionario = new Cuestionario();
         Competencia competencia = new Competencia();
-        Pregunta pregunta=new Pregunta();
-        
+        Pregunta pregunta = new Pregunta();
 
         try {
             this.conexion = new Conexion().obtenerConexion();
@@ -150,7 +149,7 @@ public class CuestAsigDAO {
             ResultSet rs = (ResultSet) cstmt.getObject(2);
 
             while (rs.next()) {
-                
+
                 competencia.setIdComp(rs.getInt("ID_COMP"));
                 competencia.setNombreCompetencia(rs.getString("NOMBRE_COMPETENCIA"));
                 cuestionario.setCompetencia(competencia);
@@ -180,9 +179,17 @@ public class CuestAsigDAO {
 
         try {
             this.conexion = new Conexion().obtenerConexion();
-            PreparedStatement ps = conexion.prepareStatement("select * from cuest_asig where rut_jefe = ? order by id_cuest_asig asc");
-            ps.setString(1, rutJefe);
-            ResultSet rs = ps.executeQuery();
+            //       PreparedStatement ps = conexion.prepareStatement("select * from cuest_asig where rut_jefe = ? order by id_cuest_asig asc");
+            //       ps.setString(1, rutJefe);
+            String llamada = "{call PKG_REPORTE_FUNCIONARIO.REPORTE_JEFE_PENDIENTES(?,?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+            cstmt.setString(1, rutJefe);
+            cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            ResultSet rs = (ResultSet) cstmt.getObject(2);
             while (rs.next()) {
                 CuestAsig cuestAsig = new CuestAsig();
                 cuestAsig.setIdCuestAsig(rs.getInt("ID_CUEST_ASIG"));

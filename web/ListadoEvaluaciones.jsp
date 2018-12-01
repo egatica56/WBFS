@@ -69,7 +69,7 @@
                                                 <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
                                                     <td align="center">
                                                         <a class="btn btn-primary" href="pintarEvaluacion?accion=verCuestionario&idC=${evaluacion.getCuestAsig().getIdCuestAsig()}&rutP=${evaluacion.getPersona().getRutPersona()}&idE=${evaluacion.getIdEvaluacion()}&rutJ=${evaluacion.getRutJefe()}">Responder</a>
-                                                        <a class="btn btn-primary" href="eliminarCuestionario?id=${evaluacion.getIdEvaluacion()}">Eliminar</a>
+                                                        <a class="btn btn-primary" href="eliminarEvaluacion?id=${evaluacion.getIdEvaluacion()}">Eliminar</a>
                                                     </td>
                                                 </c:when>
                                                 <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">

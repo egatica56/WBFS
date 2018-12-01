@@ -22,7 +22,7 @@
     <jsp:include page="Header.jsp"></jsp:include>
         <body>
         <c:choose>
-            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()!=3}">
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==2}">
                 <h1 align="center" class="">Acá podrás crear los cuestionarios para las competencias asociadas</h1>
                 <br>
                 <div align center class="form-group">
@@ -116,6 +116,9 @@
             <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==3}">
                 <jsp:include page="Error.jsp"></jsp:include>
             </c:when>
+            <c:when test="${usuario.getTipoUsuario().getIdTipoUsuario()==1}">
+                <jsp:include page="Error.jsp"></jsp:include>
+            </c:when>    
         </c:choose>
     </body>
 

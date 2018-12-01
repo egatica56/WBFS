@@ -7,6 +7,7 @@ package DAO;
 
 import Util.Conexion;
 import Entities.Competencia;
+import Entities.ControlEstados;
 import Entities.Cuestionario;
 import Entities.Nivel;
 import java.sql.CallableStatement;
@@ -51,7 +52,7 @@ public class CuestionarioDAO {
             int indice = cstmt.getInt(4);
             cuestionario.setIdCuest(indice);
             System.out.println("Id del cuestionario creado: " + indice);
-            
+
             return true;
 
         } catch (Exception ex) {
@@ -84,12 +85,16 @@ public class CuestionarioDAO {
             while (rs.next()) {
                 Competencia competencia = new Competencia();
                 Cuestionario cuestionario = new Cuestionario();
+                ControlEstados control = new ControlEstados();
+                
+                control.setIdEstado(rs.getInt("ID_ESTADO"));
                 competencia.setIdComp(rs.getInt("ID_COMP"));
                 competencia.setNombreCompetencia(rs.getString("NOMBRE_COMPETENCIA"));
                 cuestionario.setIdCuest(rs.getInt("ID_CUEST"));
                 cuestionario.setPorcentajeAutoevaluacion(rs.getInt("PORCENTAJE_AUTOEVALUACION"));
                 cuestionario.setPorcentajeJefe(rs.getInt("PORCENTAJE_JEFE"));
                 cuestionario.setCompetencia(competencia);
+                cuestionario.setControlEstados(control);
 
                 listado.add(cuestionario);
 
@@ -142,29 +147,25 @@ public class CuestionarioDAO {
     }
 
     public boolean modificarCuestionario(int idCuest, int porcEval, int porcJefe) throws SQLException {
-          try {
+        try {
 
             this.conexion = new Conexion().obtenerConexion();
             String llamada = "{call PKG_CUESTIONARIO_1.SP_MODIFICAR_PORCENTAJES(?,?,?)}";
             CallableStatement cstmt = conexion.prepareCall(llamada);
 
-            
-            cstmt.setInt(1,idCuest);
-            cstmt.setInt(2,porcJefe);
-            cstmt.setInt(3,porcEval);
-            
+            cstmt.setInt(1, idCuest);
+            cstmt.setInt(2, porcJefe);
+            cstmt.setInt(3, porcEval);
 
             //ejecutamos la llamada al procedimiento almacenado
             cstmt.execute();
-                  
-            
+
             return true;
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-              System.out.println("Error al modificar el cuestionario.");
+            System.out.println("Error al modificar el cuestionario.");
             return false;
-            
 
         } finally {
             this.conexion.close();

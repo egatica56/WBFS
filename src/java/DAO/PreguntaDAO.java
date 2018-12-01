@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Entities.ControlEstados;
 import Entities.Cuestionario;
 import Entities.Pregunta;
 import Util.Conexion;
@@ -73,6 +74,9 @@ public class PreguntaDAO {
             while (rs.next()) {
                 Cuestionario cu = new Cuestionario();
                 Pregunta pre = new Pregunta();
+                ControlEstados control= new ControlEstados();
+                control.setIdEstado(rs.getInt("ID_ESTADO"));
+                
                 cu.setIdCuest(rs.getInt("ID_CUEST"));
                 pre.setIdPregunta(rs.getInt("ID_PREGUNTA"));
                 pre.setTextoPregunta(rs.getString("TEXTO_PREGUNTA"));

@@ -43,7 +43,8 @@
                                 </tr>
                                 <!--comentario-->
                                 <c:forEach items="${cuestionarios}" var="cuestionario">
-                                    <tr align="center">    
+                                    <tr align="center">
+                                        <c:if test="${cuestionario.getControlEstados().getIdEstado()==1}">
                                         <td align="center">${cuestionario.getIdCuest()}</td>
                                         <td align="center">${cuestionario.getPorcentajeJefe()}</td>
                                         <td align="center">${cuestionario.getPorcentajeAutoevaluacion()}</td>
@@ -52,6 +53,7 @@
                                             <a class="btn btn-primary" href="eliminarCuestionario?id=${cuestionario.getIdCuest()}">Eliminar</a>
                                             <a class="btn btn-primary" href="modificarCuestionario?id=${cuestionario.getIdCuest()}">Modificar</a>
                                         </td>
+                                        </c:if>
                                     </tr>   
                                 </c:forEach>
 
