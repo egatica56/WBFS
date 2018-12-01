@@ -6,6 +6,7 @@
 package DAO;
 
 import Entities.Competencia;
+import Entities.ControlEstados;
 import Entities.Cuestionario;
 import Entities.OpcionRespuesta;
 import Entities.Pregunta;
@@ -77,8 +78,13 @@ public class RespuestaDAO {
             while (rs.next()) {
                 OpcionRespuesta op = new OpcionRespuesta();
                 Pregunta pre = new Pregunta();
+                ControlEstados control=new ControlEstados();
+                Cuestionario cu= new Cuestionario();
+                control.setIdEstado(rs.getInt("ID_ESTADO"));
+                cu.setControlEstados(control);
                 pre.setIdPregunta(rs.getInt("ID_PREGUNTA"));
                 pre.setTextoPregunta(rs.getString("TEXTO_PREGUNTA"));
+                pre.setCuestionario(cu);
                 op.setIdOpcionRespuesta(rs.getInt("ID_OPCION_RESPUESTA"));
                 op.setPorcentajeRespuesta(rs.getInt("PORCENTAJE_RESPUESTA"));
                 op.setTextoRespuesta(rs.getString("TEXTO_RESPUESTA"));

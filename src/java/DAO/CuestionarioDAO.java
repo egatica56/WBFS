@@ -173,5 +173,34 @@ public class CuestionarioDAO {
         }
 
     }
+    
+     public boolean eliminarCuestionario(int idCuestionario) throws SQLException
+    {
+        try {
+            this.conexion = new Conexion().obtenerConexion();
+            String llamada = "{call PKG_CUESTIONARIO_1.SP_ELIMINAR_CUESTIONARIO(?)}";
+            CallableStatement cstmt = conexion.prepareCall(llamada);
+
+            cstmt.setInt(1, idCuestionario);
+            
+
+            //ejecutamos la llamada al procedimiento almacenado
+            cstmt.execute();
+
+            return true;
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+
+        } finally {
+            this.conexion.close();
+
+        }
+        
+    }
+    
+    
+    
 
 }

@@ -37,11 +37,13 @@
                             <th>ID Pregunta</th>
                             <th>Texto Pregunta</th>
                             <th>Cuestionario Asociado</th>
-                            <th>Opciones</th>
+                            <!--th>Opciones</th-->
                         </tr>
                         <!--comentario-->
                         <c:forEach items="${preguntas}" var="pregunta">
-                            <tr align="center">    
+                            <tr align="center">
+                                
+                                <c:if test="${pregunta.getCuestionario().getControlEstados().getIdEstado()==1}">
                                 <td>${pregunta.getIdPregunta()}</td>
                                 <td>${pregunta.getTextoPregunta()}</td>
                                 <td>Cuestionario asociado: ${pregunta.getCuestionario().getIdCuest()}</td>
@@ -49,6 +51,7 @@
                                     <a href="eliminarCuestionario?id=${cuestionario.getIdCuest()}">Eliminar</a>
                                     <a href="modificarCuestionario?id=${cuestionario.getIdCuest()}">Modificar</a>
                                 </td-->
+                                </c:if>
                             </tr>   
                         </c:forEach>
 

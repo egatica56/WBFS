@@ -76,7 +76,7 @@ public class PreguntaDAO {
                 Pregunta pre = new Pregunta();
                 ControlEstados control= new ControlEstados();
                 control.setIdEstado(rs.getInt("ID_ESTADO"));
-                
+                cu.setControlEstados(control);
                 cu.setIdCuest(rs.getInt("ID_CUEST"));
                 pre.setIdPregunta(rs.getInt("ID_PREGUNTA"));
                 pre.setTextoPregunta(rs.getString("TEXTO_PREGUNTA"));

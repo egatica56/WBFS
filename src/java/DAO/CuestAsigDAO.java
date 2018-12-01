@@ -101,7 +101,10 @@ public class CuestAsigDAO {
                 CuestAsig cuestAsig = new CuestAsig();
                 Usuario usuario = new Usuario();
                 Persona persona = new Persona();
+                ControlEstados control= new ControlEstados();
                 Cuestionario cuestionario = new Cuestionario();
+                control.setIdEstado(rs.getInt("ID_ESTADO"));
+                cuestionario.setControlEstados(control);
                 cuestionario.setIdCuest(rs.getInt("ID_CUEST"));
                 persona.setNombrePersona("NOMBRE_PERSONA");
                 persona.setApellidoPaterno("APELLIDO_PATERNO");

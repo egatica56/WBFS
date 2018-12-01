@@ -62,8 +62,11 @@
                                         <select name="cboCuestionario" class="form-control" id="cboCuestionario" required="">
                                             <option value="">Seleccionar</option>                       
                                             <c:forEach items="${cuestionarios}" var="cu">
+                                                <c:if test="${cu.getCuestionario().getControlEstados().getIdEstado()==1}">
                                                 <option value="${cu.getIdCuestAsig()}">Cuestionario número: ${cu.getIdCuestAsig()}</option>
+                                                </c:if>
                                             </c:forEach>
+                                                
                                         </select>
                                     <td>
                                 </tr>
