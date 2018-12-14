@@ -25,20 +25,11 @@
 
         <body>
             <br>
-            <div align="center">
+            <div align="center" class="container">
                 <h1 align="center">${mensaje}</h1>
+                <a align="center" class="btn btn-primary" href="home">volver</a>
             </div>
-            <br>
-            <div class="page-header" align="centrer">
-                <h1 align="center" >Acerca de la Agencia</h1>                
-                <div class="container" align="center">
-                <p>WFBS es una agencia de detectives dedicada a satisfacer todas las necesidades</p>
-                
-                <p>del area criminalistica. Por ello esta web tiene como fin evaluar a sus investigadores</p>
-
-                <p>para lograr obtener unos profesionales de calidad y listos para responder ante cualquer situación.</p>
-                </div>
-            </div>
+          
             
         </body>
     <jsp:include page="Footer.jsp"></jsp:include>    

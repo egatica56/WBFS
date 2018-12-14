@@ -64,12 +64,12 @@ public class PintarEvaluacion extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String accion = request.getParameter("accion");
-        if (accion == null) {
+        // String accion = request.getParameter("accion");
+        // if (accion == null) {
 //            List<Evaluacion> lstEvaluaciones = new EvaluacionDAO().listarEvaluacionXJefe(accion)
-            //          request.setAttribute("lstEvaluaciones", lstEvaluaciones);
-            request.getRequestDispatcher("PantallaEvaluacion.jsp").forward(request, response);
-        }
+        //          request.setAttribute("lstEvaluaciones", lstEvaluaciones);
+        //    request.getRequestDispatcher("PantallaEvaluacion.jsp").forward(request, response);
+        //}
         /*switch (accion) {
             case "verCuestionario":
                 verCuestionario(request, response);
@@ -80,7 +80,7 @@ public class PintarEvaluacion extends HttpServlet {
         } */
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -225,7 +225,7 @@ public class PintarEvaluacion extends HttpServlet {
 
                 boolean respJefe = new EvaluacionDAO().actualizarNotaJefe(nota, idEvaluacion, rut);
                 if (respJefe) {
-                    System.out.println("Ingreso Ok");
+                    System.out.println("Ingreso de la nota del jefe Ok");
                     //request.setAttribute("mensaje", "Evaluacion Respondida correctamente. Nota Obtenida: " + nota);
                     mail.enviarMailEvaluacion(persona);
 
@@ -265,29 +265,34 @@ public class PintarEvaluacion extends HttpServlet {
                             if (resBrecha) {
 
                                 System.out.println("la brecha fue actualizada.brecha obtenida: " + brecha);
+                                request.setAttribute("mensaje", "La nota final a sido calculada. Por favor revisa la opcion consultar nota.");
+                                request.getRequestDispatcher("Resultado.jsp").forward(request, response);
                             }
-                            request.getRequestDispatcher("main.jsp").forward(request, response);
+
                         }
 
                     } else {
                         System.out.println("No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
-                        //request.setAttribute("mensaje", "No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
-
+                        request.setAttribute("mensaje", "Gracias por responder la Evaluacion.Debes Esperar a que tu contraparte responda la evaluacion Asignada.");
+                        request.getRequestDispatcher("Resultado.jsp").forward(request, response);
                     }
 
                 } else {
                     System.out.println("Respuesta de la peticion del jefe no Ok");
-                    //request.setAttribute("mensaje", "Error al intentar evaluar.");
+                    request.setAttribute("mensaje", "Error al intentar evaluar. La Evaluacion del Jefe");
+                    request.getRequestDispatcher("Resultado.jsp").forward(request, response);
 
                 }
 
             } else if (rol == 3) {
+
                 System.out.println("rut: empleado: " + rut);
                 System.out.println("Rol Persona: " + rol);
                 System.out.println("Id Evaluacion: " + idEvaluacion);
                 boolean respEmple = new EvaluacionDAO().actualizarNotaEmpleado(nota, idEvaluacion, rut);
+
                 if (respEmple) {
-                    System.out.println("Ingreso Ok");
+                    System.out.println("Ingreso de la nota del empleado Ok");
                     // request.setAttribute("mensaje", "Evaluacion Evaluada correctamente. Nota Obtenida: " + nota);
 
                     int notaJefe = new EvaluacionDAO().validarNotaJefe(idEvaluacion, rutJefe).getNotaJefe();
@@ -314,7 +319,7 @@ public class PintarEvaluacion extends HttpServlet {
 
                             String n = Integer.toString(notaParse);
                             String idEv = Integer.toString(idEvaluacion);
-                            
+
                             mail.enviarMailEvaluacionFinal(persona, n, idEv);
 
                             int brecha = 0;
@@ -330,31 +335,40 @@ public class PintarEvaluacion extends HttpServlet {
                             if (resBrecha) {
 
                                 System.out.println("la brecha fue actualizada.brecha obtenida: " + brecha);
+                                request.setAttribute("mensaje", "La nota final a sido calculada. Por favor revisa la opcion consultar nota.");
+                                request.getRequestDispatcher("Resultado.jsp").forward(request, response);
                             }
 
                         }
 
                     } else {
                         System.out.println("No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
-                        //   request.setAttribute("mensaje", "No se puede calcular la nota final. tu contraparte aun no responde tu evaluacion");
+                        request.setAttribute("mensaje", "Gracias por responder la evaluacion. debes esperar a que tu jefe complete la evaluacion para obtener la nota final.");
+                        request.getRequestDispatcher("Resultado.jsp").forward(request, response);
 
                     }
-                    response.getWriter().println("Puntaje final : " + puntajeFinal);
-                    System.out.println("Puntaje Final: " + puntajeFinal);
-                    System.out.println("Nota Final: " + nota);
+                    //response.getWriter().println("Puntaje final : " + puntajeFinal);
+                    //System.out.println("Puntaje Final: " + puntajeFinal);
+                    //System.out.println("Nota Final: " + nota);
 
                 } else {
                     System.out.println("Respuesta de la peticion del empleado no Ok");
-                    //request.setAttribute("mensaje", "Error al intentar evaluar.");
+                    request.setAttribute("mensaje", "Error al intentar evaluar la nota del empleado.");
+                    request.getRequestDispatcher("Resultado.jsp").forward(request, response);
 
                 }
 
+            } else {
+                System.out.println("Error al intentar evaluar.No se ha Definido ningun ROL");
+                request.getRequestDispatcher("Resultado.jsp").forward(request, response);
             }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            Logger.getLogger(PintarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
-            request.getRequestDispatcher("Main.jsp").forward(request, response);
+            Logger
+                    .getLogger(PintarEvaluacion.class
+                            .getName()).log(Level.SEVERE, null, ex);
+            request.getRequestDispatcher("Resultado.jsp").forward(request, response);
         }
 
     }

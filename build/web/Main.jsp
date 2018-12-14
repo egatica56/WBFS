@@ -31,7 +31,13 @@
             <br>
             <div class="page-header" align="centrer">
                 <h1 align="center" >Acerca de la Agencia</h1>                
+                <div class="container" align="center">
+                <p>WFBS es una agencia de detectives dedicada a satisfacer todas las necesidades</p>
                 
+                <p>del area criminalistica. Por ello esta web tiene como fin evaluar a sus investigadores</p>
+
+                <p>para lograr obtener unos profesionales de calidad y listos para responder ante cualquer situación.</p>
+                </div>
             </div>
             
         </body>
