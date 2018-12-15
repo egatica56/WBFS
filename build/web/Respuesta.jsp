@@ -89,7 +89,10 @@
 
                             </table>
                         </div>
-                        <label for="">${mensaje}</label>
+                        <div class="container" align="center">
+                            <h1>${mensaje}</h1>
+                        </div>
+                        
                     </form>
                 </div>
             </c:when>

@@ -79,7 +79,7 @@ public class ObservacionDAO {
             while (rs.next()) {
                 comp.setIdComp(rs.getInt("ID_COMP"));
                 observacion.setIdObservacion(rs.getInt("ID_OBSERVACION"));
-                observacion.setMensajePuntajeSuperior(rs.getString("MENSAJE_PUNTAJE_INFERIOR"));
+                observacion.setMensajePuntajeInferior(rs.getString("MENSAJE_PUNTAJE_INFERIOR"));
                 observacion.setCompetencia(comp);
             }
 
